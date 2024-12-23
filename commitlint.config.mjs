@@ -4,8 +4,8 @@ export default {
   parserPreset: {
     parserOpts: {
       // JIRA KEY: subject ,
-      headerPattern: /^(\w+): (.+)$/,
-      headerCorrespondence: ['type', 'subject'],
+      headerPattern: /^IEDESK2024-(\d+): (.+)/, // Custom regex for the commit message
+      headerCorrespondence: ['issueId', 'message'],
     },
   },
   rules: {
@@ -16,18 +16,19 @@ export default {
     {
       rules: {
         'header-pattern': (parsed) => {
-          const { type, subject } = parsed;
           console.log(parsed);
-          if (type === null && subject === null) {
+          const { issueId, message } = parsed;
+          if (issueId === null && message === null) {
             return [false, "header must be in format '<JIRA KEY>: subject'"];
           }
           return [true, ''];
         },
         'jira-type': (parsed) => {
           console.log(parsed);
-          const { type } = parsed;
-          console.log(type);
-          if (type && !type.match(JIRAKEY_REGEX)) {
+          const { issueId } = parsed;
+          console.log(issueId);
+          const key = `IEDESK2024-${issueId}`;
+          if (issueId && !key.match(JIRAKEY_REGEX)) {
             return [false, 'type must be a JIRA key'];
           }
           return [true, ''];
