@@ -7,7 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "core-ui-lib": "pnpm --filter=core-ui",
+    "core-lib": "pnpm --filter=core",
+    "db-lib": "pnpm --filter=db",
+    "dev": "pnpm run --parallel dev",
+    "lint:all": "pnpm run --parallel lint"
   },
   "keywords": [],
   "author": "",

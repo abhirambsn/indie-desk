@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String        @id @default(uuid())
+  email              String        @unique
+  passwordHash       String
+  fullName           String
+  roles              Json          @default("[]")
+  profilePictureUrl  String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  isActive           Boolean       @default(true)
+
+  organizations      UserOrganizationRole[]
+  supportTickets     SupportTicket[]
+  notifications      Notification[]
+  assignedTasks      KanbanTask[]
+  userOrgs          Organization[]
+
+}
+
+model Organization {
+  id                 String                @id @default(uuid())
+  name               String
+  slug               String                @unique // Tenant identifier
+  adminUserId        String                @map("admin_user_id")
+  createdAt          DateTime              @default(now())
+  updatedAt          DateTime              @updatedAt
+  isActive           Boolean               @default(true)
+
+  adminUser          User                  @relation(fields: [adminUserId], references: [id])
+  members            UserOrganizationRole[]
+  clients            Client[]
+  products           Product[]
+  supportTickets     SupportTicket[]
+  kanbanBoards       KanbanBoard[]
+  files              File[]
+}
+
+model UserOrganizationRole {
+  id                 String       @id @default(uuid())
+  userId             String
+  organizationId     String
+  role               String
+
+  user               User         @relation(fields: [userId], references: [id])
+  organization       Organization @relation(fields: [organizationId], references: [id])
+
+  createdAt          DateTime     @default(now())
+}
+
+model Client {
+  id                 String       @id @default(uuid())
+  organizationId     String
+  name               String
+  email              String?
+  phoneNumber        String?
+  address            String?
+
+  organization       Organization @relation(fields: [organizationId], references: [id])
+
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+model Product {
+  id                 String       @id @default(uuid())
+  organizationId     String
+  name               String
+  description        String?
+  price              Float
+
+  organization       Organization @relation(fields: [organizationId], references: [id])
+
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+model SupportTicket {
+  id                 String        @id @default(uuid())
+  organizationId     String
+  raisedById         String
+  status             String        @default("open")
+  priority           String        @default("medium")
+  description        String
+
+  organization       Organization  @relation(fields: [organizationId], references: [id])
+  raisedBy           User          @relation(fields: [raisedById], references: [id])
+
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+}
+
+model KanbanBoard {
+  id                 String       @id @default(uuid())
+  organizationId     String
+  name               String
+
+  organization       Organization @relation(fields: [organizationId], references: [id])
+  columns            KanbanColumn[]
+
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+model KanbanColumn {
+  id                 String       @id @default(uuid())
+  boardId            String
+  name               String
+  position           Int
+
+  board              KanbanBoard  @relation(fields: [boardId], references: [id])
+  tasks              KanbanTask[]
+
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+model KanbanTask {
+  id                 String       @id @default(uuid())
+  columnId           String
+  title              String
+  description        String?
+  assignedToId       String?
+  status             String       @default("todo") // todo, in-progress, done
+  dueDate            DateTime?
+
+  column             KanbanColumn @relation(fields: [columnId], references: [id])
+  assignedTo         User?        @relation(fields: [assignedToId], references: [id])
+
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+model File {
+  id                 String       @id @default(uuid())
+  organizationId     String
+  url                String
+  type               String       // e.g., invoice, attachment
+
+  organization       Organization @relation(fields: [organizationId], references: [id])
+
+  createdAt          DateTime     @default(now())
+}
+
+model Notification {
+  id                 String       @id @default(uuid())
+  userId             String
+  message            String
+  isRead             Boolean      @default(false)
+
+  user               User         @relation(fields: [userId], references: [id])
+
+  createdAt          DateTime     @default(now())
+}
