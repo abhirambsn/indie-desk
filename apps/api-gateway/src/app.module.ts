@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { LoggerModule } from '@iedesk/core';
+import { TrpcModule } from './trpc/trpc.module';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [LoggerModule.forRoot(), TrpcModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
