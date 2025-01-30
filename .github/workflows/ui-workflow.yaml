@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'modules/ui/**'
+jobs:
+  build:
+    name: Build, Test and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '23'
+      - name: Install dependencies
+        run: npm install
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm run test
+      - name: Deploy
+        run: npm run deploy
