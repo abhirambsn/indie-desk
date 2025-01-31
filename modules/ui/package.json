@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "prepare": "husky"
+    "deploy": "echo 'Deployment setup not done. skipping deployment.'; exit 0"
   },
   "private": true,
   "dependencies": {

@@ -9,9 +9,9 @@ import {ButtonModule} from 'primeng/button';
 })
 export class ButtonComponent {
   @Input() label = '';
-  @Output() click = new EventEmitter();
+  @Output() clickEvent = new EventEmitter();
 
   onButtonClick() {
-    this.click.emit();
+    this.clickEvent.emit();
   }
 }
