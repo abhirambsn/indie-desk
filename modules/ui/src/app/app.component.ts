@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {ButtonComponent} from './components/button/button.component';
-import {Button} from 'primeng/button';
 
 @Component({
   selector: 'app-root',

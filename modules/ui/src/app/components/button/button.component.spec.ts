@@ -20,4 +20,11 @@ describe('ButtonComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should set label', () => {
+    component.label = 'Test';
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('p-button');
+    expect(button.textContent).toEqual('Test');
+  })
 });

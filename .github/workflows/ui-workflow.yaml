@@ -8,6 +8,9 @@ jobs:
   build:
     name: Build, Test and Deploy
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: modules/ui
     steps:
       - uses: actions/checkout@v2
         name: Checkout

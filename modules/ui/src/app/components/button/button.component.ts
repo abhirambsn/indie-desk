@@ -8,10 +8,10 @@ import {ButtonModule} from 'primeng/button';
   styleUrl: './button.component.scss'
 })
 export class ButtonComponent {
-  @Input() label: string = '';
-  @Output() onClick = new EventEmitter();
+  @Input() label = '';
+  @Output() click = new EventEmitter();
 
   onButtonClick() {
-    this.onClick.emit();
+    this.click.emit();
   }
 }
