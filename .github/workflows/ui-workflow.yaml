@@ -14,18 +14,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: Checkout
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '23'
+          cache: 'pnpm'
       - name: Install dependencies
-        run: npm install
+        run: pnpm install
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
       - name: Build
-        run: npm run build
+        run: pnpm run build
       - name: Test
-        run: npm run test:ci
+        run: pnpm run test:ci
       - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
