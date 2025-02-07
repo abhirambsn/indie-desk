@@ -3,10 +3,12 @@ import { provideRouter } from '@angular/router';
 import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
-import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {providePrimeNG} from 'primeng/config';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { providePrimeNG } from 'primeng/config';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
+import {AuthEffects} from './store/effects';
+import {authReducer} from './store/reducers';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +20,9 @@ export const appConfig: ApplicationConfig = {
             preset: Aura
         }
     }),
-    provideStore(),
-    provideEffects()
-]
+    provideStore({
+      'auth': authReducer
+    }),
+    provideEffects(AuthEffects)
+  ]
 };

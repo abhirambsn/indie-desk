@@ -9,9 +9,15 @@ import {ButtonModule} from 'primeng/button';
 })
 export class ButtonComponent {
   @Input() label = '';
+  @Input() type = '';
+  @Input() fullWidth = false;
   @Output() clickEvent = new EventEmitter();
 
   onButtonClick() {
     this.clickEvent.emit();
+  }
+
+  getClass() {
+    return this.fullWidth ? 'w-full' : '';
   }
 }

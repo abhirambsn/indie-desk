@@ -1,3 +1,14 @@
 import { Routes } from '@angular/router';
+import {NavLayoutComponent} from './layouts/nav-layout/nav-layout.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: 'auth',
+    loadChildren: () => import('./pages/auth-pages/auth-pages.module').then(m => m.AuthPagesModule)
+  },
+  {
+    path: '',
+    component: NavLayoutComponent,
+    children: []
+  },
+];
