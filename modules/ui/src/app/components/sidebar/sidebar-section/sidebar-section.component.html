@@ -1,0 +1,8 @@
+<h5 class="text-gray-400 text-sm mx-3 my-1">{{ section.title }}</h5>
+<ul>
+  @for(item of section.children; track item.id) {
+    <li>
+      <app-sidebar-link (linkClick)="linkClicked($event)" [item]="item" />
+    </li>
+  }
+</ul>

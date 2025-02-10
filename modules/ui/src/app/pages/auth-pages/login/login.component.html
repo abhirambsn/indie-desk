@@ -16,7 +16,11 @@
           <input type="password" class="w-full" pInputText id="password" [formControlName]="'password'" />
           <label for="password">Password</label>
         </p-iftalabel>
-        <app-button type="submit" [fullWidth]="true" class="mt-3" label="Login" />
+
+          <p-fluid class="mb-2 mt-1 gap-2 flex flex-col">
+            <p-button (click)="triggerLogin()" label="Login" icon="pi pi-sign-in" />
+            <p-button outlined>Forgot Password</p-button>
+          </p-fluid>
       </form>
     </p-card>
   </div>

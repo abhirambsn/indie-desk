@@ -1,4 +1,6 @@
-export const initialAuthState = {
+import {AuthState} from '../interfaces';
+
+export const initialAuthState: AuthState = {
   credentials: {
     access_token: '',
     refresh_token: '',
@@ -7,5 +9,18 @@ export const initialAuthState = {
   loading: false,
   loaded: false,
   isAuthenticated: false,
-  error: ''
+  error: '',
+  user: {
+    id: '',
+    firstName: '',
+    lastName: '',
+    avatarUrl: '',
+    email: '',
+    org: {
+      id: '',
+      name: '',
+      users: []
+    },
+    projects: []
+  }
 }

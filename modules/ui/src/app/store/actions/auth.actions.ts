@@ -14,3 +14,13 @@ export const loginFailure = createAction(
   '[Auth] Login Failure',
   props<{error: string}>()
 );
+
+export const loadUserDetails = createAction(
+  '[Auth] Load User Details',
+  props<{payload: any}>()
+);
+
+export const userDetailError = createAction(
+  '[Auth] User Detail Error',
+  props<{error: string}>()
+);

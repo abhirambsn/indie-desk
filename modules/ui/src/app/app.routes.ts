@@ -9,6 +9,6 @@ export const routes: Routes = [
   {
     path: '',
     component: NavLayoutComponent,
-    children: []
+    loadChildren: () => import('./pages/app-pages/app-pages.module').then(m => m.AppPagesModule)
   },
 ];

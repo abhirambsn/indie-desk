@@ -1,0 +1,9 @@
+<div class="flex items-center justify-between p-4 hover:cursor-pointer hover:opacity-90 transition-all duration-200 gap-10">
+  <h2 class="text-3xl">
+    <ng-content></ng-content>
+  </h2>
+
+  <button (click)="collapseButtonClick.emit()" class="w-10 h-10 rounded-full items-center flex bg-gray-50 p-3 hover:opacity-90 transition-all duration-200">
+    <i class="pi pi-arrow-circle-left text-gray-900"></i>
+  </button>
+</div>

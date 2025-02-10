@@ -1,3 +1,7 @@
-<h2>Navbar</h2>
-
-<router-outlet />
+<div class="flex h-screen w-screen bg-zinc-950">
+  <app-sidebar (sidebarCollapseClick)="sidebarCollapseClick()" [collapsed]="sidebarCollapsed" title="IndieDesk" [sections]="sidebarSections" />
+  <div class="flex-1">
+    <app-navbar [userDetails]="currentUser" (sidebarUnhideEvent)="sidebarCollapseClick()" [sidebarCollapsed]="sidebarCollapsed" />
+    <router-outlet />
+  </div>
+</div>

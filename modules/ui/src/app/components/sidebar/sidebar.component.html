@@ -1,0 +1,10 @@
+<aside
+  class="flex flex-col h-full bg-zinc-900"
+  [ngClass]="{'hidden animate-out slide-out-to-left': collapsed, 'animate-in slide-in-from-left': !collapsed}"
+>
+  <app-sidebar-title (collapseButtonClick)="sidebarCollapseClick.emit()">{{ title }}</app-sidebar-title>
+
+  @for(section of sidebarSections; track section.id) {
+    <app-sidebar-section (linkClickedEvent)="linkClicked($event)" class="p-1" [section]="section" />
+  }
+</aside>

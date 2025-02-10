@@ -8,6 +8,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {CardModule} from 'primeng/card';
 import {ButtonComponent} from '../../components/button/button.component';
 import { IftaLabelModule } from 'primeng/iftalabel';
+import { ButtonModule } from 'primeng/button';
+import {Fluid} from 'primeng/fluid';
 
 
 const routes: Routes = [
@@ -27,7 +29,9 @@ const routes: Routes = [
     InputText,
     CardModule,
     ButtonComponent,
-    IftaLabelModule
+    IftaLabelModule,
+    ButtonModule,
+    Fluid
   ],
   exports: [
     RouterModule

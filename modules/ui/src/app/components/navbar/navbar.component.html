@@ -1,0 +1,22 @@
+<nav class="bg-zinc-900 flex flex-row items-center justify-between px-2 py-3 gap-4">
+  @if (sidebarCollapsed) {
+    <button (click)="sidebarUnhideEvent.emit()" class="w-10 h-10 rounded-full items-center flex bg-gray-50 p-3 hover:opacity-90 transition-all duration-200">
+      <i class="pi pi-arrow-circle-right text-gray-900"></i>
+    </button>
+  }
+
+  <div class="mx-auto rounded-xl bg-zinc-700">
+    <input class="!bg-zinc-700 focus:!outline-none" pInputText type="search" [formControl]="searchInput"  />
+    <button (click)="triggerSearch()" class="bg-transparent">
+      <i class="pi pi-search"></i>
+    </button>
+  </div>
+
+  <div>
+    <button (click)="menu.toggle($event)">
+      <p-avatar [image]="userDetails.avatarUrl" shape="circle" class="mr-2" size="normal" />
+    </button>
+
+    <p-tiered-menu #menu [model]="items" [popup]="true" />
+  </div>
+</nav>
