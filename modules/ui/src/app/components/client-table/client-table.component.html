@@ -1,0 +1,108 @@
+<div class="card">
+  <p-table
+    #clientTable
+    [value]="clients"
+    dataKey="id"
+    [rows]="10"
+    [rowsPerPageOptions]="[10, 20]"
+    [loading]="loading"
+    [paginator]="true"
+    [globalFilterFields]="['city', 'state', 'zip', 'type']"
+  >
+    <ng-template #caption>
+      <div class="flex justify-between items-center text-gray-200 text">
+        <p class="italic">Total {{clients.length}} clients</p>
+        <p-iconfield iconPosition="left" class="ml-auto">
+          <p-inputicon>
+            <i class="pi pi-search"></i>
+          </p-inputicon>
+          <input
+            pInputText
+            type="text"
+            (input)="filterGlobal($event, 'contains')"
+            placeholder="Search keyword"
+          />
+        </p-iconfield>
+      </div>
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        <th style="min-width:3rem">#</th>
+        <th style="min-width:10rem">
+          <div class="flex items-center">
+            Name
+          </div>
+        </th>
+        <th style="min-width:5rem">
+          <div class="flex items-center">
+            City
+            <p-columnFilter type="text" field="city" display="menu" />
+          </div>
+        </th>
+        <th style="min-width:5rem">
+          <div class="flex items-center">
+            State
+            <p-columnFilter type="text" field="state" display="menu" />
+          </div>
+        </th>
+
+        <th style="min-width:4rem">Zip</th>
+        <th style="width:12%">Phone</th>
+        <th style="width:12%">Email</th>
+        <th style="width:12%">Contact</th>
+        <th style="min-width:10rem">
+          <div class="flex items-center">
+            Type
+            <p-columnFilter field="type" matchMode="equals" display="menu">
+              <ng-template #filter let-value let-filter="filterCallback">
+                <p-dropdown [ngModel]="value" [options]="types" (onChange)="filter($event.value)" placeholder="Any">
+                  <ng-template let-option #item>
+                    <p-tag [value]="option.value" [severity]="getTypeBadge(option.label)" />
+                  </ng-template>
+                </p-dropdown>
+              </ng-template>
+            </p-columnFilter>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-client>
+      <tr>
+        <td>
+          {{ client.id }}
+        </td>
+        <td>
+          {{ client.name }}
+        </td>
+        <td>
+          {{ client.city }}
+        </td>
+        <td>
+          {{ client.state }}
+        </td>
+        <td>
+          {{ client.zip }}
+        </td>
+        <td>
+          {{ client.phone }}
+        </td>
+        <td>
+          {{ client.email }}
+        </td>
+        <td>
+          {{ client.contact }}
+        </td>
+        <td>
+          <p-tag [value]="client.type" [severity]="getTypeBadge(client.type)" />
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="9">No customers found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

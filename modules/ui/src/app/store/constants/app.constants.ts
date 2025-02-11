@@ -3,11 +3,13 @@ import {initialAuthState} from './auth.constants';
 import {initialNavState} from './nav.constants';
 import {SidebarSection} from '../../types';
 import {initialSearchState} from './search.constants';
+import {initialClientsState} from './client.constants';
 
 export const initialAppState: AppState = {
   auth: initialAuthState,
   nav: initialNavState,
-  search: initialSearchState
+  search: initialSearchState,
+  clients: initialClientsState
 }
 
 export const sidebarSections: SidebarSection[] = [
@@ -33,7 +35,7 @@ export const sidebarSections: SidebarSection[] = [
         title: 'Customer',
         icon: 'pi pi-users',
         isButton: false,
-        link: '/customers'
+        link: '/clients'
       },
       {
         id: 'e4bde199-58d8-4886-9401-2acabcf2beea',

@@ -1,0 +1,7 @@
+<section class="px-4 py-2">
+  <h3 class="text-2xl tracking-wide">Customers</h3>
+
+  <div class="mt-10">
+    <app-client-table [loading]="clients.length <= 0" [clients]="clients" />
+  </div>
+</section>

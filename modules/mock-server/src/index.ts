@@ -1,6 +1,7 @@
 import express, {Express, Request, Response} from 'express';
 import jwt from 'jsonwebtoken';
 import users from './mockdata/users.json';
+import clients from './mockdata/clients.json';
 import cors from 'cors';
 
 declare global {
@@ -123,6 +124,13 @@ app.post('/api/v1/search', (req: Request, res: Response) => {
            {id: '3', body: 'any'},
        ]
    });
+   return;
+});
+
+app.get('/api/v1/clients', authMiddleware, (req: Request, res: Response) => {
+   const username = req?.user?.sub;
+   const userClients = clients.filter((client) => client.owner === username);
+   res.status(200).json({message: 'ok', data: userClients});
    return;
 });
 

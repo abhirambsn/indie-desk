@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const users_json_1 = __importDefault(require("./mockdata/users.json"));
+const clients_json_1 = __importDefault(require("./mockdata/clients.json"));
 const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
@@ -98,6 +99,13 @@ app.post('/api/v1/search', (req, res) => {
             { id: '3', body: 'any' },
         ]
     });
+    return;
+});
+app.get('/api/v1/clients', authMiddleware, (req, res) => {
+    var _a;
+    const username = (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.sub;
+    const userClients = clients_json_1.default.filter((client) => client.owner === username);
+    res.status(200).json({ message: 'ok', data: userClients });
     return;
 });
 app.listen(3000, () => {

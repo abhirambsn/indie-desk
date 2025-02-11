@@ -5,9 +5,9 @@
     </button>
   }
 
-  <div class="mx-auto rounded-xl bg-zinc-700">
-    <input class="!bg-zinc-700 focus:!outline-none" pInputText type="search" [formControl]="searchInput"  />
-    <button (click)="triggerSearch()" class="bg-transparent">
+  <div class="mx-auto rounded-xl bg-zinc-700 w-auto">
+    <input class="!bg-zinc-700" placeholder="Search" pInputText type="search" [formControl]="searchInput"  />
+    <button (click)="triggerSearch()" class="bg-transparent p-2">
       <i class="pi pi-search"></i>
     </button>
   </div>

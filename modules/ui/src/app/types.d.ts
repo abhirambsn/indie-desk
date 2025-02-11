@@ -35,4 +35,25 @@ export interface Project {
   startDate: Date;
   endDate: Date;
   owner: string;
+  client: Client;
+}
+
+export interface Client {
+  id: string;
+  name: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  phone: string;
+  email: string;
+  contact: string;
+  owner: string;
+  projects: Project[];
+  type: ClientType
+}
+
+export enum ClientType {
+  ORGANIZATION = 'ORGANIZATION',
+  INDIVIDUAL = 'INDIVIDUAL'
 }

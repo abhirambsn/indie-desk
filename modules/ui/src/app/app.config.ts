@@ -7,8 +7,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { providePrimeNG } from 'primeng/config';
 import {ActionReducer, MetaReducer, provideStore} from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import {AuthEffects, SearchEffects} from './store/effects';
-import {authReducer, navReducer} from './store/reducers';
+import {AuthEffects, ClientEffects, SearchEffects} from './store/effects';
+import {authReducer, clientReducer, navReducer} from './store/reducers';
 import {provideHttpClient} from '@angular/common/http';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {searchReducer} from './store/reducers/search.reducer';
@@ -39,6 +39,7 @@ export const appConfig: ApplicationConfig = {
       'auth': authReducer,
       'nav': navReducer,
       'search': searchReducer,
+      'clients': clientReducer,
     }, {
       metaReducers
     }),
@@ -47,7 +48,7 @@ export const appConfig: ApplicationConfig = {
       logOnly: !isDevMode(),
       trace: true
     }),
-    provideEffects(AuthEffects, SearchEffects),
+    provideEffects(AuthEffects, SearchEffects, ClientEffects),
     provideHttpClient()
   ]
 };

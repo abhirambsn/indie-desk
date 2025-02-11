@@ -4,7 +4,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuardService} from '../../guard/auth.guard';
 import {KpiCardComponent} from "../../components/kpi-card/kpi-card.component";
-import {CustomersComponent} from './customers/customers.component';
+import {ClientsComponent} from './clients/clients.component';
 import {InvoicesComponent} from './invoices/invoices.component';
 import {SalesComponent} from './sales/sales.component';
 import {ProjectsComponent} from './projects/projects.component';
@@ -15,7 +15,7 @@ import {CustomerPortalUsersComponent} from './customer-portal-users/customer-por
 
 export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
-  {path: 'customers', component: CustomersComponent, canActivate: [AuthGuardService]},
+  {path: 'clients', component: ClientsComponent, canActivate: [AuthGuardService]},
   {path: 'invoices', component: InvoicesComponent, canActivate: [AuthGuardService]},
   {path: 'sales', component: SalesComponent, canActivate: [AuthGuardService]},
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuardService]},
