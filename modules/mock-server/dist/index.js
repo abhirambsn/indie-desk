@@ -6,9 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const users_json_1 = __importDefault(require("./mockdata/users.json"));
-const clients_json_1 = __importDefault(require("./mockdata/clients.json"));
 const cors_1 = __importDefault(require("cors"));
+const db_1 = require("./db");
 const app = (0, express_1.default)();
+const db = new db_1.JSONFileBasedDB();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 const JWT_SECRET = 'super-secret-development-jwt-key';
@@ -77,6 +78,14 @@ const authMiddleware = (req, res, next) => {
     }
     next();
 };
+const appendToJSONFile = (filename, data) => {
+    const fs = require('fs');
+    const path = require('path');
+    const filePath = path.join(__dirname, filename);
+    const file = require(filePath);
+    file.push(data);
+    fs.writeFileSync(filePath, JSON.stringify(file, null, 2));
+};
 app.get('/api/v1/auth/me', authMiddleware, (req, res) => {
     var _a;
     const username = (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.sub;
@@ -104,8 +113,48 @@ app.post('/api/v1/search', (req, res) => {
 app.get('/api/v1/clients', authMiddleware, (req, res) => {
     var _a;
     const username = (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.sub;
-    const userClients = clients_json_1.default.filter((client) => client.owner === username);
+    // const clients: any[] = require('./mockdata/clients.json');
+    // const userClients = clients.filter((client) => client.owner === username);
+    const userClients = db.find('clients', { owner: username });
     res.status(200).json({ message: 'ok', data: userClients });
+    return;
+});
+app.post('/api/v1/clients', authMiddleware, (req, res) => {
+    var _a, _b;
+    const username = (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.sub;
+    let client = Object.assign(Object.assign({}, (_b = req.body) === null || _b === void 0 ? void 0 : _b.data), { owner: username, projects: [] });
+    const insertedId = db.insert('clients', client);
+    res.status(200).json({ message: 'ok', data: Object.assign({ id: insertedId }, client) });
+    return;
+});
+app.patch('/api/v1/clients/:id', authMiddleware, (req, res) => {
+    var _a, _b;
+    const username = (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.sub;
+    const id = req.params.id;
+    const clientCheck = db.find('clients', { id, owner: username });
+    if (!clientCheck) {
+        res.status(404).json({ message: 'Not found' });
+        return;
+    }
+    const client = db.updateOne('clients', id, (_b = req.body) === null || _b === void 0 ? void 0 : _b.data);
+    if (!client) {
+        res.status(404).json({ message: 'Not found' });
+        return;
+    }
+    res.status(200).json({ message: 'ok', data: client });
+    return;
+});
+app.delete('/api/v1/clients/:id', authMiddleware, (req, res) => {
+    var _a;
+    const username = (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.sub;
+    const id = req.params.id;
+    const clientCheck = db.find('clients', { id, owner: username });
+    if (!clientCheck) {
+        res.status(404).json({ message: 'Not found' });
+        return;
+    }
+    db.remove('clients', id);
+    res.status(204).send();
     return;
 });
 app.listen(3000, () => {

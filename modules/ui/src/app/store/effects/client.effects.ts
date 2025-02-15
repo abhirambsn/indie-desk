@@ -17,12 +17,54 @@ export class ClientEffects {
 
   loadClients$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ClientActions.loadClients),
+      ofType(
+        ClientActions.loadClients,
+        ClientActions.saveClientSuccess
+      ),
       withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
       exhaustMap(([, {access_token}]) => this.service.getClients(access_token)
         .pipe(
           map(clients => ClientActions.loadClientsSuccess({payload: clients})),
           catchError(err => of(ClientActions.loadClientsFailure({error: err})))
+        )
+      )
+    )
+  });
+
+  saveClient$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ClientActions.saveClient),
+      withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
+      exhaustMap(([{payload}, {access_token}]) => this.service.createClient(payload, access_token)
+        .pipe(
+          map(client => ClientActions.saveClientSuccess({payload: client})),
+          catchError(err => of(ClientActions.saveClientFailure({error: err})))
+        )
+      )
+    )
+  });
+
+  updateClient$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ClientActions.updateClient),
+      withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
+      exhaustMap(([{payload}, {access_token}]) => this.service.updateClient(payload?.data, access_token)
+        .pipe(
+          map(client => ClientActions.saveClientSuccess({payload: client})),
+          catchError(err => of(ClientActions.saveClientFailure({error: err})))
+        )
+      )
+    )
+  });
+
+  deleteClient$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ClientActions.deleteClient),
+      withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
+      exhaustMap(([{payload}, {access_token}]) => this.service.deleteClient(payload?.id, access_token)
+        .pipe(
+          map(client => ClientActions.saveClientSuccess({payload: client})),
+          catchError(err => of(ClientActions.saveClientFailure({error: err})))
         )
       )
     )

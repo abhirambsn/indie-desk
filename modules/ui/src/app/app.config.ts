@@ -1,6 +1,5 @@
 import {ApplicationConfig, isDevMode, provideZoneChangeDetection} from '@angular/core';
 import { provideRouter } from '@angular/router';
-import Aura from '@primeng/themes/aura';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -12,6 +11,7 @@ import {authReducer, clientReducer, navReducer} from './store/reducers';
 import {provideHttpClient} from '@angular/common/http';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
 import {searchReducer} from './store/reducers/search.reducer';
+import IndieDeskTheme from './indie-desk-theme';
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function(state, action) {
@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     providePrimeNG({
         theme: {
-            preset: Aura
+            preset: IndieDeskTheme
         }
     }),
     provideStore({

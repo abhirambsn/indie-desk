@@ -3,7 +3,6 @@ import {of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthServiceConstants} from './auth.service.constants';
 import {catchError, map} from 'rxjs/operators';
-import {User} from '../../types';
 import {AuthHelper} from '../../helpers/auth.helper';
 
 @Injectable({

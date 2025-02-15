@@ -1,10 +1,10 @@
-export interface SidebarSection {
+declare interface SidebarSection {
   id: string;
   title: string;
   children: SidebarItem[];
 }
 
-export interface SidebarItem {
+declare interface SidebarItem {
   id: string;
   icon: string;
   title: string;
@@ -13,7 +13,7 @@ export interface SidebarItem {
   isActive?: boolean;
 }
 
-export interface User {
+declare interface User {
   id: string;
   firstName: string;
   lastName: string;
@@ -23,13 +23,13 @@ export interface User {
   projects: Project[];
 }
 
-export interface Organization {
+declare interface Organization {
   id: string;
   name: string;
   users: User[];
 }
 
-export interface Project {
+declare interface Project {
   id: string;
   name: string;
   startDate: Date;
@@ -38,7 +38,7 @@ export interface Project {
   client: Client;
 }
 
-export interface Client {
+declare interface Client {
   id: string;
   name: string;
   address: string;
@@ -53,7 +53,13 @@ export interface Client {
   type: ClientType
 }
 
-export enum ClientType {
-  ORGANIZATION = 'ORGANIZATION',
-  INDIVIDUAL = 'INDIVIDUAL'
+declare interface Column {
+  field: string;
+  header: string;
+  customdeclareHeader?: string;
+}
+
+declare interface ExportColumn {
+  title: string;
+  dataKey: string;
 }

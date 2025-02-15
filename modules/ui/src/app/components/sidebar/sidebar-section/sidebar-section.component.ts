@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {SidebarSection} from '../../../types';
 import {SidebarLinkComponent} from '../sidebar-link/sidebar-link.component';
 
 @Component({

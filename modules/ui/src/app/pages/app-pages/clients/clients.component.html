@@ -1,7 +1,15 @@
 <section class="px-4 py-2">
-  <h3 class="text-2xl tracking-wide">Customers</h3>
+  <h3 class="text-2xl tracking-wide">Clients</h3>
 
   <div class="mt-10">
-    <app-client-table [loading]="clients.length <= 0" [clients]="clients" />
+    <app-client-table
+      (clientDialogOpenClick)="onClientModalOpenToggle($event)"
+      (clientSave)="onSaveClient($event)"
+      (clientDataDelete)="onDeleteClient($event)"
+      [clientDialogOpen]="clientModalOpen"
+      [loading]="clients.length <= 0"
+      [clients]="clients"
+      [submitting]="submitting"
+    />
   </div>
 </section>

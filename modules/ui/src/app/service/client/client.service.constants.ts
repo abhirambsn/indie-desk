@@ -1,5 +1,8 @@
-const CLIENT_BASE_URL = 'http://localhost:3000/api/v1/clients';
+const CLIENT_BASE_URL = '/api/v1/clients';
+
+const getEditClientEndpoint = (id: string) => `${CLIENT_BASE_URL}/${id}`;
 
 export const ClientServiceConstants = {
-  CLIENT_BASE_URL
+  CLIENT_BASE_URL,
+  getEditClientEndpoint
 }

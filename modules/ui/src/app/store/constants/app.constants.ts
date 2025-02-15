@@ -1,7 +1,6 @@
 import {AppState} from '../interfaces';
 import {initialAuthState} from './auth.constants';
 import {initialNavState} from './nav.constants';
-import {SidebarSection} from '../../types';
 import {initialSearchState} from './search.constants';
 import {initialClientsState} from './client.constants';
 
@@ -32,7 +31,7 @@ export const sidebarSections: SidebarSection[] = [
     children: [
       {
         id: '15563563-0965-4438-a8c3-1fe756457696',
-        title: 'Customer',
+        title: 'Clients',
         icon: 'pi pi-users',
         isButton: false,
         link: '/clients'

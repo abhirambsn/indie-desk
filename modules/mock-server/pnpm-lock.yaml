@@ -17,6 +17,9 @@ importers:
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
     devDependencies:
       '@types/cors':
         specifier: ^2.8.17
@@ -27,6 +30,9 @@ importers:
       '@types/jsonwebtoken':
         specifier: ^9.0.8
         version: 9.0.8
+      '@types/lodash':
+        specifier: ^4.17.15
+        version: 4.17.15
       '@types/node':
         specifier: ^22.13.1
         version: 22.13.1
@@ -91,6 +97,9 @@ packages:
 
   '@types/jsonwebtoken@9.0.8':
     resolution: {integrity: sha512-7fx54m60nLFUVYlxAB1xpe9CBWX2vSrk50Y6ogRJ1v5xxtba7qXTg5BgYDN5dq+yuQQ9HaVlHJyAAt1/mxryFg==}
+
+  '@types/lodash@4.17.15':
+    resolution: {integrity: sha512-w/P33JFeySuhN6JLkysYUK2gEmy9kHHFN7E8ro0tkfmlDOgxBDzWEZ/J8cWA+fHqFevpswDTFZnDx+R9lbL6xw==}
 
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
@@ -750,6 +759,8 @@ snapshots:
     dependencies:
       '@types/ms': 2.1.0
       '@types/node': 22.13.1
+
+  '@types/lodash@4.17.15': {}
 
   '@types/mime@1.3.5': {}
 

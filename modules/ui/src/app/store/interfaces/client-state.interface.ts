@@ -1,5 +1,3 @@
-import {Client} from '../../types';
-
 export interface ClientState {
   clients: Client[];
   loaded: boolean;

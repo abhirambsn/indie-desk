@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Avatar} from 'primeng/avatar';
-import {User} from '../../types';
 import {TieredMenu} from 'primeng/tieredmenu';
 import {MenuItem} from 'primeng/api';
 import {InputText} from 'primeng/inputtext';

@@ -1,4 +1,4 @@
-const AUTH_BASE_URL = 'http://localhost:3000/api/v1/auth';
+const AUTH_BASE_URL = '/api/v1/auth';
 const TOKEN_ENDPOINT = AUTH_BASE_URL + '/token';
 const USER_CREATE_ENDPOINT = AUTH_BASE_URL + '/';
 const USER_DETAILS_ENDPOINT = AUTH_BASE_URL + '/me';

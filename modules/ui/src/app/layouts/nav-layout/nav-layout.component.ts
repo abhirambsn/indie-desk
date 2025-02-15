@@ -7,7 +7,6 @@ import {NavSelectors, AuthSelectors} from  '../../store/selectors';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {NavActions, AuthActions} from '../../store/actions';
 import {NavbarComponent} from '../../components/navbar/navbar.component';
-import {User} from '../../types';
 import {AuthHelper} from '../../helpers/auth.helper';
 import {sidebarSections} from '../../store/constants/app.constants';
 

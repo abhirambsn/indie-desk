@@ -1,5 +1,4 @@
 import {ChangeDetectorRef, Component, EventEmitter, Input, Output} from '@angular/core';
-import {SidebarSection} from '../../types';
 import {SidebarTitleComponent} from './sidebar-title/sidebar-title.component';
 import {NgClass} from '@angular/common';
 import {sidebarSections} from '../../store/constants/app.constants';

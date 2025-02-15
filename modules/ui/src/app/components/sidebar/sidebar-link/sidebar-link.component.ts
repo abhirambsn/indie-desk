@@ -1,5 +1,4 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {SidebarItem} from '../../../types';
 import {RouterLink} from '@angular/router';
 import {NgClass} from '@angular/common';
 
