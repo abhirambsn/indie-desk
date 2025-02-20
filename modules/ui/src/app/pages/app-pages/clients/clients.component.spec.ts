@@ -4,6 +4,8 @@ import { ClientsComponent } from './clients.component';
 import {provideMockStore} from '@ngrx/store/testing';
 import _ from 'lodash';
 import {initialAppState} from '../../../store/constants/app.constants';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('ClientsComponent', () => {
   let component: ClientsComponent;
@@ -14,7 +16,9 @@ describe('ClientsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ClientsComponent],
       providers: [
-        provideMockStore({initialState})
+        provideMockStore({initialState}),
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     })
     .compileComponents();
