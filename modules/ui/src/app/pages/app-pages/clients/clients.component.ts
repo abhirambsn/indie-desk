@@ -28,7 +28,6 @@ export class ClientsComponent implements OnInit {
   ngOnInit() {
     this.store$.dispatch(ClientActions.loadClients());
     this.store$.select(ClientSelectors.selectClients).pipe(untilDestroyed(this)).subscribe((clients: any) => {
-      console.log('DEBUG: ', clients);
       if (clients) {
         this.clients = clients;
         this.cdr.detectChanges();
@@ -48,7 +47,6 @@ export class ClientsComponent implements OnInit {
   }
 
   onDeleteClient(event: any) {
-    console.log('DEBUG: ', event);
     if (event?.type === 'multi') {
       event?.data?.forEach((id: any) => this.store$.dispatch(ClientActions.deleteClient({payload: {id}})));
     } else {

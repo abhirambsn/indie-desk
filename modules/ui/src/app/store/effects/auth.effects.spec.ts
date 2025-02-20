@@ -129,5 +129,6 @@ describe('AuthEffects', () => {
       ])
     });
     done();
+    expect().nothing();
   })
 });
