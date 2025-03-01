@@ -43,7 +43,6 @@ export class ClientService {
   }
 
   updateClient(clientData: Client, access_token: string) {
-    console.log('[CSERVICE]', clientData, access_token);
     const id = clientData.id;
     const payload: any = {...clientData};
     delete payload.id;

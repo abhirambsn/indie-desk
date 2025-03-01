@@ -46,7 +46,7 @@ export class JSONFileBasedDB implements DB {
         const path = this.getTablePath(tableName);
         data.id = randomUUID();
         try {
-            this.appendToJSONFile(path, data);
+            this.appendToJSONFile(tableName, data);
             return data.id;
         } catch (err) {
             console.error(`[DB] Error appending to file ${path}`, err);
@@ -120,13 +120,11 @@ export class JSONFileBasedDB implements DB {
         }
     }
 
-    private appendToJSONFile (filename: string, data: any) {
-        const fs = require('fs');
-        const path = require('path');
-        const filePath = path.join(__dirname, filename);
-        const file = require(filePath);
+    private appendToJSONFile(tableName: string, data: any) {
+        const file = this.loadTableData(tableName);
+        const filepath = this.getTablePath(tableName);
         file.push(data);
-        fs.writeFileSync(filePath, JSON.stringify(file, null, 2));
+        fs.writeFileSync(filepath, JSON.stringify(file, null, 2));
     }
 
 }

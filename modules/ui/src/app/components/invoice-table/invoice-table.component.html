@@ -15,8 +15,8 @@
         label="Delete"
         icon="pi pi-trash"
         outlined
-        (onClick)="deleteSelectedClients()"
-        [disabled]="!selectedClients || !selectedClients.length"
+        (onClick)="deleteSelectedInvoices()"
+        [disabled]="!selectedInvoices || !selectedInvoices.length"
       />
     </ng-template>
 
@@ -43,8 +43,8 @@
   </p-toolbar>
 
   <p-table
-    #clientTable
-    [value]="clients"
+    #invoiceTable
+    [value]="invoices"
     dataKey="id"
     [rows]="10"
     [columns]="columns"
@@ -52,14 +52,14 @@
     [rowsPerPageOptions]="[10, 20]"
     [loading]="loading"
     [paginator]="true"
-    [globalFilterFields]="['city', 'state', 'zip', 'type', 'name', 'email']"
-    [(selection)]="selectedClients"
+    [globalFilterFields]="['clientName', 'date', 'dueDate', 'amount']"
+    [(selection)]="selectedInvoices"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
     [showCurrentPageReport]="true"
   >
     <ng-template #caption>
       <div class="flex justify-between items-center text-zinc-500 text">
-        <p class="italic">Total {{ clients.length }} clients</p>
+        <p class="italic">Total {{ invoices.length }} invoices</p>
         <p-iconfield iconPosition="left" class="ml-auto">
           <p-inputicon>
             <i class="pi pi-search"></i>
@@ -77,29 +77,23 @@
     <ng-template #header>
       <tr>
         <th style="width: 1.5rem"><p-tableHeaderCheckbox /></th>
-        <th style="min-width: 10rem">
-          <div class="flex items-center">Name</div>
-        </th>
+        <th style="width: 12%">Name</th>
         <th style="min-width: 5rem">
           <div class="flex items-center">
-            City
-            <p-columnFilter type="text" field="city" display="menu" />
+            Client
+            <p-columnFilter type="text" field="clientName" display="menu" />
           </div>
         </th>
         <th style="min-width: 5rem">
           <div class="flex items-center">
-            State
-            <p-columnFilter type="text" field="state" display="menu" />
+            Project
+            <p-columnFilter type="text" field="project" display="menu" />
           </div>
         </th>
-
-        <th style="min-width: 4rem">Zip</th>
-        <th style="width: 12%">Phone</th>
-        <th style="width: 12%">Email</th>
-        <th style="width: 12%">Contact</th>
+        <th style="width: 12%">Generated On</th>
         <th style="min-width: 10rem">
           <div class="flex items-center">
-            Type
+            Status
             <p-columnFilter field="type" matchMode="equals" display="menu">
               <ng-template #filter let-value let-filter="filterCallback">
                 <p-dropdown
@@ -119,76 +113,49 @@
             </p-columnFilter>
           </div>
         </th>
+        <th style="width: 12%">Due Date</th>
         <th></th>
       </tr>
     </ng-template>
 
-    <ng-template #body let-client>
+    <ng-template #body let-invoice>
       <tr class="text-sm">
         <td>
-          <p-tableCheckbox [value]="client" />
+          <p-tableCheckbox value="invoice" />
         </td>
-        <td>
-          {{ client.name }}
-        </td>
-        <td>
-          {{ client.city }}
-        </td>
-        <td>
-          {{ client.state }}
-        </td>
-        <td>
-          {{ client.zip }}
-        </td>
-        <td>
-          {{ client.phone }}
-        </td>
-        <td>
-          {{ client.email }}
-        </td>
-        <td>
-          {{ client.contact }}
-        </td>
+        <td>{{ invoice.description }}</td>
+        <td>{{ invoice.client?.name }}</td>
+        <td>{{ invoice.project?.name }}</td>
+        <td>{{ invoice.date }}</td>
         <td>
           <p-tag
             styleClass="text-xs"
-            [value]="client.type"
-            [severity]="getTypeBadge(client.type)"
+            [value]="invoice.status"
+            [severity]="getTypeBadge(invoice.status)"
           />
         </td>
+        <td>{{ invoice.dueDate }}</td>
         <td>
           <p-button
             [outlined]="true"
             size="small"
-            (click)="openDropdownMenu($event, client)"
+            (click)="openDropdownMenu($event, invoice)"
             icon="pi pi-ellipsis-v"
           ></p-button>
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template #emptymessage>
-      <tr>
-        <td colspan="11">
-          <div
-            class="flex flex-col justify-center items-center gap-4 text-gray-200"
-          >
-            <i class="pi pi-search text-gray-300" style="font-size: 1.5rem"></i>
-            <p class="text">No clients found</p>
-          </div>
         </td>
       </tr>
     </ng-template>
   </p-table>
 
   <p-dialog
-    [(visible)]="clientDialogOpen"
+    [(visible)]="invoiceDialogOpen"
     (onHide)="closeDialog()"
     [modal]="true"
     [style]="{ width: '500px' }"
     [header]="getModalHeader()"
   >
     <ng-template #content>
-      <app-client-create [client]="currentClient" />
+       <app-invoice-create [clients]="clients" [invoice]="currentInvoice" />
     </ng-template>
 
     <ng-template #footer>
@@ -198,7 +165,7 @@
         text
         (click)="closeDialog()"
       />
-      <p-button label="Save" icon="pi pi-check" (click)="saveClient()" />
+      <p-button label="Save" icon="pi pi-check" (click)="saveInvoice()" />
     </ng-template>
   </p-dialog>
 

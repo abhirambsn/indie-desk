@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {RouterModule, Routes} from '@angular/router';
-import {AuthGuardService} from '../../guard/auth.guard';
-import {KpiCardComponent} from "../../components/kpi-card/kpi-card.component";
+import {AuthGuardService} from '@/app/guard/auth.guard';
+import {KpiCardComponent} from "@/app/components/kpi-card/kpi-card.component";
 import {ClientsComponent} from './clients/clients.component';
 import {InvoicesComponent} from './invoices/invoices.component';
 import {SalesComponent} from './sales/sales.component';
@@ -12,6 +12,9 @@ import {TasksComponent} from './tasks/tasks.component';
 import {SupportTicketsComponent} from './support-tickets/support-tickets.component';
 import {SupportUsersComponent} from './support-users/support-users.component';
 import {CustomerPortalUsersComponent} from './customer-portal-users/customer-portal-users.component';
+import { ClientTableComponent } from "@/app/components/client-table/client-table.component";
+import { ToastModule } from 'primeng/toast';
+import { InvoiceTableComponent } from "../../components/invoice-table/invoice-table.component";
 
 export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
@@ -30,13 +33,18 @@ export const routes: Routes = [
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    ClientsComponent,
+    InvoicesComponent
   ],
-    imports: [
-        RouterModule.forChild(routes),
-        CommonModule,
-        KpiCardComponent,
-    ],
+  imports: [
+    RouterModule.forChild(routes),
+    CommonModule,
+    KpiCardComponent,
+    ClientTableComponent,
+    ToastModule,
+    InvoiceTableComponent
+],
   exports: [
     RouterModule
   ]

@@ -1,46 +1,102 @@
 <div class="flex flex-col gap-4">
   <p-iftalabel>
-    <input type="text" pInputText id="name" pSize="small" [(ngModel)]="client.name" required fluid />
+    <input
+      type="text"
+      pInputText
+      id="name"
+      pSize="small"
+      [(ngModel)]="client.name"
+      required
+      fluid
+    />
     <label for="name">Name</label>
   </p-iftalabel>
 
   <div class="grid grid-cols-12 gap-4">
     <div class="col-span-4">
       <p-iftalabel>
-        <input type="text" pInputText id="city" pSize="small" [(ngModel)]="client.city" required fluid />
+        <input
+          type="text"
+          pInputText
+          id="city"
+          pSize="small"
+          [(ngModel)]="client.city"
+          required
+          fluid
+        />
         <label for="city">City</label>
       </p-iftalabel>
     </div>
 
     <div class="col-span-4">
       <p-iftalabel>
-        <input type="text" pInputText id="state" pSize="small" [(ngModel)]="client.state" required fluid />
+        <input
+          type="text"
+          pInputText
+          id="state"
+          pSize="small"
+          [(ngModel)]="client.state"
+          required
+          fluid
+        />
         <label for="state">State</label>
       </p-iftalabel>
     </div>
 
     <div class="col-span-4">
       <p-iftalabel>
-        <input type="text" pInputText id="zip" pSize="small" [(ngModel)]="client.zip" required fluid />
+        <input
+          type="text"
+          pInputText
+          id="zip"
+          pSize="small"
+          [(ngModel)]="client.zip"
+          required
+          fluid
+        />
         <label for="zip">Zip</label>
       </p-iftalabel>
     </div>
   </div>
 
   <p-iftalabel>
-    <input type="text" pInputText id="contact" pSize="small" [(ngModel)]="client.contact" required fluid />
+    <input
+      type="text"
+      pInputText
+      id="contact"
+      pSize="small"
+      [(ngModel)]="client.contact"
+      required
+      fluid
+    />
     <label for="contact">Contact Name</label>
   </p-iftalabel>
 
   <p-iftalabel>
-    <input type="email" pInputText id="email" pSize="small" [(ngModel)]="client.email" required fluid />
+    <input
+      type="email"
+      pInputText
+      id="email"
+      pSize="small"
+      [(ngModel)]="client.email"
+      required
+      fluid
+    />
     <label for="email">Email</label>
   </p-iftalabel>
 
   <div class="grid grid-cols-12 gap-4">
     <div class="col-span-6">
       <p-iftalabel>
-        <input type="text" pInputText pSize="small" id="phone" [(ngModel)]="client.phone" required fluid />
+        <input
+          type="text"
+          pInputText
+          pSize="small"
+          id="phone"
+          [(ngModel)]="client.phone"
+          required
+          fluid
+        />
         <label for="phone">Phone</label>
       </p-iftalabel>
     </div>
@@ -64,7 +120,16 @@
   </div>
 
   <p-iftalabel>
-    <textarea id="address" pTextarea [(ngModel)]="client.address" pSize="small" required rows="3" cols="20" fluid></textarea>
+    <textarea
+      id="address"
+      pTextarea
+      [(ngModel)]="client.address"
+      pSize="small"
+      required
+      rows="3"
+      cols="20"
+      fluid
+    ></textarea>
     <label for="address">Address</label>
   </p-iftalabel>
 </div>

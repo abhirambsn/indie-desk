@@ -1,5 +1,5 @@
 <aside
-  class="flex flex-col h-full bg-zinc-900"
+  class="flex flex-col h-full bg-zinc-900 text-zinc-50"
   [ngClass]="{'hidden animate-out slide-out-to-left': collapsed, 'animate-in slide-in-from-left': !collapsed}"
 >
   <app-sidebar-title (collapseButtonClick)="sidebarCollapseClick.emit()">{{ title }}</app-sidebar-title>

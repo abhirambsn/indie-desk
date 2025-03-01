@@ -12,3 +12,13 @@ export const selectCurrentClient = createSelector(
   selectClientState,
   (state) => state.currentClient
 );
+
+export const selectClientLoading = createSelector(
+  selectClientState,
+  (state) => state.loading
+);
+
+export const selectClientLoaded = createSelector(
+  selectClientState,
+  (state) => state.loaded
+);

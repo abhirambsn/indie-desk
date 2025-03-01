@@ -1,18 +1,3 @@
-declare interface SidebarSection {
-  id: string;
-  title: string;
-  children: SidebarItem[];
-}
-
-declare interface SidebarItem {
-  id: string;
-  icon: string;
-  title: string;
-  link: string;
-  isButton: boolean;
-  isActive?: boolean;
-}
-
 declare interface User {
   id: string;
   firstName: string;
@@ -56,18 +41,7 @@ declare interface Client {
   contact: string;
   owner: string;
   projects: Project[];
-  type: ClientType
-}
-
-declare interface Column {
-  field: string;
-  header: string;
-  customdeclareHeader?: string;
-}
-
-declare interface ExportColumn {
-  title: string;
-  dataKey: string;
+  type: ClientType;
 }
 
 declare interface Invoice {

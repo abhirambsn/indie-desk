@@ -1,4 +1,4 @@
-<nav class="bg-zinc-900 flex flex-row items-center justify-between px-2 py-3 gap-4">
+<nav class="bg-zinc-900 flex flex-row items-center justify-between px-2 py-3 gap-4 text-zinc-50">
   @if (sidebarCollapsed) {
     <button (click)="sidebarUnhideEvent.emit()" class="w-10 h-10 rounded-full items-center flex bg-gray-50 p-3 hover:opacity-90 transition-all duration-200">
       <i class="pi pi-arrow-circle-right text-gray-900"></i>
@@ -6,7 +6,7 @@
   }
 
   <div class="mx-auto rounded-xl bg-zinc-700 w-auto">
-    <input class="!bg-zinc-700" placeholder="Search" pInputText type="search" [formControl]="searchInput"  />
+    <input class="!bg-zinc-700 !text-zinc-50 placeholder:!text-zinc-300" placeholder="Search" pInputText type="search" [formControl]="searchInput"  />
     <button (click)="triggerSearch()" class="bg-transparent p-2">
       <i class="pi pi-search"></i>
     </button>

@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import users from './mockdata/users.json';
 import cors from 'cors';
 import {JSONFileBasedDB} from "./db";
+import PDFDocument from 'pdfkit';
+import fs from "fs";
 
 declare global {
     namespace Express {
@@ -130,9 +132,7 @@ app.post('/api/v1/search', (req: Request, res: Response) => {
 
 app.get('/api/v1/clients', authMiddleware, (req: Request, res: Response) => {
    const username = req?.user?.sub;
-   // const clients: any[] = require('./mockdata/clients.json');
-   // const userClients = clients.filter((client) => client.owner === username);
-    const userClients = db.find('clients', {owner: username});
+   const userClients = db.find('clients', {owner: username});
    res.status(200).json({message: 'ok', data: userClients});
    return;
 });
@@ -244,16 +244,122 @@ app.delete('/api/v1/projects/:id', authMiddleware, (req: Request, res: Response)
     return;
 });
 
+const generatePdfInvoice = (invoiceId: string) => {
+    const invoiceData = db.find('invoices', {id: invoiceId});
+    if (!invoiceData.length) {
+        return;
+    }
 
+    const invoice = invoiceData[0] as Invoice;
+
+    const doc = new PDFDocument();
+    const filePath = `${__dirname}/mockdata/invoices/${invoiceId}.pdf`;
+    const stream = fs.createWriteStream(filePath);
+    doc.pipe(stream);
+
+    doc.rect(0,0,600,100).fill("#F8F8F8");
+    doc.fill("#000").fontSize(20).text(invoice.client.name, {align: 'center'});
+    doc.moveDown(2);
+
+    doc.fillColor("#333").fontSize(12);
+    doc.text(`Invoice ID: ${invoice.id}`);
+    doc.text(`Date: ${invoice.date}`);
+    doc.moveDown();
+
+    doc.fontSize(14).text("Billed To:", { underline: true });
+    doc.fontSize(12).text(invoice.client.name);
+    doc.text(invoice.client.address);
+    doc.text(invoice.client.phone);
+    doc.moveDown();
+
+    doc.moveDown();
+    doc.fillColor("#000").fontSize(14).text("TASK", 50, 250);
+    doc.text("RATE", 250, 250);
+    doc.text("HOURS", 350, 250);
+    doc.text("TOTAL", 450, 250);
+    doc.moveDown();
+
+    doc.moveTo(50, 265).lineTo(550, 265).stroke();
+    doc.fillColor("#444").fontSize(12);
+    invoice.items.forEach((item: InvoiceItem, index: number) => {
+        const y = 280 + index * 25;
+        doc.text(item.description, 50, y);
+        doc.text(`${invoice.project.perHourRate.currency} ${invoice.project.perHourRate.amount}/hr`, 250, y);
+        doc.text(`${item.hours}`, 350, y);
+        doc.text(`${invoice.project.perHourRate.currency} ${invoice.project.perHourRate.amount * item.hours}`, 450, y);
+    });
+    doc.moveTo(50, 365).lineTo(550, 365).stroke();
+
+    doc.moveDown(2);
+    doc.fillColor("#000").fontSize(12);
+    const subtotal = invoice.items.reduce((acc: number, item: InvoiceItem) => {
+        return acc + (invoice.project.perHourRate.amount * item.hours);
+    }, 0);
+    doc.text(`Subtotal: ${invoice.project.perHourRate.currency} ${subtotal}`, 400, 390);
+
+    if (invoice.discount) {
+        const discountAmount = (subtotal * invoice.discount) / 100;
+        doc.text(`Discount (${invoice.discount}%): -${invoice.project.perHourRate.currency}${discountAmount}`, 400, 405);
+        const total = subtotal - discountAmount;
+        doc.fontSize(14).text(`Total Due: ${invoice.project.perHourRate.currency} ${total}`, 400, 420, { underline: true });
+    }
+
+    doc.moveDown(3);
+    doc.font("Courier-BoldOblique").fontSize(20).text("Thank you!", 50, 460);
+
+    if (invoice.status === 'PAID' && invoice.paymentInfo) {
+        doc.fontSize(14).text("Payment Information:", { underline: true });
+
+        switch(invoice.paymentInfo.method) {
+            case 'card':
+                doc.fontSize(12).text(`Payment Method: Card`);
+                doc.fontSize(12).text(`Card Type: ${invoice.paymentInfo.cardType}`);
+                doc.text(`Last 4 Digits: ${invoice.paymentInfo.lastFourDigits}`);
+                break;
+            case 'cheque':
+                doc.fontSize(12).text(`Payment Method: Cheque`);
+                doc.fontSize(12).text(`Bank Name: ${invoice.paymentInfo.bankName}`);
+                doc.fontSize(12).text(`Cheque Number: ${invoice.paymentInfo.chequeNumber}`);
+                break;
+            case 'cash':
+                doc.fontSize(12).text(`Cash Payment`);
+                break;
+            case 'upi':
+                doc.fontSize(12).text(`Payment Method: UPI`);
+                doc.fontSize(12).text(`UPI ID: ${invoice.paymentInfo.upiId}`);
+                break;
+            case 'bank':
+                doc.fontSize(12).text(`Payment Method: Bank Transfer`);
+                doc.fontSize(12).text(`Bank Name: ${invoice.paymentInfo.bankName}`);
+                break;
+            default:
+                break;
+        }
+        doc.text(`Transaction ID: ${invoice.paymentInfo.transactionId}`);
+        doc.text(`Date: ${invoice.paymentInfo.date}`);
+        doc.text(`Amount: ${invoice.paymentInfo.amount.currency} ${invoice.paymentInfo.amount.amount}`);
+    } else {
+        doc.fontSize(12).text(`Payment is due on ${invoice.dueDate}`, { align: "center" });
+    }
+    doc.fontSize(10).text('Thank you for your business!', { align: "center" });
+    doc.moveDown();
+
+    doc.fontSize(8).text(`Generated by: ${invoice.generatedBy}`, { align: "center" });
+    doc.end();
+
+    stream.on('finish', () => {
+        console.log(`Invoice ${invoiceId} generated and saved at ${filePath}`);
+    });
+}
 
 app.post('/api/v1/invoices', authMiddleware, (req: Request, res: Response) => {
     const username = req?.user?.sub;
     let invoice = {
         ...req.body?.data,
         owner: username,
-        items: []
     };
     const insertedId = db.insert('invoices', invoice);
+    generatePdfInvoice(insertedId);
     res.status(200).json({message: 'ok', data: {id: insertedId, ...invoice}});
     return;
 });
@@ -277,6 +383,38 @@ app.get('/api/v1/invoices/:id', authMiddleware, (req: Request, res: Response) =>
     return;
 });
 
+
+app.patch('/api/v1/invoices/:id', authMiddleware, (req: Request, res: Response) => {
+    const username = req?.user?.sub;
+    const id = req.params.id;
+    const invoiceCheck = db.find('invoices', {id, owner: username});
+    if (!invoiceCheck) {
+        res.status(404).json({message: 'Not found'});
+        return;
+    }
+
+    const invoice = db.updateOne('invoices', id, req.body?.data)
+    if (!invoice) {
+        res.status(404).json({message: 'Not found'});
+        return;
+    }
+    res.status(200).json({message: 'ok', data: invoice});
+    return;
+});
+
+app.get('/api/v1/invoices/:id/pdf', authMiddleware, (req: Request, res: Response) => {
+    const username = req?.user?.sub;
+    const id = req.params.id;
+    const invoice = db.find('invoices', {id, owner: username});
+    if (!invoice) {
+        res.status(404).json({message: 'Not found'});
+        return;
+    }
+
+    const invoicePath = `${__dirname}/mockdata/invoices/${id}.pdf`;
+    res.download(invoicePath, `invoice-${id}.pdf`);
+    return;
+});
 
 
 app.post('/api/v1/:projectId/task', authMiddleware, (req: Request, res: Response) => {

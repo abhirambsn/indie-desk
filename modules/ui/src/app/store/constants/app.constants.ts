@@ -1,15 +1,17 @@
-import {AppState} from '../interfaces';
-import {initialAuthState} from './auth.constants';
-import {initialNavState} from './nav.constants';
-import {initialSearchState} from './search.constants';
-import {initialClientsState} from './client.constants';
+import { AppState } from '@/app/store';
+import { initialAuthState } from './auth.constants';
+import { initialNavState } from './nav.constants';
+import { initialSearchState } from './search.constants';
+import { initialClientsState } from './client.constants';
+import { initialInvoiceState } from './invoice.constants';
 
 export const initialAppState: AppState = {
   auth: initialAuthState,
   nav: initialNavState,
   search: initialSearchState,
-  clients: initialClientsState
-}
+  clients: initialClientsState,
+  invoices: initialInvoiceState,
+};
 
 export const sidebarSections: SidebarSection[] = [
   {
@@ -21,9 +23,9 @@ export const sidebarSections: SidebarSection[] = [
         title: 'Home',
         icon: 'pi pi-home',
         isButton: false,
-        link: '/dashboard'
-      }
-    ]
+        link: '/dashboard',
+      },
+    ],
   },
   {
     id: '09612770-3380-4522-b7da-71866042e3b3',
@@ -34,23 +36,23 @@ export const sidebarSections: SidebarSection[] = [
         title: 'Clients',
         icon: 'pi pi-users',
         isButton: false,
-        link: '/clients'
+        link: '/clients',
       },
       {
         id: 'e4bde199-58d8-4886-9401-2acabcf2beea',
         title: 'Invoices',
         icon: 'pi pi-receipt',
         isButton: false,
-        link: '/invoices'
+        link: '/invoices',
       },
       {
         id: '3d7b2551-c619-4b28-a299-84e00364e1b5',
         title: 'Sales',
         icon: 'pi pi-chart-bar',
         isButton: false,
-        link: '/sales'
-      }
-    ]
+        link: '/sales',
+      },
+    ],
   },
   {
     id: '9c01a4bb-8103-4ab7-8408-1c0e29e0a3ef',
@@ -61,16 +63,16 @@ export const sidebarSections: SidebarSection[] = [
         title: 'My Projects',
         icon: 'pi pi-wrench',
         isButton: false,
-        link: '/projects'
+        link: '/projects',
       },
       {
         id: 'c3581b3e-641f-48e2-8490-7bcf8b09cccf',
         title: 'Task Board',
         icon: 'pi pi-list-check',
         isButton: false,
-        link: '/tasks'
-      }
-    ]
+        link: '/tasks',
+      },
+    ],
   },
   {
     id: 'fc0b35a0-aa36-4151-9256-e2e99fc4b875',
@@ -81,9 +83,9 @@ export const sidebarSections: SidebarSection[] = [
         title: 'Support Tickets',
         icon: 'pi pi-ticket',
         isButton: false,
-        link: '/tickets'
-      }
-    ]
+        link: '/tickets',
+      },
+    ],
   },
   {
     id: 'bf0053ad-414a-4b37-81c8-3dd4c8e532ac',
@@ -94,23 +96,23 @@ export const sidebarSections: SidebarSection[] = [
         title: 'Support Users',
         icon: 'pi pi-user',
         isButton: false,
-        link: '/support/users'
+        link: '/support/users',
       },
       {
         id: 'f5beb73f-d7b3-4efe-9907-95ca56cc05fb',
         title: 'Customer Portal Users',
         icon: 'pi pi-users',
         isButton: false,
-        link: '/customer/users'
+        link: '/customer/users',
       },
       {
         id: 'b8f4bfca-e3c4-477f-b7d0-ae5157693244',
         title: 'Profile',
         icon: 'pi pi-user-edit',
         isButton: false,
-        link: '/profile'
-      }
-    ]
+        link: '/profile',
+      },
+    ],
   },
   {
     id: '2babf786-1d59-4060-a1e1-db1e52a83dea',
@@ -121,15 +123,15 @@ export const sidebarSections: SidebarSection[] = [
         title: 'user-component',
         icon: '',
         link: '',
-        isButton: true
+        isButton: true,
       },
       {
         id: '73c83726-9685-4807-8cf1-c3c9541ec87f',
         title: 'logout-component',
         icon: '',
         link: '',
-        isButton: true
-      }
-    ]
-  }
-]
+        isButton: true,
+      },
+    ],
+  },
+];

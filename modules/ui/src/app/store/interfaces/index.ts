@@ -3,3 +3,4 @@ export * from './app-state.interface';
 export * from './nav-state.interface';
 export * from './search-state.interface';
 export * from './client-state.interface';
+export * from './invoice-state.interface';

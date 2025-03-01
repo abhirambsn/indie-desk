@@ -9,9 +9,11 @@ import { provideEffects } from '@ngrx/effects';
 import {
   AuthEffects,
   ClientEffects,
+  InvoiceEffects,
   SearchEffects,
   authReducer,
   clientReducer,
+  invoiceReducer,
   navReducer
 } from '@/app/store';
 import {provideHttpClient} from '@angular/common/http';
@@ -46,6 +48,7 @@ export const appConfig: ApplicationConfig = {
       'nav': navReducer,
       'search': searchReducer,
       'clients': clientReducer,
+      'invoices': invoiceReducer
     }, {
       metaReducers
     }),
@@ -54,7 +57,7 @@ export const appConfig: ApplicationConfig = {
       logOnly: !isDevMode(),
       trace: true
     }),
-    provideEffects(AuthEffects, SearchEffects, ClientEffects),
+    provideEffects(AuthEffects, SearchEffects, ClientEffects, InvoiceEffects),
     provideHttpClient()
   ]
 };

@@ -4,15 +4,16 @@ import {AppState} from '@/app/store/interfaces';
 import {ClientActions} from '@/app/store/actions';
 import {ClientSelectors} from '@/app/store/selectors';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
-import {ClientTableComponent} from '@/app/components/client-table/client-table.component';
+import { MessageService } from 'primeng/api';
 
 @UntilDestroy()
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  imports: [
-    ClientTableComponent
+  providers: [
+    MessageService
   ],
+  standalone: false,
   styleUrl: './clients.component.scss'
 })
 export class ClientsComponent implements OnInit {
@@ -22,7 +23,8 @@ export class ClientsComponent implements OnInit {
 
   constructor(
     private readonly store$: Store<AppState>,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -42,15 +44,26 @@ export class ClientsComponent implements OnInit {
   onSaveClient(event: any) {
     this.submitting = true;
     this.cdr.detectChanges();
-    if (event?.type === 'new') this.store$.dispatch(ClientActions.saveClient({payload: {data: event?.data}}));
-    else if (event?.type === 'edit') this.store$.dispatch(ClientActions.updateClient({payload: {data: event?.data}}));
+    if (event?.type === 'new') {
+      this.store$.dispatch(ClientActions.saveClient({payload: {data: event?.data}}));
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Client Created',
+        detail: 'Client has been created successfully'
+      })
+    }
+    else if (event?.type === 'edit') {
+      this.store$.dispatch(ClientActions.updateClient({payload: {data: event?.data}}));
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Client Updated',
+        detail: 'Client has been updated successfully'
+      })
+    }
   }
 
   onDeleteClient(event: any) {
-    if (event?.type === 'multi') {
-      event?.data?.forEach((id: any) => this.store$.dispatch(ClientActions.deleteClient({payload: {id}})));
-    } else {
-      this.store$.dispatch(ClientActions.deleteClient({payload: {id: event?.data}}));
-    }
+    if (event?.type === 'multi') event?.data?.forEach((id: any) => this.store$.dispatch(ClientActions.deleteClient({payload: {id}})));
+    else this.store$.dispatch(ClientActions.deleteClient({payload: {id: event?.data}}));
   }
 }

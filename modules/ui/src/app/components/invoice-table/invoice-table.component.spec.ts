@@ -1,33 +1,29 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClientsComponent } from './clients.component';
-import {provideMockStore} from '@ngrx/store/testing';
+import { InvoiceTableComponent } from './invoice-table.component';
+import { initialAppState } from '@/app/store/constants/app.constants';
+import { provideMockStore } from '@ngrx/store/testing';
 import _ from 'lodash';
-import {initialAppState} from '../../../store/constants/app.constants';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { CommonModule } from '@angular/common';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-describe('ClientsComponent', () => {
-  let component: ClientsComponent;
-  let fixture: ComponentFixture<ClientsComponent>;
+describe('InvoiceTableComponent', () => {
+  let component: InvoiceTableComponent;
+  let fixture: ComponentFixture<InvoiceTableComponent>;
 
   beforeEach(async () => {
     const initialState = _.cloneDeep(initialAppState);
     await TestBed.configureTestingModule({
-      declarations: [ClientsComponent],
-      imports: [CommonModule],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [InvoiceTableComponent],
       providers: [
         provideMockStore({initialState}),
         provideHttpClient(),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
       ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ClientsComponent);
+    fixture = TestBed.createComponent(InvoiceTableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
