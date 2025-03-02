@@ -2,7 +2,7 @@
   {
     "id": "ARND-00001",
     "title": "Test Ticket",
-    "status": "OPEN",
+    "status": "DONE",
     "priority": "LOW",
     "description": "Hooo",
     "project": "eca04d0d-5c9b-4200-a011-5ddb26629b9c",
