@@ -24,6 +24,7 @@ import { TieredMenu } from 'primeng/tieredmenu';
 import { Toast } from 'primeng/toast';
 import { Toolbar } from 'primeng/toolbar';
 import { InvoiceCreateComponent } from '../invoice-create/invoice-create.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-invoice-table',
@@ -43,6 +44,7 @@ import { InvoiceCreateComponent } from '../invoice-create/invoice-create.compone
     ConfirmDialog,
     TieredMenu,
     InvoiceCreateComponent,
+    DatePipe
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './invoice-table.component.html',
@@ -51,6 +53,7 @@ import { InvoiceCreateComponent } from '../invoice-create/invoice-create.compone
 export class InvoiceTableComponent implements OnInit {
   @Input() invoices: Invoice[] = [];
   @Input() clients: Client[] = [];
+  @Input() projects: Project[] = [];
   @Input() loading = false;
   @Input() invoiceDialogOpen = false;
   @Input() submitting = false;
@@ -93,8 +96,11 @@ export class InvoiceTableComponent implements OnInit {
   }
 
   types = [
-    { label: 'New', value: 'NEW' },
+    { label: 'Draft', value: 'DRAFT' },
     { label: 'Void', value: 'VOID' },
+    { label: 'Paid', value: 'PAID' },
+    { label: 'Sent', value: 'SENT' },
+    { label: 'Overdue', value: 'OVERDUE' },
   ];
 
   clear(table: Table) {
@@ -190,7 +196,7 @@ export class InvoiceTableComponent implements OnInit {
   }
 
   getModalHeader() {
-    return this.currentInvoice?.id ? 'New Invoice' : 'Edit Invoice';
+    return !this.currentInvoice?.id ? 'New Invoice' : 'Edit Invoice';
   }
 
   downloadInoice(invoice: Invoice) {
@@ -215,10 +221,24 @@ export class InvoiceTableComponent implements OnInit {
 
   private sendInvoice(invoice: Invoice) {
     console.log('[DEBUG] Sending invoice', invoice);
+    this.currentInvoice = { ...invoice };
+    this.currentInvoice.status = 'SENT';
+    this.invoiceSave.emit({
+      data: this.currentInvoice,
+      type: 'edit',
+    });
+    this.currentInvoice = {} as Invoice;
   }
 
   private voidInvoice(invoice: Invoice) {
     console.log('[DEBUG] Voiding invoice', invoice);
+    this.currentInvoice = { ...invoice };
+    this.currentInvoice.status = 'VOID';
+    this.invoiceSave.emit({
+      data: this.currentInvoice,
+      type: 'edit',
+    });
+    this.currentInvoice = {} as Invoice;
   }
 
   private getActionByStatus(invoice: Invoice): MenuItem[] {

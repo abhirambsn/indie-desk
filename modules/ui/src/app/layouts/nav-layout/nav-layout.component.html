@@ -1,4 +1,4 @@
-<div class="flex h-screen w-screen bg-zinc-50">
+<div class="flex h-screen w-screen bg-zinc-50 dark:bg-zinc-950">
   <app-sidebar (sidebarCollapseClick)="sidebarCollapseClick()" [collapsed]="sidebarCollapsed" title="IndieDesk" [sections]="sidebarSections" />
   <div class="flex-1">
     <app-navbar [userDetails]="currentUser" (sidebarUnhideEvent)="sidebarCollapseClick()" [sidebarCollapsed]="sidebarCollapsed" />

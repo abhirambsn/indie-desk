@@ -1,0 +1,134 @@
+<div class="flex flex-col gap-4">
+  <p-iftalabel>
+    <input
+      type="text"
+      pInputText
+      id="name"
+      pSize="small"
+      [(ngModel)]="project.name"
+      required
+      fluid
+    />
+    <label for="name">Name</label>
+  </p-iftalabel>
+
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-6">
+      <p-iftalabel>
+        <p-select
+          inputId="client"
+          id="client"
+          [(ngModel)]="project.client"
+          [options]="_clientOptions"
+          [filter]="true"
+          filterBy="label"
+          [showClear]="true"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Client"
+          size="small"
+          fluid
+        />
+        <label for="client">Client</label>
+      </p-iftalabel>
+    </div>
+    <div class="col-span-6">
+      <p-iftalabel>
+        <p-select
+          inputId="status"
+          id="status"
+          [(ngModel)]="project.status"
+          [options]="projectStatuses"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Project Status"
+          size="small"
+          fluid
+        />
+        <label for="status">Status</label>
+      </p-iftalabel>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-6">
+      <p-iftalabel>
+        <input
+          type="date"
+          pInputText
+          id="startDate"
+          pSize="small"
+          [(ngModel)]="project.startDate"
+          required
+          fluid
+        />
+        <label for="startDate">Start Date</label>
+      </p-iftalabel>
+    </div>
+    <div class="col-span-6">
+      <p-iftalabel>
+        <input
+          type="date"
+          pInputText
+          id="endDate"
+          pSize="small"
+          [(ngModel)]="project.endDate"
+          required
+          fluid
+        />
+        <label for="endDate">End Date</label>
+      </p-iftalabel>
+    </div>
+  </div>
+
+  <h4 class="text-sm font-semibold">Cost per hour</h4>
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-6">
+      <p-iftalabel>
+        <p-select
+          inputId="currency"
+          id="currency"
+          [(ngModel)]="project.perHourRate.currency"
+          [options]="currencies"
+          [filter]="true"
+          filterBy="label"
+          [showClear]="true"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Currency"
+          size="small"
+          fluid
+        />
+        <label for="currency">Currency</label>
+      </p-iftalabel>
+    </div>
+    <div class="col-span-6">
+      <p-iftalabel>
+        <input
+          type="number"
+          pInputText
+          id="amount"
+          pSize="small"
+          [(ngModel)]="project.perHourRate.amount"
+          required
+          fluid
+          min="0"
+        />
+        <label for="amount">Amount</label>
+      </p-iftalabel>
+    </div>
+  </div>
+
+  <p-iftalabel>
+    <textarea
+      id="description"
+      pTextarea
+      [(ngModel)]="project.description"
+      pSize="small"
+      rows="3"
+      cols="20"
+      fluid
+    ></textarea>
+    <label for="description">Description</label>
+  </p-iftalabel>
+</div>

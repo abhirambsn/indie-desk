@@ -15,6 +15,10 @@ import {CustomerPortalUsersComponent} from './customer-portal-users/customer-por
 import { ClientTableComponent } from "@/app/components/client-table/client-table.component";
 import { ToastModule } from 'primeng/toast';
 import { InvoiceTableComponent } from "../../components/invoice-table/invoice-table.component";
+import { ProjectTableComponent } from "../../components/project-table/project-table.component";
+import { SelectModule } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
+import { TaskListComponent } from "../../components/task-list/task-list.component";
 
 export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
@@ -35,7 +39,9 @@ export const routes: Routes = [
   declarations: [
     DashboardComponent,
     ClientsComponent,
-    InvoicesComponent
+    InvoicesComponent,
+    ProjectsComponent,
+    TasksComponent,
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -43,7 +49,11 @@ export const routes: Routes = [
     KpiCardComponent,
     ClientTableComponent,
     ToastModule,
-    InvoiceTableComponent
+    InvoiceTableComponent,
+    ProjectTableComponent,
+    SelectModule,
+    FormsModule,
+    TaskListComponent
 ],
   exports: [
     RouterModule

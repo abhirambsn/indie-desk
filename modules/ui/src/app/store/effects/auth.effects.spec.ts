@@ -93,6 +93,7 @@ describe('AuthEffects', () => {
       firstName: 'test',
       lastName: 'user',
       email: 'test.email@eml.com',
+      username: 'testuser',
       id: 'test-id',
       avatarUrl: 'test-avatar',
       org: {

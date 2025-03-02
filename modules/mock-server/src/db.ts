@@ -42,9 +42,9 @@ export class JSONFileBasedDB implements DB {
         });
     }
 
-    insert(tableName: string, data: any): any {
+    insert(tableName: string, data: any, autoId: boolean = true): any {
         const path = this.getTablePath(tableName);
-        data.id = randomUUID();
+        if (autoId) data.id = randomUUID();
         try {
             this.appendToJSONFile(tableName, data);
             return data.id;

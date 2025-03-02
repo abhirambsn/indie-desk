@@ -1,0 +1,85 @@
+@if (selectedProject) {
+<div class="card">
+  <div class="flex items-center justify-between mb-4">
+    <h6 class="text-lg mb-5">
+      Showing tasks of <strong>{{ selectedProject.name }}</strong>
+    </h6>
+    <p-button
+      icon="pi pi-plus"
+      (onClick)="openCreateDialog()"
+      label="New Task"
+      size="small"
+    />
+  </div>
+  <ejs-kanban
+    #kanbanComponent
+    [dataSource]="tempTasks"
+    [cardSettings]="cardSettings"
+    keyField="status"
+    (dialogOpen)="onDialogOpen($event)"
+    (dragStop)="updateCard($event)"
+  >
+    <e-columns>
+      <e-column headerText="To do" keyField="OPEN" />
+      <e-column headerText="In Progress" keyField="IN_PROGRESS" />
+      <e-column headerText="Done" keyField="DONE" />
+    </e-columns>
+
+    <ng-template #cardSettingsTemplate let-data>
+      <div
+        class="card w-64 h-24 dark:bg-zinc-900 bg-zinc-200 e-card-content gap-3 flex flex-col card-template-wrap"
+      >
+        <div class="flex items-center justify-between">
+          <a
+            [routerLink]="getTaskLink(data)"
+            class="text font-bold hover:underline"
+            >{{ data.id }}</a
+          >
+          <p>
+            <span class="text-xs">Planned Hours: </span>
+            <span>{{ data.plannedHours }}</span>
+          </p>
+        </div>
+        <p class="text-sm flex-1">{{ data.title }}</p>
+
+        <div class="flex items-center justify-between w-full">
+          <p-badge
+            badgeSize="small"
+            [value]="data.priority"
+            [severity]="getBadgeType(data.priority)"
+          />
+          <p class="text-xs opacity-50">
+            <span>Assigned to: </span>
+            <span>{{ data.assignee }}</span>
+          </p>
+        </div>
+      </div>
+    </ng-template>
+  </ejs-kanban>
+
+  <p-dialog
+    [(visible)]="createDialogOpen"
+    (onHide)="closeDialog()"
+    [modal]="true"
+    [style]="{ width: '500px' }"
+    [header]="'New Task'"
+  >
+    <ng-template #content>
+      <app-task-create [project]="selectedProject" [task]="newTask" />
+    </ng-template>
+    <ng-template #footer>
+      <p-button
+        label="Cancel"
+        icon="pi pi-times"
+        text
+        (click)="closeDialog()"
+      />
+      <p-button label="Save" icon="pi pi-check" (click)="saveTask()" />
+    </ng-template>
+  </p-dialog>
+</div>
+} @else {
+<div class="flex items-center justify-center h-full">
+  <p class="text-lg">Select a project to view tasks</p>
+</div>
+}

@@ -4,6 +4,8 @@ import {
   ClientSelectors,
   InvoiceActions,
   InvoiceSelectors,
+  ProjectActions,
+  ProjectSelectors,
 } from '@/app/store';
 import {
   ChangeDetectionStrategy,
@@ -29,6 +31,7 @@ export class InvoicesComponent implements OnInit {
 
   invoices: Invoice[] = [];
   clients: Client[] = [];
+  projects: Project[] = [];
   invoiceModalOpen = false;
   submitting = false;
   loading = false;
@@ -65,6 +68,23 @@ export class InvoicesComponent implements OnInit {
       .subscribe((clientLoaded) => {
         if (!clientLoaded) {
           this.store$.dispatch(ClientActions.loadClients());
+        }
+      });
+    this.store$
+      .select(ProjectSelectors.selectProjects)
+      .pipe(untilDestroyed(this))
+      .subscribe((state) => {
+        if (state) {
+          this.projects = state;
+          this.cdr.detectChanges();
+        }
+      });
+    this.store$
+      .select(ProjectSelectors.selectProjectsLoaded)
+      .pipe(untilDestroyed(this))
+      .subscribe((projectLoaded) => {
+        if (!projectLoaded) {
+          this.store$.dispatch(ProjectActions.loadProjects());
         }
       });
     this.store$
@@ -111,5 +131,15 @@ export class InvoicesComponent implements OnInit {
 
   onDeleteInvoice(event: any) {
     console.log('[DEBUG] deleting invoice', event);
+    this.store$.dispatch(
+      InvoiceActions.deleteInvoice({
+        payload: { data: event?.data },
+      })
+    );
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Invoice Deleted',
+      detail: 'Invoice has been deleted successfully',
+    });
   }
 }

@@ -3,3 +3,72 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Kanban Board Styles */
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-layouts/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-kanban/styles/material.css';
+
+
+.e-kanban .e-kanban-table,
+.e-kanban .e-kanban-header .e-header-cells,
+.e-kanban .e-kanban-content .e-content-row .e-content-cells,
+.e-kanban .e-kanban-table.e-content-table .e-content-row:not(.e-swimlane-row) td,
+.e-kanban .e-kanban-content .e-content-row .e-content-cells .e-card-wrapper .e-card.e-card-color,
+.e-kanban .e-kanban-content .e-content-row .e-content-cells .e-card-wrapper .e-empty-card,
+.e-kanban .e-kanban-content,
+.e-kanban .e-kanban-content {
+    @apply dark:bg-zinc-800 bg-zinc-100;
+}
+
+.e-kanban .e-kanban-content .e-content-row .e-content-cells .e-card-wrapper .e-card {
+    @apply dark:bg-zinc-900 bg-zinc-200;
+}
+
+.e-kanban .e-kanban-header .e-header-cells .e-header-text,
+.e-kanban .e-kanban-header .e-header-cells .e-item-count,
+.e-kanban .e-kanban-content .e-content-row .e-content-cells .e-card-wrapper .e-card .e-card-content {
+    @apply dark:text-gray-100 text-xs text-zinc-950;
+}
+
+.e-kanban .e-kanban-content .e-content-row .e-content-cells .e-card-wrapper .e-card .e-card-header .e-card-header-title {
+    @apply dark:text-gray-50 font-bold hover:underline text-zinc-950;
+}
+
+
+.e-kanban .OPEN::before {
+    content: '\e700';
+    color: #0251cc;
+    font-size: 16px;
+}
+
+.e-kanban .IN_PROGRESS::before {
+    content: '\e703';
+    color: #ea9713;
+    font-size: 16px;
+}
+
+.e-kanban .DONE::before {
+    content: '\e702';
+    color: #63ba3c;
+    font-size: 16px;
+}
+
+[class^="sf-icon-"],
+[class*=" sf-icon-"] {
+    font-family: 'Kanban priority icons' !important;
+    speak: none;
+    font-size: 55px;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

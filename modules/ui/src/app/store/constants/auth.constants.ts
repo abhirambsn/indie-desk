@@ -15,6 +15,7 @@ export const initialAuthState: AuthState = {
     firstName: '',
     lastName: '',
     avatarUrl: '',
+    username: '',
     email: '',
     org: {
       id: '',

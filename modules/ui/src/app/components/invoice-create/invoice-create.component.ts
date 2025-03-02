@@ -42,8 +42,6 @@ export class InvoiceCreateComponent {
         return {
           label: client.name,
           value: {
-            name: client.name,
-            address: client.address,
             id: client.id,
           },
         };
@@ -60,15 +58,24 @@ export class InvoiceCreateComponent {
         return {
           label: project.name,
           value: {
-            name: project.name,
             perHourRate: project.perHourRate,
             id: project.id,
+            clientId: project.client.id
           },
         };
       });
     } else {
       this._projectOptions = [];
     }
+  }
+
+  get projectsByClient() {
+    if (!this.invoice.client) {
+      return [];
+    }
+    return this._projectOptions.filter(
+      (project) => project.value.clientId === this.invoice?.client?.id
+    );
   }
 
   invoiceStatuses = [

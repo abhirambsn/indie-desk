@@ -1,0 +1,57 @@
+[
+  {
+    "name": "Alfa Romeo New Data",
+    "startDate": "2024-03-02",
+    "endDate": "2025-04-01",
+    "owner": "abhirambsn",
+    "client": {
+      "name": "Alfa Romeo Corporation",
+      "city": "New Delhi",
+      "state": "DL",
+      "zip": "110011",
+      "contact": "James Smith",
+      "email": "james.smith@alfaromeo.com",
+      "phone": "908-652-9871",
+      "type": "ORGANIZATION",
+      "address": "1/23, Alfa Romeo Towers, C Block, Connaught Inner Circle, New Delhi",
+      "id": "5ea1a21d-f57b-4022-b116-b618881c9b61",
+      "owner": "abhirambsn",
+      "projects": []
+    },
+    "perHourRate": {
+      "amount": 2500,
+      "currency": "INR"
+    },
+    "status": "ONGOING",
+    "tasks": [],
+    "id": "eca04d0d-5c9b-4200-a011-5ddb26629b9c"
+  },
+  {
+    "perHourRate": {
+      "currency": "USD",
+      "amount": 12
+    },
+    "name": "Data Ingestion Pipeline Maker",
+    "client": {
+      "id": "6",
+      "name": "Green Energy Inc.",
+      "address": "303 Solar Rd",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78701",
+      "phone": "512-555-7890",
+      "email": "hello@greenenergy.com",
+      "contact": "Sarah Green",
+      "projects": [],
+      "type": "ORGANIZATION",
+      "owner": "abhirambsn"
+    },
+    "status": "NEW",
+    "startDate": "2025-04-05",
+    "endDate": "2026-05-06",
+    "description": "DIPM Project, Max 4 Members Team allowed, Rate Negotiation completed",
+    "owner": "abhirambsn",
+    "tasks": [],
+    "id": "d6f82531-d892-4112-a082-e2668db01e13"
+  }
+]

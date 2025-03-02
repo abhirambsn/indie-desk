@@ -9,15 +9,6 @@
         class="mr-2"
         (onClick)="openNew()"
       />
-      <p-button
-        severity="danger"
-        size="small"
-        label="Delete"
-        icon="pi pi-trash"
-        outlined
-        (onClick)="deleteSelectedInvoices()"
-        [disabled]="!selectedInvoices || !selectedInvoices.length"
-      />
     </ng-template>
 
     <ng-template #end>
@@ -76,7 +67,6 @@
 
     <ng-template #header>
       <tr>
-        <th style="width: 1.5rem"><p-tableHeaderCheckbox /></th>
         <th style="width: 12%">Name</th>
         <th style="min-width: 5rem">
           <div class="flex items-center">
@@ -120,13 +110,10 @@
 
     <ng-template #body let-invoice>
       <tr class="text-sm">
-        <td>
-          <p-tableCheckbox value="invoice" />
-        </td>
         <td>{{ invoice.description }}</td>
         <td>{{ invoice.client?.name }}</td>
         <td>{{ invoice.project?.name }}</td>
-        <td>{{ invoice.date }}</td>
+        <td>{{ invoice.date | date : "mediumDate" }}</td>
         <td>
           <p-tag
             styleClass="text-xs"
@@ -134,7 +121,7 @@
             [severity]="getTypeBadge(invoice.status)"
           />
         </td>
-        <td>{{ invoice.dueDate }}</td>
+        <td>{{ invoice.dueDate | date : "mediumDate" }}</td>
         <td>
           <p-button
             [outlined]="true"
@@ -155,7 +142,11 @@
     [header]="getModalHeader()"
   >
     <ng-template #content>
-       <app-invoice-create [clients]="clients" [invoice]="currentInvoice" />
+      <app-invoice-create
+        [projects]="projects"
+        [clients]="clients"
+        [invoice]="currentInvoice"
+      />
     </ng-template>
 
     <ng-template #footer>

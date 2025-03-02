@@ -47,6 +47,30 @@ importers:
       '@primeng/themes':
         specifier: ^19.0.5
         version: 19.0.5
+      '@syncfusion/ej2-angular-kanban':
+        specifier: ^28.2.3
+        version: 28.2.3
+      '@syncfusion/ej2-base':
+        specifier: ^28.2.5
+        version: 28.2.5
+      '@syncfusion/ej2-buttons':
+        specifier: ^28.2.7
+        version: 28.2.7
+      '@syncfusion/ej2-dropdowns':
+        specifier: ^28.2.7
+        version: 28.2.7
+      '@syncfusion/ej2-inputs':
+        specifier: ^28.2.3
+        version: 28.2.3
+      '@syncfusion/ej2-layouts':
+        specifier: ^28.2.5
+        version: 28.2.5
+      '@syncfusion/ej2-navigations':
+        specifier: ^28.2.6
+        version: 28.2.6
+      '@syncfusion/ej2-popups':
+        specifier: ^28.2.6
+        version: 28.2.6
       chart.js:
         specifier: ^4.4.7
         version: 4.4.7
@@ -2003,6 +2027,52 @@ packages:
 
   '@socket.io/component-emitter@3.1.2':
     resolution: {integrity: sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==}
+
+  '@syncfusion/ej2-angular-base@28.2.5':
+    resolution: {integrity: sha512-aECSbaCw8dSJM56ea8G0MUEn/zs2j0SS67deqI2EhjOdzoiVjfTEitEsYFYlXIt2HNl4Kwn4iQFYmYBaZa2JFg==}
+
+  '@syncfusion/ej2-angular-kanban@28.2.3':
+    resolution: {integrity: sha512-gDdyA+g8KwQRivdsWJlEYyxr3ZIfSMLLwhJI7CQ2n5jw/qEP8k7OYQOsMjHys1xqRFiYp/7b44hclK+7Qcxjow==}
+
+  '@syncfusion/ej2-base@28.2.5':
+    resolution: {integrity: sha512-FEM2r55BQGPvEAL8Hzxy2Km+znG7frFcsB+pwfDOxid5agM4b5dbzOzII7vdMgl4MRxplKmcuXkDX28Hozdadg==}
+    hasBin: true
+
+  '@syncfusion/ej2-buttons@28.2.7':
+    resolution: {integrity: sha512-pHWwqvxmc97tNXPaMJpu5iUyZr0RUiIPwbqX9J97lfrt4KqUm6Zzoj9hvMR+ai+gE7cV1KstWrwjUY1H3zYunw==}
+
+  '@syncfusion/ej2-data@28.2.3':
+    resolution: {integrity: sha512-qAZQRqtOp/LhKLznMflaXUefrrinNpqBQkIE49XiUK0WzTZB8bXXtPMI5qPjTfqNkbqM4DelNMEqvqSkAi1BKA==}
+
+  '@syncfusion/ej2-dropdowns@28.2.7':
+    resolution: {integrity: sha512-QHp58huRCv5LqbKz2j7lrYaZtdge3+gN8/a57g0uoleOB/xEt19kTJLXeO6bT5+imwbFtRMHO1js7RmyDedNTw==}
+
+  '@syncfusion/ej2-icons@28.2.3':
+    resolution: {integrity: sha512-lwDMbygU3y15jLkTCtvFb7dwfEtOVknjajYWnp+wmCJF14ZUwDEBuY1jCcpDcEd6mHkDdS5GFlpifdjZhh9jJA==}
+
+  '@syncfusion/ej2-inputs@28.2.3':
+    resolution: {integrity: sha512-BoWxC7Ezi4vPjQRPE6r3zwbdEiT9bmcWYKI5jdc9EXvONId5gD4qgRb3X7kUOBhmsBxb4C8qY055OSeRCz6vYA==}
+
+  '@syncfusion/ej2-kanban@28.2.3':
+    resolution: {integrity: sha512-4jtb72RGk7KkcRYopDQOdRCxBV/eDu31FK0iitkmeUaUOf1Tl1xuimmEhBhEcXufH0EQpRGnS5zX0SO/VHupEg==}
+
+  '@syncfusion/ej2-layouts@28.2.5':
+    resolution: {integrity: sha512-al+ap8vFqULPTcz8gAaf3wvtcQCPNmdXZk8eoh1k60EjtkBMvdlUhDTBnJLPXCmwOQKeg6oX0TrYIlEyM9VqUQ==}
+
+  '@syncfusion/ej2-lists@28.2.3':
+    resolution: {integrity: sha512-MB9ecuC0A3T6jwY6xIuHu5ZOtFcoNJGGCDWHiLRXH2OQWkeTsiGe0vjG2skTcrl0LXkinRAXo79RU1DaPFDB1Q==}
+
+  '@syncfusion/ej2-navigations@28.2.6':
+    resolution: {integrity: sha512-ThpjXVtntfapUX1ep0HvDDBHp5ERnRdRusBOuNONz74hiW23NnlOGjkSFZSJ1qctlpMAuwQXLej4oKikCAjL8w==}
+
+  '@syncfusion/ej2-notifications@28.2.3':
+    resolution: {integrity: sha512-Nkw3XuH5qw0QKEq3m0hAraPIVRVEYUDJgjQGEJZrKCtQCST1t8EPUAD+DjT63HVpzwXK0LGAFWkZgXLevf75Bw==}
+
+  '@syncfusion/ej2-popups@28.2.6':
+    resolution: {integrity: sha512-qqKaNrQlm0NoVImPYRTmwyibLl7B49FW6YbA6P7AlPQjBM3stMjuXIS9fJGXUJ3/ymLIOJJVUg1mlMdhqVATqg==}
+
+  '@syncfusion/ej2-splitbuttons@28.2.3':
+    resolution: {integrity: sha512-8PWYWo+kZgV2JfPkqe6riToKO7blxNBFMo083HdbaE2z76gKkB1Eg3JNCJU2NIqlsb8eZX1eBHd6JoUbTEkgow==}
 
   '@tufjs/canonical-json@2.0.0':
     resolution: {integrity: sha512-yVtV8zsdo8qFHe+/3kw81dSLyF7D576A5cCFCi4X7B39tWT7SekaEFUnvnWJHz+9qO7qJTah1JbrDjWKqFtdWA==}
@@ -7175,6 +7245,96 @@ snapshots:
   '@sindresorhus/merge-streams@2.3.0': {}
 
   '@socket.io/component-emitter@3.1.2': {}
+
+  '@syncfusion/ej2-angular-base@28.2.5':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-icons': 28.2.3
+
+  '@syncfusion/ej2-angular-kanban@28.2.3':
+    dependencies:
+      '@syncfusion/ej2-angular-base': 28.2.5
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-kanban': 28.2.3
+
+  '@syncfusion/ej2-base@28.2.5':
+    dependencies:
+      '@syncfusion/ej2-icons': 28.2.3
+
+  '@syncfusion/ej2-buttons@28.2.7':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+
+  '@syncfusion/ej2-data@28.2.3':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+
+  '@syncfusion/ej2-dropdowns@28.2.7':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-data': 28.2.3
+      '@syncfusion/ej2-inputs': 28.2.3
+      '@syncfusion/ej2-lists': 28.2.3
+      '@syncfusion/ej2-navigations': 28.2.6
+      '@syncfusion/ej2-notifications': 28.2.3
+      '@syncfusion/ej2-popups': 28.2.6
+
+  '@syncfusion/ej2-icons@28.2.3': {}
+
+  '@syncfusion/ej2-inputs@28.2.3':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-buttons': 28.2.7
+      '@syncfusion/ej2-popups': 28.2.6
+      '@syncfusion/ej2-splitbuttons': 28.2.3
+
+  '@syncfusion/ej2-kanban@28.2.3':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-buttons': 28.2.7
+      '@syncfusion/ej2-data': 28.2.3
+      '@syncfusion/ej2-dropdowns': 28.2.7
+      '@syncfusion/ej2-inputs': 28.2.3
+      '@syncfusion/ej2-layouts': 28.2.5
+      '@syncfusion/ej2-navigations': 28.2.6
+      '@syncfusion/ej2-notifications': 28.2.3
+      '@syncfusion/ej2-popups': 28.2.6
+
+  '@syncfusion/ej2-layouts@28.2.5':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+
+  '@syncfusion/ej2-lists@28.2.3':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-buttons': 28.2.7
+      '@syncfusion/ej2-data': 28.2.3
+      '@syncfusion/ej2-popups': 28.2.6
+
+  '@syncfusion/ej2-navigations@28.2.6':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-buttons': 28.2.7
+      '@syncfusion/ej2-data': 28.2.3
+      '@syncfusion/ej2-inputs': 28.2.3
+      '@syncfusion/ej2-lists': 28.2.3
+      '@syncfusion/ej2-popups': 28.2.6
+
+  '@syncfusion/ej2-notifications@28.2.3':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-buttons': 28.2.7
+      '@syncfusion/ej2-popups': 28.2.6
+
+  '@syncfusion/ej2-popups@28.2.6':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-buttons': 28.2.7
+
+  '@syncfusion/ej2-splitbuttons@28.2.3':
+    dependencies:
+      '@syncfusion/ej2-base': 28.2.5
+      '@syncfusion/ej2-popups': 28.2.6
 
   '@tufjs/canonical-json@2.0.0': {}
 

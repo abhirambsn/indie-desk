@@ -43,8 +43,12 @@ export class InvoiceService {
   }
 
   createInvoice(invoice: Invoice, access_token: string) {
+    const payload: any = { ...invoice };
+    delete payload?.project?.perHourRate;
+    delete payload?.clientId;
+
     return this.http
-      .post(InvoiceServiceConstants.INVOICE_BASE_URL, invoice, {
+      .post(InvoiceServiceConstants.INVOICE_BASE_URL, payload, {
         headers: {
           Authorization: `Bearer ${access_token}`,
           'Content-Type': 'application/json',
@@ -60,10 +64,11 @@ export class InvoiceService {
   }
 
   updateInvoice(invoice: Invoice, access_token: string) {
-    console.log('invoice', invoice);
     const id = invoice?.id;
     const payload: any = { ...invoice };
     delete payload.id;
+    delete payload?.project;
+    delete payload?.clientId;
 
     const endpoint = InvoiceServiceConstants.getEditInvoiceEndpoint(id);
 

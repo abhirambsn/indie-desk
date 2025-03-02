@@ -4,6 +4,8 @@ import { initialNavState } from './nav.constants';
 import { initialSearchState } from './search.constants';
 import { initialClientsState } from './client.constants';
 import { initialInvoiceState } from './invoice.constants';
+import { initialProjectState } from './project.constants';
+import { initialTaskState } from './task.constants';
 
 export const initialAppState: AppState = {
   auth: initialAuthState,
@@ -11,6 +13,8 @@ export const initialAppState: AppState = {
   search: initialSearchState,
   clients: initialClientsState,
   invoices: initialInvoiceState,
+  projects: initialProjectState,
+  tasks: initialTaskState,
 };
 
 export const sidebarSections: SidebarSection[] = [

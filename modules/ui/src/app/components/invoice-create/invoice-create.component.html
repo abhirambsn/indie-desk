@@ -39,7 +39,7 @@
           inputId="project"
           id="project"
           [(ngModel)]="invoice.project"
-          [options]="_projectOptions"
+          [options]="projectsByClient"
           [filter]="true"
           filterBy="label"
           [showClear]="true"
@@ -123,11 +123,12 @@
       (onClick)="addTask()"
       icon="pi pi-plus"
       size="small"
+      [disabled]="!invoice.project?.id"
       aria-label="Add Task"
     />
   </div>
 
-  @if (invoice?.items?.length) {
+  @if (invoice.items.length) {
   <table class="gap-2">
     <tr>
       <th class="text-left">Task ID</th>
@@ -155,7 +156,7 @@
     <td>{{ task.id }}</td>
     <td>{{ task.description }}</td>
     <td>{{ task.hours }}</td>
-    <td>{{ (invoice?.project?.perHourRate?.amount || 1000) * task.hours }}</td>
+    <td>{{ (invoice.project?.perHourRate?.amount || 1000) * task.hours }}</td>
 
     <td>
       <p-button

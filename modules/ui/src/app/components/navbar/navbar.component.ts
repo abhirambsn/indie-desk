@@ -1,12 +1,14 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Avatar} from 'primeng/avatar';
 import {TieredMenu} from 'primeng/tieredmenu';
+import {Badge} from 'primeng/badge';
 import {MenuItem} from 'primeng/api';
 import {InputText} from 'primeng/inputtext';
 import {FormControl, ReactiveFormsModule} from '@angular/forms';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/interfaces';
 import {SearchActions} from '../../store/actions';
+import { UserDetailsComponent } from "./user-details/user-details.component";
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +16,10 @@ import {SearchActions} from '../../store/actions';
     Avatar,
     TieredMenu,
     InputText,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    Badge,
+    UserDetailsComponent
+],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -36,6 +40,13 @@ export class NavbarComponent {
   }
 
   public items: MenuItem[] = [
+    {
+      label: 'User Details',
+      id: 'user-details',
+    },
+    {
+      separator: true
+    },
     {
       label: 'Profile',
       icon: 'pi pi-user'

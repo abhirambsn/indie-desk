@@ -3,3 +3,4 @@ export * as AppConstants from './app.constants';
 export * as SearchConstants from './search.constants';
 export * as ClientConstants from './client.constants';
 export * as InvoiceConstants from './invoice.constants';
+export * as ProjectConstants from './project.constants';

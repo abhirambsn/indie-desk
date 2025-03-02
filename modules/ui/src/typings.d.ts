@@ -19,6 +19,7 @@ declare interface User {
   lastName: string;
   avatarUrl: string;
   email: string;
+  username: string;
   org: Organization;
   projects: Project[];
 }
@@ -37,6 +38,8 @@ declare interface Project {
   owner: string;
   client: Client;
   perHourRate: Amount;
+  status: ProjectStatus;
+  description: string;
 }
 
 declare interface Amount {
@@ -73,8 +76,8 @@ declare interface ExportColumn {
 declare interface Invoice {
   id: string;
   description: string;
-  client: Client;
-  project: Project;
+  client?: Client;
+  project?: Project;
   date: Date;
   items: InvoiceItem[];
   status: InvoiceStatus;
@@ -103,4 +106,25 @@ declare interface PaymentInfo {
     cardType?: string;
     chequeNumber?: string;
     upiId?: string;
+}
+
+declare interface Task {
+  id: string;
+  title: string;
+  description: string;
+  project: Project;
+  client?: Client;
+  assignee: string;
+  dueDate?: Date;
+  status: TaskStatus;
+  priority: TaskPriority;
+  comments: Comment[];
+  plannedHours: number;
+}
+
+declare interface Comment {
+  id: string;
+  text: string;
+  user: User;
+  date: Date;
 }

@@ -59,5 +59,147 @@
     "date": "2025-03-01T09:40:54.808Z",
     "owner": "abhirambsn",
     "id": "a82ef9c8-7674-4a10-a086-c8c69d2b1a67"
+  },
+  {
+    "items": [
+      {
+        "description": "Requirement Analysis",
+        "hours": 100,
+        "id": "1"
+      },
+      {
+        "description": "Development",
+        "hours": 600,
+        "id": "2"
+      },
+      {
+        "description": "Testing",
+        "hours": 800,
+        "id": "3"
+      },
+      {
+        "description": "Deployment & Delivery",
+        "hours": 200,
+        "id": "4"
+      }
+    ],
+    "description": "Test Invoice 2",
+    "client": {
+      "id": "6",
+      "name": "Green Energy Inc.",
+      "address": "303 Solar Rd",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78701",
+      "phone": "512-555-7890",
+      "email": "hello@greenenergy.com",
+      "contact": "Sarah Green",
+      "projects": [],
+      "type": "ORGANIZATION",
+      "owner": "abhirambsn"
+    },
+    "project": {
+      "perHourRate": {
+        "currency": "USD",
+        "amount": 12
+      },
+      "name": "Data Ingestion Pipeline Maker",
+      "client": {
+        "id": "6",
+        "name": "Green Energy Inc.",
+        "address": "303 Solar Rd",
+        "city": "Austin",
+        "state": "TX",
+        "zip": "78701",
+        "phone": "512-555-7890",
+        "email": "hello@greenenergy.com",
+        "contact": "Sarah Green",
+        "projects": [],
+        "type": "ORGANIZATION",
+        "owner": "abhirambsn"
+      },
+      "status": "NEW",
+      "startDate": "2025-04-05",
+      "endDate": "2026-05-06",
+      "description": "DIPM Project, Max 4 Members Team allowed, Rate Negotiation completed",
+      "owner": "abhirambsn",
+      "tasks": [],
+      "id": "d6f82531-d892-4112-a082-e2668db01e13"
+    },
+    "status": "SENT",
+    "dueDate": "2025-03-29",
+    "discount": 10,
+    "notes": "Initial Invoice",
+    "date": "2025-03-01T11:47:51.794Z",
+    "owner": "abhirambsn",
+    "id": "7bb8ebe3-235d-407d-9730-af84507ccd0d"
+  },
+  {
+    "items": [
+      {
+        "description": "Data Gathering",
+        "hours": 80,
+        "id": "1"
+      },
+      {
+        "description": "Testing",
+        "hours": 50,
+        "id": "2"
+      },
+      {
+        "description": "Delivery and Deployment",
+        "hours": 40,
+        "id": "3"
+      }
+    ],
+    "client": {
+      "name": "Alfa Romeo Corporation",
+      "city": "New Delhi",
+      "state": "DL",
+      "zip": "110011",
+      "contact": "James Smith",
+      "email": "james.smith@alfaromeo.com",
+      "phone": "908-652-9871",
+      "type": "ORGANIZATION",
+      "address": "1/23, Alfa Romeo Towers, C Block, Connaught Inner Circle, New Delhi",
+      "id": "5ea1a21d-f57b-4022-b116-b618881c9b61",
+      "owner": "abhirambsn",
+      "projects": []
+    },
+    "project": {
+      "name": "Alfa Romeo New Data",
+      "startDate": "2024-03-02",
+      "endDate": "2025-04-01",
+      "owner": "abhirambsn",
+      "client": {
+        "name": "Alfa Romeo Corporation",
+        "city": "New Delhi",
+        "state": "DL",
+        "zip": "110011",
+        "contact": "James Smith",
+        "email": "james.smith@alfaromeo.com",
+        "phone": "908-652-9871",
+        "type": "ORGANIZATION",
+        "address": "1/23, Alfa Romeo Towers, C Block, Connaught Inner Circle, New Delhi",
+        "id": "5ea1a21d-f57b-4022-b116-b618881c9b61",
+        "owner": "abhirambsn",
+        "projects": []
+      },
+      "perHourRate": {
+        "amount": 2500,
+        "currency": "INR"
+      },
+      "status": "ONGOING",
+      "tasks": [],
+      "id": "eca04d0d-5c9b-4200-a011-5ddb26629b9c"
+    },
+    "description": "New Data Pipeline Invoice",
+    "status": "VOID",
+    "dueDate": "2025-04-20",
+    "discount": null,
+    "notes": "Initial Invoice",
+    "date": "2025-03-01T13:53:02.469Z",
+    "owner": "abhirambsn",
+    "id": "44870017-b7ed-4629-aa3a-2c147a3eac56"
   }
 ]

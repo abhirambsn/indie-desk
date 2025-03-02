@@ -1,1 +1,18 @@
-<p>projects works!</p>
+<section class="px-4 py-2">
+    <p-toast />
+    <h3 class="text-2xl tracking-wide">Projects</h3>
+  
+    <div class="mt-10">
+      <app-project-table 
+        (projectDialogOpenClick)="onProjectModalOpenToggle($event)"
+        (projectSave)="onSaveProject($event)"
+        (projectDataDelete)="onDeleteProject($event)"
+        [projectDialogOpen]="projectModalOpen"
+        [loading]="loading"
+        [projects]="projects"
+        [clients]="clients"
+        [submitting]="submitting"
+      />
+    </div>
+  </section>
+  

@@ -22,6 +22,8 @@ declare interface Project {
   owner: string;
   client: Client;
   perHourRate: Amount;
+  status: ProjectStatus;
+  description: string;
 }
 
 declare interface Amount {
@@ -77,4 +79,25 @@ declare interface PaymentInfo {
     cardType?: string;
     chequeNumber?: string;
     upiId?: string;
+}
+
+declare interface Task {
+  id: string;
+  title: string;
+  description: string;
+  project: Project;
+  client: Client;
+  assignee: string;
+  dueDate: Date;
+  status: TaskStatus;
+  priority: TaskPriority;
+  comments: Comment[];
+  plannedHours: number;
+}
+
+declare interface Comment {
+  id: string;
+  text: string;
+  user: User;
+  date: Date;
 }
