@@ -11,7 +11,7 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
-class UserInDB(BaseModel):
+class User(BaseModel):
     first_name: str
     last_name: str
     username: str
