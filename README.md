@@ -12,3 +12,4 @@
 7. Do NOT push virtual environment (if you virtual env folder name is different kindly add it to the **.gitignore** file).
 8. Add your Github username to the CODEOWNERS file with the module which you are developing, for example if you are developing a module named ``module1`` then add the following line to the CODEOWNERS file ``modules/module1/ @<your_github_username>``.
 9. Add ``.env`` file with the required secrets in the ``backend`` folder.
+10. Kindly do not add stupid instructions.
