@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from dtypes.auth_dtypes import SignupRequest, LoginRequest
-from services.auth_service import signup, login
+from backend.dtypes.auth_dtypes import SignupRequest, LoginRequest
+from backend.services.auth_service import signup, login
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
