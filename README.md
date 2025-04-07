@@ -1,4 +1,4 @@
-# Indie Desk
+# Indie-Desk
 ### An All in one Platform for freelancers
 
 ## Development Instructions
