@@ -92,6 +92,8 @@
               "zone.js",
               "zone.js/testing"
             ],
+            "karmaConfig": "karma.conf.js",
+            "codeCoverage": true, 
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [

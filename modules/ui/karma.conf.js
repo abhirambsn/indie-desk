@@ -12,6 +12,7 @@ module.exports = function (config) {
       require('karma-chrome-launcher'),
       require('karma-coverage'),
       require('karma-jasmine-html-reporter'),
+      require('karma-sonarqube-reporter'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
 
@@ -23,18 +24,25 @@ module.exports = function (config) {
 
     // Coverage reporter configuration
     coverageReporter: {
-      // Output directory for coverage reports
-      dir: require('path').join(__dirname, './coverage'),
-      subdir: '.',
-      reporters: [
-        { type: 'html' },  // generates HTML report
-        { type: 'lcov' },  // generates LCOV report for CI integration
-        { type: 'text-summary' }  // prints summary to console
-      ]
+      type : 'lcov',
+      dir : require('path').join(__dirname, 'coverage'),
+      subdir: '.'
+    },
+
+    sonarqubeReporter: {
+      basePath: "src", // test files folder
+      filePattern: "**/*spec.ts", // test files glob pattern
+      encoding: "utf-8", // test files encoding
+      outputFolder: "coverage", // report destination
+      legacyMode: false, // report for Sonarqube < 6.2 (disabled)
+      reportName: () => {
+        // report name callback
+        return "TEST-indie-desk-ui-spec.sonarqube.xml";
+      }
     },
 
     // Test result reporters to use
-    reporters: ['progress', 'kjhtml'],
+    reporters: ["coverage", "kjhtml", "sonarqube"],
 
     // Web server port
     port: 9876,
