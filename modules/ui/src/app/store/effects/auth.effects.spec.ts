@@ -90,12 +90,12 @@ describe('AuthEffects', () => {
     })
 
     const userDetails = {
-      firstName: 'test',
-      lastName: 'user',
+      first_name: 'test',
+      last_name: 'user',
       email: 'test.email@eml.com',
       username: 'testuser',
       id: 'test-id',
-      avatarUrl: 'test-avatar',
+      avatar_url: 'test-avatar',
       org: {
         id: 'test-org-id',
         name: 'test-org',

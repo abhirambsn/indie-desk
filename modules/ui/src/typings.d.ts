@@ -15,9 +15,9 @@ declare interface SidebarItem {
 
 declare interface User {
   id: string;
-  firstName: string;
-  lastName: string;
-  avatarUrl: string;
+  first_name: string;
+  last_name: string;
+  avatar_url: string;
   email: string;
   username: string;
   org: Organization;
@@ -120,6 +120,36 @@ declare interface Task {
   priority: TaskPriority;
   comments: Comment[];
   plannedHours: number;
+}
+
+declare interface SupportTicket {
+  id: string;
+  title: string;
+  description: string;
+  project: string;
+  client?: Client;
+  assignee: string;
+  priority: TicketPriority;
+  status: TicketStatus;
+  comments: TicketComments[];
+  attachments: TicketAttachment[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+declare interface TicketComment {
+  id: string;
+  text: string;
+  type: "internal" | "external";
+  user: User;
+  date: Date;
+}
+
+declare interface TicketAttachment {
+  id: string;
+  url: string;
+  type: string;
+  timestamp: Date;
 }
 
 declare interface Comment {

@@ -12,9 +12,9 @@ export const initialAuthState: AuthState = {
   error: '',
   user: {
     id: '',
-    firstName: '',
-    lastName: '',
-    avatarUrl: '',
+    first_name: '',
+    last_name: '',
+    avatar_url: '',
     username: '',
     email: '',
     org: {

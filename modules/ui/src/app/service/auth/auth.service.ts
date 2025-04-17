@@ -28,9 +28,9 @@ export class AuthService {
             expires_at: -1
           }
 
-          const access_token = response?.data?.access_token as string;
-          const refresh_token = response?.data?.refresh_token as string;
-          const expires_at = response?.data?.expires_at as number;
+          const access_token = response?.access_token as string;
+          const refresh_token = response?.refresh_token as string;
+          const expires_at = response?.expires_at as number;
 
           if (access_token && refresh_token && expires_at) {
             localStorage.setItem(AuthServiceConstants.ACCESS_TOKEN_LS_KEY, access_token);
@@ -61,7 +61,7 @@ export class AuthService {
     })
       .pipe(
         map((response: any) => {
-          return response?.data as User;
+          return response as User;
         }),
         catchError(error => {
           console.error(error);

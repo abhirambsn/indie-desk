@@ -18,6 +18,7 @@ export class AuthEffects {
       exhaustMap((payload) => this.service.login(payload)
         .pipe(
           map(loginResponse => {
+            console.log('[DEBUG] loginResponse', loginResponse);
             this.router.navigate(["/dashboard"]);
             return AuthActions.loginSuccess(loginResponse)
           }),
