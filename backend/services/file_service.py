@@ -20,7 +20,7 @@ async def file_upload(file: UploadFile = File(...), metadata: Optional[dict] = N
             f.write(content)
 
         file_id = MongoDB.insert_file(
-            db_name="filedb",
+            db_name="files",
             file_path=temp_file_path,
             filename=file.filename,
             metadata=metadata
@@ -58,7 +58,7 @@ async def file_retrieve(file_id: str, output_path: Optional[str] = None):
 
         # Retrieve the file from GridFS
         file_path = MongoDB.get_file(
-            db_name="filedb", 
+            db_name="files", 
             file_id=gridfs_id, 
             output_path=output_path
         )
