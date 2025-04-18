@@ -3,46 +3,46 @@ from dtypes.file_dtypes import FileMeta, FileResponse
 from fastapi import HTTPException, UploadFile, File
 from bson import ObjectId
 from typing import Optional
+from datetime import datetime
 import os
 
-async def file_upload(file: UploadFile = File(...), metadata: Optional[dict] = None):
+async def file_upload(file: UploadFile = File(...)):
     """
     Uploads a file to MongoDB and stores metadata.
     Returns a response with file details.
     """
-    # Save the file to MongoDB using GridFS
     try:
-        # Define the file path temporarily
+        # Save to temp file first
         temp_file_path = f"/tmp/{file.filename}"
-
         with open(temp_file_path, "wb") as f:
             content = await file.read()
             f.write(content)
 
-        file_id = MongoDB.insert_file(
-            db_name="files",
-            file_path=temp_file_path,
-            filename=file.filename,
-            metadata=metadata
-        )
-
-        # Remove the temporary file after upload
-        os.remove(temp_file_path)
-
-        # Prepare the metadata response
+        # Create metadata
         file_meta = FileMeta(
             filename=file.filename,
-            gridfs_id=str(file_id),
-            uploaded_by="system",  # You can add actual uploader's details here
+            uploaded_by="system",  # Optional: Replace with actual user
             content_type=file.content_type,
-            upload_date=file.content_type  # You can modify this if needed
+            upload_date=str(datetime.utcnow()),
+            gridfs_id=""  # Placeholder, will update after inserting
         )
 
-        return FileResponse(
+        # Insert into MongoDB using GridFS
+        file_id = MongoDB.insert_file(
+            db_name="iddb",
+            file_path=temp_file_path,
             filename=file.filename,
-            content_type=file.content_type
+            metadata=file_meta.model_dump(exclude={"gridfs_id"})
         )
-    
+
+        # Clean up temp file
+        os.remove(temp_file_path)
+
+        # Update gridfs_id in response
+        file_meta.gridfs_id = str(file_id)
+
+        return file_meta
+
     except Exception as e:
         print("❌ File Upload Error:", e)
         raise HTTPException(status_code=500, detail="File upload failed")
@@ -58,7 +58,7 @@ async def file_retrieve(file_id: str, output_path: Optional[str] = None):
 
         # Retrieve the file from GridFS
         file_path = MongoDB.get_file(
-            db_name="files", 
+            db_name="iddb", 
             file_id=gridfs_id, 
             output_path=output_path
         )
