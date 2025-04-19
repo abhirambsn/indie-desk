@@ -15,7 +15,6 @@ import { MessageService } from 'primeng/api';
   standalone: false,
   providers: [MessageService],
   templateUrl: './tasks.component.html',
-  styleUrl: './tasks.component.scss',
 })
 export class TasksComponent implements OnInit {
   projects: Project[] = [];
@@ -61,7 +60,6 @@ export class TasksComponent implements OnInit {
   }
 
   onProjectChange(event: any) {
-    console.log(event);
     this.store$.dispatch(
       ProjectActions.selectProject({ payload: event.value })
     );

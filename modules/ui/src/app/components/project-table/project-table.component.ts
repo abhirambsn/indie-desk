@@ -52,7 +52,6 @@ import { ProjectCreateComponent } from '../project-create/project-create.compone
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './project-table.component.html',
-  styleUrl: './project-table.component.scss',
 })
 export class ProjectTableComponent implements OnInit {
   @Input() projects: Project[] = [];

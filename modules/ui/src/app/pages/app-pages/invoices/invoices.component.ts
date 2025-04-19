@@ -22,7 +22,6 @@ import { MessageService } from 'primeng/api';
   selector: 'app-invoices',
   providers: [MessageService],
   templateUrl: './invoices.component.html',
-  styleUrl: './invoices.component.scss',
   standalone: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

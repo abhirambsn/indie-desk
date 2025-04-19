@@ -21,7 +21,6 @@ import _ from 'lodash';
   selector: 'app-task-list',
   imports: [KanbanModule, RouterLink, Badge, FormsModule, Button, Dialog, TaskCreateComponent],
   templateUrl: './task-list.component.html',
-  styleUrl: './task-list.component.scss',
 })
 export class TaskListComponent implements OnChanges {
   @Input() selectedProject!: Project | null;
@@ -80,7 +79,7 @@ export class TaskListComponent implements OnChanges {
   onDialogOpen(args: DialogEventArgs) {
     args.cancel = true;
   }
-  
+
   closeDialog() {
     this.createDialogOpen = false;
     this.newTask = {} as Task;

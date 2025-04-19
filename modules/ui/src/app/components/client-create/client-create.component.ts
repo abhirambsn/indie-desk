@@ -17,7 +17,6 @@ import ClientType from '@/app/enums/client-type.enum';
     Select
   ],
   templateUrl: './client-create.component.html',
-  styleUrl: './client-create.component.scss'
 })
 export class ClientCreateComponent {
   @Input() client: Client = {} as Client;

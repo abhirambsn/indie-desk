@@ -126,7 +126,7 @@ declare interface SupportTicket {
   id: string;
   title: string;
   description: string;
-  project: string;
+  project: Project;
   client?: Client;
   assignee: string;
   priority: TicketPriority;

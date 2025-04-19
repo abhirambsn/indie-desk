@@ -14,7 +14,6 @@ import { MessageService } from 'primeng/api';
     MessageService
   ],
   standalone: false,
-  styleUrl: './clients.component.scss'
 })
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];

@@ -21,7 +21,6 @@ import { Textarea } from 'primeng/textarea';
     NgTemplateOutlet,
   ],
   templateUrl: './invoice-create.component.html',
-  styleUrl: './invoice-create.component.scss',
 })
 export class InvoiceCreateComponent {
   @Input() invoice: Invoice = {

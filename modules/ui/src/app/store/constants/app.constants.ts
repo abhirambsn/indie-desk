@@ -6,6 +6,7 @@ import { initialClientsState } from './client.constants';
 import { initialInvoiceState } from './invoice.constants';
 import { initialProjectState } from './project.constants';
 import { initialTaskState } from './task.constants';
+import { initialTicketState } from './ticket.constants';
 
 export const initialAppState: AppState = {
   auth: initialAuthState,
@@ -15,6 +16,7 @@ export const initialAppState: AppState = {
   invoices: initialInvoiceState,
   projects: initialProjectState,
   tasks: initialTaskState,
+  tickets: initialTicketState
 };
 
 export const sidebarSections: SidebarSection[] = [

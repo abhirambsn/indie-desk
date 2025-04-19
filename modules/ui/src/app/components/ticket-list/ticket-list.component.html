@@ -1,0 +1,38 @@
+@if (selectedProject) {
+<div class="card">
+  <div class="flex items-center-justify-between mb-4">
+    <h6 class="text-lg mb-5">
+      Showing tickets of <strong>{{ selectedProject.name }}</strong>
+    </h6>
+    <p-button
+      icon="pi pi-plus"
+      (onClick)="openCreateDialog()"
+      label="New Ticket"
+      size="small"
+    />
+  </div>
+</div>
+
+<p-dialog
+  [(visible)]="createDialogOpen"
+  (onHide)="closeDialog()"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [header]="'New Ticket'"
+>
+  <ng-template #content> </ng-template>
+  <ng-template #footer>
+    <p-button
+      label="Cancel"
+      icon="pi pi-times"
+      (onClick)="closeDialog()"
+      class="p-button-text"
+    />
+    <p-button label="Save" icon="pi pi-check" (onClick)="saveTicket()" />
+  </ng-template>
+</p-dialog>
+} @else {
+<div class="flex items-center justify-center h-full">
+  <p class="text-lg">Select a project to view tickets</p>
+</div>
+}

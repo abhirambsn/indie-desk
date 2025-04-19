@@ -21,7 +21,6 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService],
   standalone: false,
   templateUrl: './projects.component.html',
-  styleUrl: './projects.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProjectsComponent implements OnInit {

@@ -16,18 +16,20 @@ import {
   InvoiceEffects,
   ProjectEffects,
   SearchEffects,
+  TaskEffects,
+  TicketEffects,
   authReducer,
   clientReducer,
   invoiceReducer,
   navReducer,
   projectReducer,
+  taskReducer,
+  searchReducer,
+  ticketReducer
 } from '@/app/store';
 import { provideHttpClient } from '@angular/common/http';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { searchReducer } from './store/reducers/search.reducer';
 import IndieDeskTheme from './indie-desk-theme';
-import { taskReducer } from './store/reducers/task.reducer';
-import { TaskEffects } from './store/effects/task.effects';
 
 export function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {
@@ -60,6 +62,7 @@ export const appConfig: ApplicationConfig = {
         invoices: invoiceReducer,
         projects: projectReducer,
         tasks: taskReducer,
+        tickets: ticketReducer
       },
       {
         metaReducers,
@@ -76,7 +79,8 @@ export const appConfig: ApplicationConfig = {
       ClientEffects,
       InvoiceEffects,
       ProjectEffects,
-      TaskEffects
+      TaskEffects,
+      TicketEffects
     ),
     provideHttpClient(),
   ],

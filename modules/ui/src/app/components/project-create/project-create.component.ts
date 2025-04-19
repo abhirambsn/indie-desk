@@ -17,7 +17,6 @@ import { Textarea } from 'primeng/textarea';
     Select,
   ],
   templateUrl: './project-create.component.html',
-  styleUrl: './project-create.component.scss',
 })
 export class ProjectCreateComponent {
   @Input() project: Project = {} as Project;

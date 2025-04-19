@@ -11,7 +11,6 @@ import {AppState} from '@/app/store/interfaces';
   selector: 'app-login',
   standalone: false,
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
 })
 export class LoginComponent {
   loginForm: FormGroup;

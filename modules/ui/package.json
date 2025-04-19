@@ -10,7 +10,7 @@
     "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
     "lint": "ng lint",
     "deploy": "echo 'Deployment setup not done. skipping deployment.'; exit 0",
-    "sonar": "sonar-scanner"
+    "sonar": "sonar-scanner -Dsonar.token=$SONAR_TOKEN"
   },
   "private": true,
   "dependencies": {

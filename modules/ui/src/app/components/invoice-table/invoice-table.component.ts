@@ -48,7 +48,6 @@ import { DatePipe } from '@angular/common';
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './invoice-table.component.html',
-  styleUrl: './invoice-table.component.scss',
 })
 export class InvoiceTableComponent implements OnInit {
   @Input() invoices: Invoice[] = [];

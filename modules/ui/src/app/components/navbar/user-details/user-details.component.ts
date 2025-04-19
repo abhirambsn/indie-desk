@@ -7,7 +7,6 @@ import { AvatarModule } from 'primeng/avatar';
     AvatarModule
   ],
   templateUrl: './user-details.component.html',
-  styleUrl: './user-details.component.scss'
 })
 export class UserDetailsComponent {
   @Input() userDetails: User = {} as User;

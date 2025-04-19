@@ -15,7 +15,6 @@ import {sidebarSections} from '../../store/constants/app.constants';
   selector: 'app-nav-layout',
   imports: [RouterOutlet, SidebarComponent, NavbarComponent],
   templateUrl: './nav-layout.component.html',
-  styleUrl: './nav-layout.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavLayoutComponent implements OnInit{

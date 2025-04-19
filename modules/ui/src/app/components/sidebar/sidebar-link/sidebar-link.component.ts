@@ -9,7 +9,6 @@ import {NgClass} from '@angular/common';
     NgClass
   ],
   templateUrl: './sidebar-link.component.html',
-  styleUrl: './sidebar-link.component.scss'
 })
 export class SidebarLinkComponent {
   @Input() item: SidebarItem = {} as SidebarItem;

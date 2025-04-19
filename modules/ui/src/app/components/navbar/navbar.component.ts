@@ -21,7 +21,6 @@ import { UserDetailsComponent } from "./user-details/user-details.component";
     UserDetailsComponent
 ],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
   constructor(private readonly store$: Store<AppState>) { }

@@ -7,7 +7,6 @@ import {Card} from 'primeng/card';
     Card
   ],
   templateUrl: './kpi-card.component.html',
-  styleUrl: './kpi-card.component.scss'
 })
 export class KpiCardComponent {
   @Input() title = '';

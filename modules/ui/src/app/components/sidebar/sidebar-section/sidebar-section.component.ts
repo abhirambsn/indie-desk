@@ -7,7 +7,6 @@ import {SidebarLinkComponent} from '../sidebar-link/sidebar-link.component';
     SidebarLinkComponent
   ],
   templateUrl: './sidebar-section.component.html',
-  styleUrl: './sidebar-section.component.scss'
 })
 export class SidebarSectionComponent {
 

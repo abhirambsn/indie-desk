@@ -42,6 +42,7 @@ export const routes: Routes = [
     InvoicesComponent,
     ProjectsComponent,
     TasksComponent,
+    SupportTicketsComponent,
   ],
   imports: [
     RouterModule.forChild(routes),

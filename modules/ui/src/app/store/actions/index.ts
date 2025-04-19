@@ -5,3 +5,4 @@ export * as ClientActions from './client.actions';
 export * as InvoiceActions from './invoice.actions';
 export * as ProjectActions from './project.actions';
 export * as TaskActions from './task.actions';
+export * as TicketActions from './ticket.actions';

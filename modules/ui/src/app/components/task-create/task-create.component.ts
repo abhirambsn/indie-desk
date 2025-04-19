@@ -16,7 +16,6 @@ import { Textarea } from 'primeng/textarea';
     Select,
   ],
   templateUrl: './task-create.component.html',
-  styleUrl: './task-create.component.scss',
 })
 export class TaskCreateComponent {
   @Input() project!: Project;
@@ -35,5 +34,5 @@ export class TaskCreateComponent {
     { label: 'High', value: 'HIGH' },
   ];
 
-  
+
 }
