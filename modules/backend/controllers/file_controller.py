@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File
-from services.file_service import file_upload, file_retrieve
-from dtypes.file_dtypes import FileResponse
+from ..services.file_service import file_upload, file_retrieve
+from ..dtypes.file_dtypes import FileResponse
 
 router = APIRouter(prefix="/api/v1/files", tags=["Files"])
 

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from dotenv import load_dotenv
-from controllers.auth_controller import router as auth_router
-from controllers.file_controller import router as file_router
+from .controllers.auth_controller import router as auth_router
+from .controllers.file_controller import router as file_router
 load_dotenv()
 
 app = FastAPI()

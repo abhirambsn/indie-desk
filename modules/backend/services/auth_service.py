@@ -1,5 +1,5 @@
-from models.database_model import MongoDB
-from dtypes.auth_dtypes import SignupRequest, LoginRequest, User
+from ..models.database_model import MongoDB
+from ..dtypes.auth_dtypes import SignupRequest, LoginRequest, User
 from fastapi import HTTPException, Request
 from passlib.context import CryptContext
 from jose import jwt

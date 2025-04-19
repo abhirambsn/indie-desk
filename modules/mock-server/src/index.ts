@@ -646,14 +646,12 @@ app.post("/api/v1/ticket", authMiddleware, (req: Request, res: Response) => {
   };
   const insertedId = db.insert("tickets", ticket);
   res.status(200).json({ message: "ok", data: { id: insertedId, ...ticket } });
-  return;
 });
 
 app.get("/api/v1/ticket", authMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const tickets = db.find("tickets", { owner: username });
   res.status(200).json({ message: "ok", data: tickets });
-  return;
 });
 
 app.get(
@@ -668,7 +666,6 @@ app.get(
       return;
     }
     res.status(200).json({ message: "ok", data: ticket });
-    return;
   }
 );
 
@@ -690,7 +687,6 @@ app.patch(
       return;
     }
     res.status(200).json({ message: "ok", data: ticket });
-    return;
   }
 );
 
@@ -708,7 +704,6 @@ app.delete(
 
     db.remove("tickets", ticketId);
     res.status(204).send();
-    return;
   }
 );
 

@@ -1,9 +1,10 @@
-from models.database_model import MongoDB
-from dtypes.file_dtypes import FileMeta, FileResponse
+from ..models.database_model import MongoDB
+from ..dtypes.file_dtypes import FileMeta, FileResponse
 from fastapi import HTTPException, UploadFile, File
 from bson import ObjectId
 from typing import Optional
 from datetime import datetime
+from zoneinfo import ZoneInfo
 import os
 
 async def file_upload(file: UploadFile = File(...)):
@@ -23,7 +24,7 @@ async def file_upload(file: UploadFile = File(...)):
             filename=file.filename,
             uploaded_by="system",  # Optional: Replace with actual user
             content_type=file.content_type,
-            upload_date=str(datetime.utcnow()),
+            upload_date=str(datetime.now(tz=ZoneInfo('UTC'))),
             gridfs_id=""  # Placeholder, will update after inserting
         )
 

@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends
 from typing import Annotated
-from dtypes.auth_dtypes import SignupRequest, LoginRequest
-from services.auth_service import signup, login, get_profile, get_profile_from_username
+from ..dtypes.auth_dtypes import SignupRequest, LoginRequest
+from ..services.auth_service import signup, login, get_profile, get_profile_from_username
 
 router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
 

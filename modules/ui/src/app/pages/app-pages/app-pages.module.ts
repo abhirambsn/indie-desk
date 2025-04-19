@@ -19,6 +19,7 @@ import { ProjectTableComponent } from "../../components/project-table/project-ta
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { TaskListComponent } from "../../components/task-list/task-list.component";
+import { TicketListComponent } from "../../components/ticket-list/ticket-list.component";
 
 export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
@@ -54,7 +55,8 @@ export const routes: Routes = [
     ProjectTableComponent,
     SelectModule,
     FormsModule,
-    TaskListComponent
+    TaskListComponent,
+    TicketListComponent
 ],
   exports: [
     RouterModule
