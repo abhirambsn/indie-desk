@@ -7,7 +7,7 @@ import { catchError, map, of } from 'rxjs';
   providedIn: 'root',
 })
 export class InvoiceService {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getInvoices(access_token: string) {
     return this.http

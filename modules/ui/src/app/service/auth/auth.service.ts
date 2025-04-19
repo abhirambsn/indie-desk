@@ -11,7 +11,7 @@ import {AuthHelper} from '../../helpers/auth.helper';
 export class AuthService {
   private authenticated = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private readonly http: HttpClient) {
     const localStorageCreds = AuthHelper.getCredentialsFromLocalStorage();
     if (localStorageCreds && localStorageCreds.expires_at > Date.now()) {
       this.authenticated = true;

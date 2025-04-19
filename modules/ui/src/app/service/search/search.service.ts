@@ -9,7 +9,7 @@ import {of} from 'rxjs';
 })
 export class SearchService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   search(query: string) {
     return this.http.post(SearchServiceConstants.SEARCH_BASE_URL, {query})

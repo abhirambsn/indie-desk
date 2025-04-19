@@ -7,7 +7,7 @@ import { catchError, map, of } from 'rxjs';
   providedIn: 'root',
 })
 export class ProjectService {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getProjects(access_token: string) {
     return this.http

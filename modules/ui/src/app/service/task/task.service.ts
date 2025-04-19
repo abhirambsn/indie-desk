@@ -7,7 +7,7 @@ import { catchError, map, of } from 'rxjs';
   providedIn: 'root',
 })
 export class TaskService {
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   getTasks(projectId: string, access_token: string) {
     const endpoint = TaskServiceConstants.getTaskBaseURL(projectId);

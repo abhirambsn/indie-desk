@@ -67,21 +67,21 @@
 
     <ng-template #header>
       <tr>
-        <th style="width: 12%">Name</th>
-        <th style="min-width: 5rem">
+        <th scope="col" style="width: 12%">Name</th>
+        <th scope="col" style="min-width: 5rem">
           <div class="flex items-center">
             Client
             <p-columnFilter type="text" field="clientName" display="menu" />
           </div>
         </th>
-        <th style="min-width: 5rem">
+        <th scope="col" style="min-width: 5rem">
           <div class="flex items-center">
             Project
             <p-columnFilter type="text" field="project" display="menu" />
           </div>
         </th>
-        <th style="width: 12%">Generated On</th>
-        <th style="min-width: 10rem">
+        <th scope="col" style="width: 12%">Generated On</th>
+        <th scope="col" style="min-width: 10rem">
           <div class="flex items-center">
             Status
             <p-columnFilter field="type" matchMode="equals" display="menu">
@@ -103,8 +103,8 @@
             </p-columnFilter>
           </div>
         </th>
-        <th style="width: 12%">Due Date</th>
-        <th></th>
+        <th scope="col" style="width: 12%">Due Date</th>
+        <th scope="col"></th>
       </tr>
     </ng-template>
 

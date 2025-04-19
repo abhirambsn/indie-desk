@@ -76,28 +76,28 @@
 
     <ng-template #header>
       <tr>
-        <th style="width: 1.5rem"><p-tableHeaderCheckbox /></th>
-        <th style="min-width: 10rem">
+        <th scope="col" style="width: 1.5rem"><p-tableHeaderCheckbox /></th>
+        <th scope="col" style="min-width: 10rem">
           <div class="flex items-center">Name</div>
         </th>
-        <th style="min-width: 5rem">
+        <th scope="col" style="min-width: 5rem">
           <div class="flex items-center">
             City
             <p-columnFilter type="text" field="city" display="menu" />
           </div>
         </th>
-        <th style="min-width: 5rem">
+        <th scope="col" style="min-width: 5rem">
           <div class="flex items-center">
             State
             <p-columnFilter type="text" field="state" display="menu" />
           </div>
         </th>
 
-        <th style="min-width: 4rem">Zip</th>
-        <th style="width: 12%">Phone</th>
-        <th style="width: 12%">Email</th>
-        <th style="width: 12%">Contact</th>
-        <th style="min-width: 10rem">
+        <th scope="col" style="min-width: 4rem">Zip</th>
+        <th scope="col" style="width: 12%">Phone</th>
+        <th scope="col" style="width: 12%">Email</th>
+        <th scope="col" style="width: 12%">Contact</th>
+        <th scope="col" style="min-width: 10rem">
           <div class="flex items-center">
             Type
             <p-columnFilter field="type" matchMode="equals" display="menu">
@@ -119,7 +119,7 @@
             </p-columnFilter>
           </div>
         </th>
-        <th></th>
+        <th scope="col"></th>
       </tr>
     </ng-template>
 

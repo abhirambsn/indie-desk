@@ -7,7 +7,7 @@ import { TicketServiceConstants } from './ticket.service.constants';
 })
 export class TicketService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   getTickets(projectId: string, accessToken: string) {
     return this.http.get(TicketServiceConstants.getTicketEndpointByProjectId(projectId), {
