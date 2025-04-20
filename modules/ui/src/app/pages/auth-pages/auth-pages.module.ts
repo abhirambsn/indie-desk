@@ -10,15 +10,18 @@ import {ButtonComponent} from '../../components/button/button.component';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { ButtonModule } from 'primeng/button';
 import {Fluid} from 'primeng/fluid';
+import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
 ]
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     RouterModule.forChild(routes),

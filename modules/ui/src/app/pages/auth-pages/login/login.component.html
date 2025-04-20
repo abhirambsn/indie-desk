@@ -19,7 +19,7 @@
 
           <p-fluid class="mb-2 mt-1 gap-2 flex flex-col">
             <p-button (click)="triggerLogin()" label="Login" icon="pi pi-sign-in" />
-            <p-button outlined>New User? Register Here</p-button>
+            <p-button [link]="true" [routerLink]="'/auth/register'" outlined>New User? Register Here</p-button>
           </p-fluid>
       </form>
     </p-card>
