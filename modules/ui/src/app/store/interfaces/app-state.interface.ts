@@ -6,6 +6,7 @@ import { InvoiceState } from './invoice-state.interface';
 import { ProjectState } from './project-state.interface';
 import { TaskState } from './task-state.interface';
 import { TicketState } from './ticket-state.interface';
+import { UserState } from './user-state.interface';
 
 export interface AppState {
   auth: AuthState;
@@ -16,5 +17,6 @@ export interface AppState {
   projects: ProjectState;
   tasks: TaskState;
   tickets: TicketState;
+  users: UserState;
 }
 

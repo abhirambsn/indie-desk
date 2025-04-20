@@ -80,7 +80,7 @@
     <tr class="text-sm">
       <td>{{ ticket.id }}</td>
       <td>{{ ticket.title }}</td>
-      <td>{{ ticket.assignee }}</td>
+      <td>{{ ticket.assignee?.first_name }} {{ ticket.assignee?.last_name }}</td>
       <td>
         <p-tag
           [value]="ticket.status"
@@ -119,7 +119,7 @@
   [header]="'New Ticket'"
 >
   <ng-template #content>
-    <app-ticket-create [project]="selectedProject" [ticket]="newTicket" />
+    <app-ticket-create [users]="supportUsers" [project]="selectedProject" [ticket]="newTicket" />
   </ng-template>
   <ng-template #footer>
     <p-button

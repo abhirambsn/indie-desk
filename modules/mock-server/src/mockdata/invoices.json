@@ -201,5 +201,143 @@
     "date": "2025-03-01T13:53:02.469Z",
     "owner": "abhirambsn",
     "id": "44870017-b7ed-4629-aa3a-2c147a3eac56"
+  },
+  {
+    "items": [
+      {
+        "description": "Advanced Survey of Developed System",
+        "hours": 20,
+        "id": "1"
+      },
+      {
+        "description": "Making Suggested Improvments based on Survey",
+        "hours": 30,
+        "id": "2"
+      },
+      {
+        "description": "Security Hardening & Testing",
+        "hours": 30,
+        "id": "3"
+      }
+    ],
+    "description": "Pre Invoice for Month of May",
+    "client": {
+      "id": "6",
+      "name": "Green Energy Inc.",
+      "address": "303 Solar Rd",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78701",
+      "phone": "512-555-7890",
+      "email": "hello@greenenergy.com",
+      "contact": "Sarah Green",
+      "projects": [],
+      "type": "ORGANIZATION",
+      "owner": "abhirambsn"
+    },
+    "project": {
+      "perHourRate": {
+        "currency": "USD",
+        "amount": 12
+      },
+      "name": "Data Ingestion Pipeline Maker",
+      "client": {
+        "id": "6",
+        "name": "Green Energy Inc.",
+        "address": "303 Solar Rd",
+        "city": "Austin",
+        "state": "TX",
+        "zip": "78701",
+        "phone": "512-555-7890",
+        "email": "hello@greenenergy.com",
+        "contact": "Sarah Green",
+        "projects": [],
+        "type": "ORGANIZATION",
+        "owner": "abhirambsn"
+      },
+      "status": "NEW",
+      "startDate": "2025-04-05",
+      "endDate": "2026-05-06",
+      "description": "DIPM Project, Max 4 Members Team allowed, Rate Negotiation completed",
+      "owner": "abhirambsn",
+      "tasks": [],
+      "id": "d6f82531-d892-4112-a082-e2668db01e13"
+    },
+    "status": "DRAFT",
+    "dueDate": "2025-06-05",
+    "discount": 2.5,
+    "notes": "Draft Pre Invoice for Services to be provided in month of May",
+    "date": "2025-04-20T05:57:47.682Z",
+    "owner": "abhirambsn",
+    "id": "afb2ac72-810a-4cdb-8ac5-7c5702312f54"
+  },
+  {
+    "items": [
+      {
+        "description": "Advanced Survey",
+        "hours": 20,
+        "id": "1"
+      },
+      {
+        "description": "Improvements based on Survey",
+        "hours": 30,
+        "id": "2"
+      },
+      {
+        "description": "Security Hardening & Testing",
+        "hours": 30,
+        "id": "3"
+      }
+    ],
+    "description": "Pre Invoice for Month of May",
+    "client": {
+      "id": "6",
+      "name": "Green Energy Inc.",
+      "address": "303 Solar Rd",
+      "city": "Austin",
+      "state": "TX",
+      "zip": "78701",
+      "phone": "512-555-7890",
+      "email": "hello@greenenergy.com",
+      "contact": "Sarah Green",
+      "projects": [],
+      "type": "ORGANIZATION",
+      "owner": "abhirambsn"
+    },
+    "project": {
+      "perHourRate": {
+        "currency": "USD",
+        "amount": 12
+      },
+      "name": "Data Ingestion Pipeline Maker",
+      "client": {
+        "id": "6",
+        "name": "Green Energy Inc.",
+        "address": "303 Solar Rd",
+        "city": "Austin",
+        "state": "TX",
+        "zip": "78701",
+        "phone": "512-555-7890",
+        "email": "hello@greenenergy.com",
+        "contact": "Sarah Green",
+        "projects": [],
+        "type": "ORGANIZATION",
+        "owner": "abhirambsn"
+      },
+      "status": "NEW",
+      "startDate": "2025-04-05",
+      "endDate": "2026-05-06",
+      "description": "DIPM Project, Max 4 Members Team allowed, Rate Negotiation completed",
+      "owner": "abhirambsn",
+      "tasks": [],
+      "id": "d6f82531-d892-4112-a082-e2668db01e13"
+    },
+    "status": "SENT",
+    "dueDate": "2025-06-05",
+    "discount": 2.5,
+    "notes": "Draft Invoice for Services to be provided in the month of May",
+    "date": "2025-04-20T06:01:18.172Z",
+    "owner": "abhirambsn",
+    "id": "a00dd75c-6065-4d72-8089-6a573b785ea3"
   }
 ]

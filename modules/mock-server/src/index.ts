@@ -19,7 +19,7 @@ const db = new JSONFileBasedDB();
 app.use(cors());
 app.use(express.json());
 
-const JWT_SECRET = "super-secret-development-jwt-key";
+const JWT_SECRET = "mmmy-super-secret-f1-team-key-haha";
 
 app.get("/", (req: Request, res: Response) => {
   res.json({ message: "ok" }).status(200);
@@ -55,7 +55,7 @@ app.post("/api/v1/auth/token", (req: Request, res: Response) => {
   );
   const access_token = jwt.sign(payload, JWT_SECRET, {
     expiresIn: Math.floor(currentTime) + 60 * 60 * 1000,
-    issuer: "mock.auth.indie-desk.co",
+    issuer: "auth.indie-desk.co",
     subject: user.username,
     notBefore: currentTime,
     audience: ["indie-desk.co", "localhost:4200"],
@@ -95,8 +95,8 @@ const authMiddleware = (req: Request, res: Response, next: any) => {
 
   try {
     const payload = jwt.verify(token, JWT_SECRET, {
-      issuer: "mock.auth.indie-desk.co",
-      audience: ["indie-desk.co", "localhost:4200"],
+      issuer: "auth.indie-desk.co",
+      audience: "indie-desk.co",
       ignoreNotBefore: true,
     });
 
@@ -203,7 +203,6 @@ app.get("/api/v1/projects", authMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projects = db.find("projects", { owner: username });
   res.status(200).json({ message: "ok", data: projects });
-  return;
 });
 
 app.get(
@@ -218,7 +217,6 @@ app.get(
       return;
     }
     res.status(200).json({ message: "ok", data: project });
-    return;
   }
 );
 
@@ -237,7 +235,6 @@ app.post("/api/v1/projects", authMiddleware, (req: Request, res: Response) => {
   project.client = client[0];
   const insertedId = db.insert("projects", project);
   res.status(200).json({ message: "ok", data: { id: insertedId, ...project } });
-  return;
 });
 
 app.patch(
@@ -258,7 +255,6 @@ app.patch(
       return;
     }
     res.status(200).json({ message: "ok", data: project });
-    return;
   }
 );
 
@@ -276,7 +272,6 @@ app.delete(
 
     db.remove("projects", id);
     res.status(204).send();
-    return;
   }
 );
 

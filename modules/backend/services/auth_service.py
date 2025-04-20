@@ -21,9 +21,11 @@ def get_password_hash(password: str) -> str:
 def decode_jwt(token: str) -> dict:
     """Decodes the JWT token"""
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM], audience="indie-desk.co")
+        print("Decoded JWT Payload:", payload)
         return payload
-    except jwt.JWTError:
+    except jwt.JWTError as e:
+        print("❌ JWT Decode Error:", e)
         raise HTTPException(status_code=401, detail="Invalid token")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -33,8 +35,9 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 def create_access_token(data: dict):
     to_encode = data.copy()
     expire = datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM), expire
+    cur_time = datetime.now()
+    to_encode.update({"exp": int(expire.timestamp()), "iat": cur_time, "iss": "auth.indie-desk.co", "aud": "indie-desk.co"})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM), int(expire.timestamp())
 
 def create_refresh_token(data: dict):   
     to_encode = data.copy()

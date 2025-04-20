@@ -1,4 +1,9 @@
-import { AppState, TicketActions, TicketSelectors } from '@/app/store';
+import {
+  AppState,
+  TicketActions,
+  TicketSelectors,
+  UserSelectors,
+} from '@/app/store';
 import {
   Component,
   Input,
@@ -46,6 +51,8 @@ export class TicketListComponent implements OnInit, OnChanges {
   newTicket: SupportTicket = {} as SupportTicket;
   createDialogOpen = false;
 
+  supportUsers: any[] = [];
+
   columns!: Column[];
 
   @ViewChild('ticketTable') ticketTable: Table | undefined;
@@ -84,6 +91,17 @@ export class TicketListComponent implements OnInit, OnChanges {
     if (changes['selectedProject']?.currentValue) {
       if (this.selectedProject) {
         this.store$
+          .select(UserSelectors.getUsers(this.selectedProject.id))
+          .pipe(untilDestroyed(this))
+          .subscribe((users) => {
+            if (users) {
+              this.supportUsers = users.map(user => ({label: `${user.first_name} ${user.last_name} (${user.username})`, value: user}));
+            }
+            console.log('Support users', this.supportUsers);
+          });
+
+
+        this.store$
           .select(TicketSelectors.getTickets(this.selectedProject.id))
           .pipe(untilDestroyed(this))
           .subscribe((tickets) => {
@@ -96,7 +114,7 @@ export class TicketListComponent implements OnInit, OnChanges {
       }
     }
   }
-  
+
   clear(table: Table) {
     table.clear();
   }

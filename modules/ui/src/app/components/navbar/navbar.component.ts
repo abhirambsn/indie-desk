@@ -9,6 +9,8 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../store/interfaces';
 import {SearchActions} from '../../store/actions';
 import { UserDetailsComponent } from "./user-details/user-details.component";
+import { AuthService } from '@/app/service/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +25,11 @@ import { UserDetailsComponent } from "./user-details/user-details.component";
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
-  constructor(private readonly store$: Store<AppState>) { }
+  constructor(
+    private readonly store$: Store<AppState>,
+    private readonly authService: AuthService,
+    private readonly router: Router
+  ) { }
 
   @Input() sidebarCollapsed = false;
   @Input() userDetails: User = {} as User;
@@ -59,7 +65,11 @@ export class NavbarComponent {
     },
     {
       label: 'Logout',
-      icon: 'pi pi-sign-out'
+      icon: 'pi pi-sign-out',
+      command: () => {
+        this.authService.logout();
+        this.router.navigate(['/auth/login']);
+      }
     }
   ]
 }

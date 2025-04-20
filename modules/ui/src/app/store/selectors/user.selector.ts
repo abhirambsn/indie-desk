@@ -1,7 +1,7 @@
 import { createSelector } from "@ngrx/store";
 import { UserState } from "../interfaces";
 
-export const selectUserState = (state: any) => state.user;
+export const selectUserState = (state: any) => state.users;
 
 export const selectUserMap = createSelector(
   selectUserState,

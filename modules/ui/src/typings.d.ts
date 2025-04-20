@@ -1,6 +1,7 @@
 declare interface SidebarSection {
   id: string;
   title: string;
+  roles?: string[];
   children: SidebarItem[];
 }
 
@@ -11,6 +12,7 @@ declare interface SidebarItem {
   link: string;
   isButton: boolean;
   isActive?: boolean;
+  roles?: string[];
 }
 
 declare interface User {
@@ -22,6 +24,10 @@ declare interface User {
   username: string;
   org: Organization;
   projects: Project[];
+  project_id?:string;
+  role?: string;
+  password?: string;
+  confirm_password?: string;
 }
 
 declare interface Organization {

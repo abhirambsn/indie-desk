@@ -2,10 +2,12 @@ import { AppState, ProjectActions, ProjectSelectors, UserActions } from '@/app/s
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
+import { MessageService } from 'primeng/api';
 
 @UntilDestroy()
 @Component({
   selector: 'app-support-users',
+  providers: [MessageService],
   standalone: false,
   templateUrl: './support-users.component.html',
 })
@@ -16,7 +18,8 @@ export class SupportUsersComponent implements OnInit {
 
   constructor(
     private readonly store$: Store<AppState>,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly messageService: MessageService
   ) {}
 
   ngOnInit(): void {

@@ -18,6 +18,17 @@ export class AuthService {
     }
   }
 
+  setAuthenticatedState(state: boolean) {
+    this.authenticated = state;
+  }
+
+  logout() {
+    localStorage.removeItem(AuthServiceConstants.ACCESS_TOKEN_LS_KEY);
+    localStorage.removeItem(AuthServiceConstants.REFRESH_TOKEN_LS_KEY);
+    localStorage.removeItem(AuthServiceConstants.EXPIRES_AT_LS_KEY);
+    this.authenticated = false;
+  }
+
   login(credentials: { username: string; password: string }) {
     return this.http
       .post(AuthServiceConstants.TOKEN_ENDPOINT, credentials)
@@ -82,6 +93,12 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
+    const localStorageCreds = AuthHelper.getCredentialsFromLocalStorage();
+    if (localStorageCreds && localStorageCreds.expires_at > Date.now()) {
+      this.authenticated = true;
+    } else {
+      this.authenticated = false;
+    }
     return this.authenticated;
   }
 

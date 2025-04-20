@@ -1,0 +1,99 @@
+<div class="flex flex-col gap-4">
+  <p-iftalabel>
+    <input
+      type="text"
+      pInputText
+      id="username"
+      pSize="small"
+      [(ngModel)]="user.username"
+      required
+      fluid
+      ngDefaultControl
+    />
+    <label for="username">Username</label>
+  </p-iftalabel>
+
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-6">
+      <p-iftalabel>
+        <input
+          type="text"
+          pInputText
+          id="first_name"
+          pSize="small"
+          [(ngModel)]="user.first_name"
+          required
+          fluid
+          ngDefaultControl
+        />
+        <label for="first_name">First Name</label>
+      </p-iftalabel>
+    </div>
+
+    <div class="col-span-6">
+      <p-iftalabel>
+        <input
+          type="text"
+          pInputText
+          id="last_name"
+          pSize="small"
+          [(ngModel)]="user.last_name"
+          required
+          fluid
+          ngDefaultControl
+        />
+        <label for="last_name">Last Name</label>
+      </p-iftalabel>
+    </div>
+  </div>
+
+  <p-iftaLabel>
+    <p-select
+      inputId="role"
+      id="role"
+      [(ngModel)]="user.role"
+      [options]="userRoles"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Select Role"
+      size="small"
+      fluid
+      ngDefaultControl
+    />
+    <label for="role">User Role</label>
+  </p-iftaLabel>
+
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-6">
+      <p-iftalabel>
+        <input
+          type="password"
+          pInputText
+          id="password"
+          pSize="small"
+          [(ngModel)]="user.password"
+          required
+          fluid
+          ngDefaultControl
+        />
+        <label for="password">Password</label>
+      </p-iftalabel>
+    </div>
+
+    <div class="col-span-6">
+      <p-iftalabel>
+        <input
+          type="password"
+          pInputText
+          id="confirm_password"
+          pSize="small"
+          [(ngModel)]="user.confirm_password"
+          required
+          fluid
+          ngDefaultControl
+        />
+        <label for="confirm_password">Confirm Password</label>
+      </p-iftalabel>
+    </div>
+  </div>
+</div>

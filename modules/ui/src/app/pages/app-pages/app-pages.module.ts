@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { TaskListComponent } from "../../components/task-list/task-list.component";
 import { TicketListComponent } from "../../components/ticket-list/ticket-list.component";
 import { UserListComponent } from '@/app/components/user-list/user-list.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
@@ -34,6 +35,7 @@ export const routes: Routes = [
   {path: 'tickets', component: SupportTicketsComponent, canActivate: [AuthGuardService]},
   {path: 'support/users', component: SupportUsersComponent, canActivate: [AuthGuardService]},
   {path: 'customer/users', component: CustomerPortalUsersComponent, canActivate: [AuthGuardService]},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'}
 ]
 
@@ -45,7 +47,8 @@ export const routes: Routes = [
     ProjectsComponent,
     TasksComponent,
     SupportTicketsComponent,
-    SupportUsersComponent
+    SupportUsersComponent,
+    ProfileComponent
   ],
   imports: [
     RouterModule.forChild(routes),

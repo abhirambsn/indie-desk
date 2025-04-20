@@ -1,4 +1,10 @@
-import { AppState, ProjectActions, ProjectSelectors, TicketActions } from '@/app/store';
+import {
+  AppState,
+  ProjectActions,
+  ProjectSelectors,
+  TicketActions,
+  UserActions,
+} from '@/app/store';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
@@ -32,14 +38,13 @@ export class SupportTicketsComponent implements OnInit {
         }
       });
 
-      this.store$
-        .select(ProjectSelectors.selectProjects)
-        .pipe(untilDestroyed(this))
-        .subscribe((projects) => {
-          this.projects = projects;
-          this.cdr.detectChanges();
-        }
-      );
+    this.store$
+      .select(ProjectSelectors.selectProjects)
+      .pipe(untilDestroyed(this))
+      .subscribe((projects) => {
+        this.projects = projects;
+        this.cdr.detectChanges();
+      });
 
     this.store$
       .select(ProjectSelectors.selectCurrentProject)
@@ -49,6 +54,9 @@ export class SupportTicketsComponent implements OnInit {
           this.selectedProject = project;
           this.store$.dispatch(
             TicketActions.loadTickets({ payload: { projectId: project.id } })
+          );
+          this.store$.dispatch(
+            UserActions.loadUsers({ payload: { projectId: project.id } })
           );
         }
         this.cdr.detectChanges();
