@@ -4,6 +4,8 @@ import { NavbarComponent } from './navbar.component';
 import {provideMockStore} from '@ngrx/store/testing';
 import _ from 'lodash';
 import {initialAppState} from '../../store/constants/app.constants';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -14,7 +16,9 @@ describe('NavbarComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NavbarComponent],
       providers: [
-        provideMockStore({initialState})
+        provideMockStore({initialState}),
+        provideHttpClient(),
+        provideHttpClientTesting()
       ]
     })
     .compileComponents();

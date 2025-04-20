@@ -7,6 +7,8 @@ import _ from 'lodash';
 import {provideRouter} from '@angular/router';
 import {routes} from '../../pages/app-pages/app-pages.module';
 import {NO_ERRORS_SCHEMA} from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('NavLayoutComponent', () => {
   let component: NavLayoutComponent;
@@ -18,6 +20,8 @@ describe('NavLayoutComponent', () => {
       imports: [NavLayoutComponent],
       providers: [
         provideMockStore({initialState}),
+        provideHttpClient(),
+        provideHttpClientTesting(),
         provideRouter(routes)
       ],
       schemas: [NO_ERRORS_SCHEMA]
