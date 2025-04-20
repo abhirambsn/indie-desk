@@ -5,7 +5,7 @@
   <div class="flex-1 flex items-center justify-center h-full">
     <p-card class="w-96">
       <ng-template #header>
-        <h2 class="p-2 pt-4 text-center text-gray-50 text-2xl">Login</h2>
+        <h2 class="p-2 pt-4 text-center dark:text-gray-50 text-primary text-2xl">Login</h2>
       </ng-template>
       <form class="w-full flex flex-col gap-2" [formGroup]="loginForm" (ngSubmit)="triggerLogin()">
         <p-iftalabel>
@@ -19,7 +19,7 @@
 
           <p-fluid class="mb-2 mt-1 gap-2 flex flex-col">
             <p-button (click)="triggerLogin()" label="Login" icon="pi pi-sign-in" />
-            <p-button outlined>Forgot Password</p-button>
+            <p-button outlined>New User? Register Here</p-button>
           </p-fluid>
       </form>
     </p-card>
