@@ -1,1 +1,23 @@
-<p>profile works!</p>
+<section class="px-4 py-2">
+  <p-toast />
+  <h3 class="text-2xl tracking-wide">Profile</h3>
+
+  <div class="mt-10 flex flex-col gap-4">
+    <div class="flex items-start gap-2">
+      <img alt="profile" class="w-32 h-32 rounded-xl" [src]="currentUser.avatar_url" />
+      <div class="flex flex-col">
+        <h3 class="text-2xl text-zinc-900">
+          {{ currentUser.first_name }} {{ currentUser.last_name }}
+        </h3>
+        <p class="text-gray-500 text-sm"> {{ currentUser.username }}</p>
+        <p class="text-gray-600 text-sm">{{ authHelperRef.getRoleLabel(currentUser.role) }}</p>
+      </div>
+    </div>
+
+    <div class="p-2 rounded-lg bg-white shadow-md border border-gray-100">
+      <app-profile-table [user]="currentUser" />
+    </div>
+
+
+  </div>
+</section>

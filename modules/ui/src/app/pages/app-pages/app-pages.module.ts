@@ -22,6 +22,8 @@ import { TaskListComponent } from "../../components/task-list/task-list.componen
 import { TicketListComponent } from "../../components/ticket-list/ticket-list.component";
 import { UserListComponent } from '@/app/components/user-list/user-list.component';
 import { ProfileComponent } from './profile/profile.component';
+import { AvatarModule } from 'primeng/avatar';
+import { ProfileTableComponent } from "../../components/profile-table/profile-table.component";
 
 export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
@@ -60,9 +62,11 @@ export const routes: Routes = [
     ProjectTableComponent,
     SelectModule,
     FormsModule,
+    AvatarModule,
     TaskListComponent,
     TicketListComponent,
-    UserListComponent
+    UserListComponent,
+    ProfileTableComponent
 ],
   exports: [
     RouterModule

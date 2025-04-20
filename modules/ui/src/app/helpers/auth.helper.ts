@@ -16,4 +16,11 @@ export class AuthHelper {
       expires_at: parseInt(expiresAt)*1000
     };
   }
+
+  static getRoleLabel(role?: string): string {
+    if (role === 'admin') return 'Administrator';
+    else if (role === "support") return 'Support User';
+    else if (role === "customer") return "Customer";
+    return "Guest";
+  }
 }
