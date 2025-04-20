@@ -20,6 +20,7 @@ import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { TaskListComponent } from "../../components/task-list/task-list.component";
 import { TicketListComponent } from "../../components/ticket-list/ticket-list.component";
+import { UserListComponent } from '@/app/components/user-list/user-list.component';
 
 export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
@@ -44,6 +45,7 @@ export const routes: Routes = [
     ProjectsComponent,
     TasksComponent,
     SupportTicketsComponent,
+    SupportUsersComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -56,7 +58,8 @@ export const routes: Routes = [
     SelectModule,
     FormsModule,
     TaskListComponent,
-    TicketListComponent
+    TicketListComponent,
+    UserListComponent
 ],
   exports: [
     RouterModule

@@ -1,6 +1,6 @@
 @if (selectedProject) {
 <div class="card">
-  <div class="flex items-center-justify-between mb-4">
+  <div class="flex items-center justify-between mb-4">
     <h6 class="text-lg mb-5">
       Showing tickets of <strong>{{ selectedProject.name }}</strong>
     </h6>
@@ -13,6 +13,104 @@
   </div>
 </div>
 
+<p-table
+  #ticketTable
+  [value]="tickets"
+  dataKey="id"
+  [rows]="10"
+  [columns]="columns"
+  [rowHover]="true"
+  [rowsPerPageOptions]="[10, 20]"
+  [paginator]="true"
+  [globalFilterFields]="['assignee']"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+>
+  <ng-template #caption>
+    <p class="italic">Total {{ tickets.length }} tickets</p>
+  </ng-template>
+
+  <ng-template #header>
+    <tr>
+      <th scope="col" style="width: 12%">ID</th>
+      <th scope="col" style="width: 12%">Title</th>
+      <th scope="col" style="min-width: 5rem">
+        <div class="flex items-center">
+          Assigned To
+          <p-columnFilter type="text" field="assignee" display="menu" />
+        </div>
+      </th>
+      <th scope="col" style="min-width: 10rem">
+        <div class="flex items-center">
+          Status
+          <p-columnFilter field="type" matchMode="equals" display="menu">
+            <ng-template #filter let-value let-filter="filterCallback">
+              <p-dropdown
+                [ngModel]="value"
+                [options]="ticketStatuses"
+                (onChange)="filter($event.value)"
+                placeholder="Any"
+              />
+            </ng-template>
+          </p-columnFilter>
+        </div>
+      </th>
+      <th scope="col" style="min-width: 10rem">
+        <div class="flex items-center">
+          Priority
+          <p-columnFilter field="type" matchMode="equals" display="menu">
+            <ng-template #filter let-value let-filter="filterCallback">
+              <p-dropdown
+                [ngModel]="value"
+                [options]="ticketPriorities"
+                (onChange)="filter($event.value)"
+                placeholder="Any"
+              />
+            </ng-template>
+          </p-columnFilter>
+        </div>
+      </th>
+      <th scope="col" style="width: 12%">Created Date</th>
+      <th scope="col" style="width: 12%">Updated Date</th>
+      <th scope="col"></th>
+    </tr>
+  </ng-template>
+
+  <ng-template #body let-ticket>
+    <tr class="text-sm">
+      <td>{{ ticket.id }}</td>
+      <td>{{ ticket.title }}</td>
+      <td>{{ ticket.assignee }}</td>
+      <td>
+        <p-tag
+          [value]="ticket.status"
+          [severity]="getTicketStatusBadge(ticket.status)"
+        />
+      </td>
+      <td>
+        <p-tag
+          [value]="ticket.priority"
+          [severity]="getTicketPriorityBadge(ticket.priority)"
+        />
+      </td>
+      <td>{{ ticket.createdAt | date : 'mediumDate' }}</td>
+      <td>{{ ticket.updatedAt | date : 'mediumDate' }}</td>
+      <td>
+        <p-button
+          icon="pi pi-pencil"
+          (onClick)="openEditDialog(ticket)"
+          class="p-button-text"
+        />
+        <p-button
+          icon="pi pi-eye"
+          class="p-button-text"
+          [link]="true"
+          [routerLink]="viewTicket(ticket.id)"
+        />
+    </tr>
+  </ng-template>
+</p-table>
+
 <p-dialog
   [(visible)]="createDialogOpen"
   (onHide)="closeDialog()"
@@ -20,7 +118,9 @@
   [style]="{ width: '50vw' }"
   [header]="'New Ticket'"
 >
-  <ng-template #content> </ng-template>
+  <ng-template #content>
+    <app-ticket-create [project]="selectedProject" [ticket]="newTicket" />
+  </ng-template>
   <ng-template #footer>
     <p-button
       label="Cancel"

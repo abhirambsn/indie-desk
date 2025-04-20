@@ -1,5 +1,5 @@
-from ..models.database_model import MongoDB
-from ..dtypes.file_dtypes import FileMeta, FileResponse
+from models.database_model import MongoDB
+from dtypes.file_dtypes import FileMeta, FileResponse
 from fastapi import HTTPException, UploadFile, File
 from bson import ObjectId
 from typing import Optional

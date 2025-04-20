@@ -1,1 +1,22 @@
-<p>support-users works!</p>
+<section class="px-4 py-2">
+  <p-toast />
+  <div class="flex items-center justify-between">
+    <h3 class="text-2xl tracking-wide">Support Users</h3>
+    <p-select
+      placeholder="Select Project"
+      [options]="projects"
+      [(ngModel)]="selectedProject"
+      optionLabel="name"
+      optionValue="id"
+      size="small"
+      [filter]="true"
+      [showClear]="true"
+      filterBy="name"
+      (onChange)="onProjectChange($event)"
+    />
+  </div>
+
+  <div class="mt-10">
+    <app-user-list [selectedProject]="selectedProject" />
+  </div>
+</section>

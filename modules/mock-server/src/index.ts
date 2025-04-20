@@ -76,7 +76,7 @@ app.post("/api/v1/auth/token", (req: Request, res: Response) => {
 
   res.status(200).json({
     message: "ok",
-    data: { access_token, refresh_token, expires_at: currentTime + 60 * 60 },
+    ...{ access_token, refresh_token, expires_at: currentTime + 60 * 60 },
   });
 });
 
@@ -123,8 +123,7 @@ app.get("/api/v1/auth/me", authMiddleware, (req: Request, res: Response) => {
     return;
   }
 
-  res.status(200).json({ message: "ok", data: user });
-  return;
+  res.status(200).json({ message: "ok", ...user });
 });
 
 app.post("/api/v1/search", (req: Request, res: Response) => {
@@ -638,29 +637,51 @@ app.delete(
   }
 );
 
-app.post("/api/v1/ticket", authMiddleware, (req: Request, res: Response) => {
+const getTicketIDFromProject = (project: any) => {
+  // I need ID from the first letters of each word of the project name, along with an random number (minimum 5 digits can be prepended with zeroes)
+  const initials = project.name
+    .split(" ")
+    .map((word: any) => word[0].toUpperCase())
+    .join("");
+  const randomNumber = Math.floor(Math.random() * 90000) + 10000; // Random number between 10000 and 99999
+  return `${initials}${randomNumber}`;
+}
+
+app.post("/api/v1/tickets/:projectId", authMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
+  const projectId = req.params.projectId;
+  const project = db.findOne("projects", { id: projectId, owner: username });
+  if (!project) {
+    res.status(404).json({ message: "Not found" });
+    return;
+  }
   let ticket = {
-    ...req.body?.data,
+    ...req.body,
     owner: username,
+    id: getTicketIDFromProject(project),
+    project,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   };
-  const insertedId = db.insert("tickets", ticket);
+  const insertedId = db.insert("tickets", ticket, false);
   res.status(200).json({ message: "ok", data: { id: insertedId, ...ticket } });
 });
 
-app.get("/api/v1/ticket", authMiddleware, (req: Request, res: Response) => {
+app.get("/api/v1/tickets/:projectId", authMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
-  const tickets = db.find("tickets", { owner: username });
+  const projectId = req.params.projectId;
+  const tickets = db.find("tickets", { owner: username, "project.id": projectId });
   res.status(200).json({ message: "ok", data: tickets });
 });
 
 app.get(
-  "/api/v1/ticket/:ticketId",
+  "/api/v1/tickets/:projectId/:ticketId",
   authMiddleware,
   (req: Request, res: Response) => {
     const username = req?.user?.sub;
+    const projectId = req.params.projectId;
     const ticketId = req.params.ticketId;
-    const ticket = db.find("tickets", { id: ticketId, owner: username });
+    const ticket = db.find("tickets", { id: ticketId, owner: username, "project.id": projectId });
     if (!ticket) {
       res.status(404).json({ message: "Not found" });
       return;
@@ -670,12 +691,13 @@ app.get(
 );
 
 app.patch(
-  "/api/v1/ticket/:ticketId",
+  "/api/v1/tickets/:projectId/:ticketId",
   authMiddleware,
   (req: Request, res: Response) => {
     const username = req?.user?.sub;
     const ticketId = req.params.ticketId;
-    const ticketCheck = db.find("tickets", { id: ticketId, owner: username });
+    const projectId = req.params.projectId;
+    const ticketCheck = db.find("tickets", { id: ticketId, owner: username, "project.id": projectId });
     if (!ticketCheck) {
       res.status(404).json({ message: "Not found" });
       return;
@@ -691,12 +713,13 @@ app.patch(
 );
 
 app.delete(
-  "/api/v1/ticket/:ticketId",
+  "/api/v1/tickets/:projectId/:ticketId",
   authMiddleware,
   (req: Request, res: Response) => {
     const username = req?.user?.sub;
     const ticketId = req.params.ticketId;
-    const ticketCheck = db.find("tickets", { id: ticketId, owner: username });
+    const projectId = req.params.projectId;
+    const ticketCheck = db.find("tickets", { id: ticketId, owner: username, "project.id": projectId });
     if (!ticketCheck) {
       res.status(404).json({ message: "Not found" });
       return;

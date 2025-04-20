@@ -1,1 +1,39 @@
-[]
+[
+  {
+    "title": "Portal not working",
+    "status": "OPEN",
+    "priority": "HIGH",
+    "description": "Customer support portal not working.\n\nRegards,\nAbhiram",
+    "project": {
+      "name": "Alfa Romeo New Data",
+      "startDate": "2024-03-02",
+      "endDate": "2025-04-01",
+      "owner": "abhirambsn",
+      "client": {
+        "name": "Alfa Romeo Corporation",
+        "city": "New Delhi",
+        "state": "DL",
+        "zip": "110011",
+        "contact": "James Smith",
+        "email": "james.smith@alfaromeo.com",
+        "phone": "908-652-9871",
+        "type": "ORGANIZATION",
+        "address": "1/23, Alfa Romeo Towers, C Block, Connaught Inner Circle, New Delhi",
+        "id": "5ea1a21d-f57b-4022-b116-b618881c9b61",
+        "owner": "abhirambsn",
+        "projects": []
+      },
+      "perHourRate": {
+        "amount": 2500,
+        "currency": "INR"
+      },
+      "status": "ONGOING",
+      "tasks": [],
+      "id": "eca04d0d-5c9b-4200-a011-5ddb26629b9c"
+    },
+    "owner": "abhirambsn",
+    "id": "ARND93126",
+    "createdAt": "2025-04-19T17:33:00.830Z",
+    "updatedAt": "2025-04-19T17:33:00.830Z"
+  }
+]

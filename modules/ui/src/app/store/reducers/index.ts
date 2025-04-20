@@ -6,3 +6,4 @@ export * from './project.reducer';
 export * from './task.reducer';
 export * from './ticket.reducer';
 export * from './search.reducer';
+export * from './user.reducer';

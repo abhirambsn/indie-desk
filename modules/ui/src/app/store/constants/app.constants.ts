@@ -119,25 +119,5 @@ export const sidebarSections: SidebarSection[] = [
         link: '/profile',
       },
     ],
-  },
-  {
-    id: '2babf786-1d59-4060-a1e1-db1e52a83dea',
-    title: '',
-    children: [
-      {
-        id: 'f339c88d-2411-4e15-82bb-e5a6f4ef4cc5',
-        title: 'user-component',
-        icon: '',
-        link: '',
-        isButton: true,
-      },
-      {
-        id: '73c83726-9685-4807-8cf1-c3c9541ec87f',
-        title: 'logout-component',
-        icon: '',
-        link: '',
-        isButton: true,
-      },
-    ],
-  },
+  }
 ];

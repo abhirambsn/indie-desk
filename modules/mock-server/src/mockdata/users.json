@@ -3,9 +3,9 @@
     "id": "1",
     "username": "abhirambsn",
     "password": "Abhiram@2002",
-    "firstName": "Abhiram",
-    "lastName": "B.S.N.",
+    "first_name": "Abhiram",
+    "last_name": "B.S.N.",
     "roles": ["ADMIN", "READ", "WRITE"],
-    "avatarUrl": "https://api.dicebear.com/9.x/initials/svg?seed=Abhiram+BSN"
+    "avatar_url": "https://api.dicebear.com/9.x/initials/svg?seed=Abhiram+BSN"
   }
 ]

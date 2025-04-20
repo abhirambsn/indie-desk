@@ -1,13 +1,25 @@
-import { AppState, TicketActions } from '@/app/store';
-import { Component, Input } from '@angular/core';
+import { AppState, TicketActions, TicketSelectors } from '@/app/store';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { UntilDestroy } from '@ngneat/until-destroy';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { DialogEventArgs } from '@syncfusion/ej2-angular-kanban';
 import _ from 'lodash';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
+import { Table, TableModule } from 'primeng/table';
+import { TicketCreateComponent } from '../ticket-create/ticket-create.component';
+import { DropdownModule } from 'primeng/dropdown';
+import { Tag } from 'primeng/tag';
+import { DatePipe } from '@angular/common';
 
 @UntilDestroy()
 @Component({
@@ -16,11 +28,16 @@ import { Dialog } from 'primeng/dialog';
     RouterLink,
     FormsModule,
     Button,
-    Dialog
+    Dialog,
+    TableModule,
+    DropdownModule,
+    Tag,
+    DatePipe,
+    TicketCreateComponent,
   ],
   templateUrl: './ticket-list.component.html',
 })
-export class TicketListComponent {
+export class TicketListComponent implements OnInit, OnChanges {
   @Input() selectedProject!: Project | null;
 
   tickets: SupportTicket[] = [];
@@ -29,23 +46,63 @@ export class TicketListComponent {
   newTicket: SupportTicket = {} as SupportTicket;
   createDialogOpen = false;
 
+  columns!: Column[];
+
+  @ViewChild('ticketTable') ticketTable: Table | undefined;
+
   constructor(private readonly store$: Store<AppState>) {}
+
+  readonly ticketStatuses = [
+    { label: 'Open', value: 'OPEN' },
+    { label: 'In Progress', value: 'IN_PROGRESS' },
+    { label: 'Done', value: 'DONE' },
+    { label: 'Cancelled', value: 'CANCELLED' },
+  ];
+
+  readonly ticketPriorities = [
+    { label: 'Low', value: 'LOW' },
+    { label: 'Medium', value: 'MEDIUM' },
+    { label: 'High', value: 'HIGH' },
+    { label: 'Critical', value: 'CRITICAL' },
+  ];
+
+  ngOnInit(): void {
+    this.columns = [
+      { field: 'id', header: 'ID' },
+      { field: 'title', header: 'Title' },
+      { field: 'assignee', header: 'Assignee' },
+      { field: 'status', header: 'Status' },
+      { field: 'priority', header: 'Priority' },
+      { field: 'createdAt', header: 'Created At' },
+      { field: 'updatedAt', header: 'Updated At' },
+      { field: 'project', header: 'Project' },
+      { field: 'client', header: 'Client' },
+    ];
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['selectedProject']?.currentValue) {
+      if (this.selectedProject) {
+        this.store$
+          .select(TicketSelectors.getTickets(this.selectedProject.id))
+          .pipe(untilDestroyed(this))
+          .subscribe((tickets) => {
+            if (tickets) {
+              console.log('Setting tickets', tickets);
+              this.tickets = tickets;
+              this.tempTickets = _.cloneDeep(this.tickets);
+            }
+          });
+      }
+    }
+  }
+  
+  clear(table: Table) {
+    table.clear();
+  }
 
   getTicketLink(ticket: SupportTicket) {
     return `/tickets/${ticket.id}`;
-  }
-
-  getBadgeType(priority: string) {
-    switch (priority) {
-      case 'HIGH':
-        return 'danger';
-      case 'MEDIUM':
-        return 'warn';
-      case 'LOW':
-        return 'secondary';
-      default:
-        return 'info';
-    }
   }
 
   onDialogOpen(args: DialogEventArgs) {
@@ -73,5 +130,42 @@ export class TicketListComponent {
       })
     );
     this.closeDialog();
+  }
+
+  openEditDialog(ticket: SupportTicket) {
+    this.newTicket = _.cloneDeep(ticket);
+    this.createDialogOpen = true;
+  }
+
+  viewTicket(ticketId: string) {
+    return `/tickets/${ticketId}`;
+  }
+
+  getTicketPriorityBadge(priority: string) {
+    switch (priority) {
+      case 'HIGH':
+        return 'danger';
+      case 'MEDIUM':
+        return 'warn';
+      case 'LOW':
+        return 'secondary';
+      default:
+        return 'info';
+    }
+  }
+
+  getTicketStatusBadge(status: string) {
+    switch (status) {
+      case 'OPEN':
+        return 'info';
+      case 'IN_PROGRESS':
+        return 'warn';
+      case 'DONE':
+        return 'success';
+      case 'CANCELLED':
+        return 'danger';
+      default:
+        return 'info';
+    }
   }
 }

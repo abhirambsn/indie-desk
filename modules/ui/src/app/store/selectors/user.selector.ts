@@ -1,0 +1,14 @@
+import { createSelector } from "@ngrx/store";
+import { UserState } from "../interfaces";
+
+export const selectUserState = (state: any) => state.user;
+
+export const selectUserMap = createSelector(
+  selectUserState,
+  (state: UserState) => state.userMap
+);
+
+export const getUsers = (projectId: string) => createSelector(
+  selectUserState,
+  (state: UserState) => state.userMap.get(projectId)
+);

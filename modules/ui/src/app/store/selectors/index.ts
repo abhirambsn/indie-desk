@@ -5,3 +5,5 @@ export * as ClientSelectors from './client.selector';
 export * as InvoiceSelectors from './invoice.selector';
 export * as ProjectSelectors from './project.selector';
 export * as TaskSelectors from './task.selector';
+export * as TicketSelectors from './ticket.selector';
+export * as UserSelectors from './user.selector';

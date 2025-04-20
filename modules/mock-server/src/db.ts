@@ -16,12 +16,9 @@ export class JSONFileBasedDB implements DB {
     find(tableName: string, condition: any): any[] {
         const tableData = this.loadTableData(tableName);
         return tableData.filter((record: any) => {
-            for (const key in condition) {
-                if (record[key] !== condition[key]) {
-                    return false;
-                }
-            }
-            return true;
+            return Object.keys(condition).every((key) => {
+                return _.get(record, key) === condition[key];
+            });
         });
     }
 
@@ -33,12 +30,9 @@ export class JSONFileBasedDB implements DB {
     findOne(tableName: string, condition: any): any {
         const tableData = this.loadTableData(tableName);
         return tableData.find((record: any) => {
-            for (const key in condition) {
-                if (record[key] !== condition[key]) {
-                    return false;
-                }
-            }
-            return true;
+            return Object.keys(condition).every((key) => {
+                return _.get(record, key) === condition[key];
+            });
         });
     }
 

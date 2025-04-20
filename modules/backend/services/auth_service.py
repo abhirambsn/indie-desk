@@ -1,5 +1,5 @@
-from ..models.database_model import MongoDB
-from ..dtypes.auth_dtypes import SignupRequest, LoginRequest, User
+from models.database_model import MongoDB
+from dtypes.auth_dtypes import SignupRequest, LoginRequest, User
 from fastapi import HTTPException, Request
 from passlib.context import CryptContext
 from jose import jwt
@@ -56,6 +56,8 @@ async def signup(data: SignupRequest):
         hashed_password=hashed,
         role=data.role
     )
+    if data.project_id:
+        user.project_id = data.project_id
     collection.insert_one(user.model_dump())
     return {"message": "User registered successfully"}
 
@@ -89,3 +91,28 @@ def get_profile_from_username(username: str):
     del user["_id"] 
     
     return dict(user, avatar_url=f"https://api.dicebear.com/9.x/initials/svg?seed={user['first_name']}+{user['last_name']}")
+
+def get_users_of_project(project_id: str):
+    collection = MongoDB.get_collection("iddb", "users")
+    users = collection.find({"project_id": project_id})
+    users_list = []
+    for user in users:
+        user['id'] = str(user["_id"])
+        del user["_id"] 
+        users_list.append(user)
+    return users_list
+
+async def create_project_support_user(project_id: str, data: SignupRequest):
+    data.project_id = project_id
+    data.role = "support"
+    return await signup(data)
+
+async def delete_project_user(project_id: str, user_id: str):
+    collection = MongoDB.get_collection("iddb", "users")
+    user = collection.find_one({"_id": user_id, "project_id": project_id})
+    
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    collection.delete_one({"_id": user_id})
+    return {"message": "User deleted successfully"}
