@@ -1,0 +1,33 @@
+<p-tabs [value]="ticketCommentModel.type" (valueChange)="onTypeChange($event)">
+  <p-tablist>
+    <p-tab value="internal">
+        <i class="pi pi-lock"></i>
+        <span>Internal Comment</span>
+    </p-tab>
+    <p-tab value="external">
+        <i class="pi pi-users"></i>
+        <span>External Comment</span>
+    </p-tab>
+  </p-tablist>
+
+  <p-tabpanels>
+    <p-tabpanel value="internal">
+      <textarea
+        [value]="ticketCommentModel.text"
+        [(ngModel)]="ticketCommentModel.text"
+        rows="5"
+        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+      ></textarea>
+      <p-button [disabled]="ticketCommentModel.text.length === 0" (onClick)="postComment()" label="Post Internal Comment (Private)" size="small" class="float-right" />
+    </p-tabpanel>
+    <p-tabpanel value="external">
+      <textarea
+        [value]="ticketCommentModel.text"
+        [(ngModel)]="ticketCommentModel.text"
+        rows="5"
+        class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:text-white"
+      ></textarea>
+      <p-button [disabled]="ticketCommentModel.text.length === 0" (onClick)="postComment()" label="Post External Comment" size="small"  class="float-right" />
+    </p-tabpanel>
+  </p-tabpanels>
+</p-tabs>

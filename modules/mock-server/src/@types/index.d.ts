@@ -101,3 +101,18 @@ declare interface Comment {
   user: User;
   date: Date;
 }
+
+declare interface TicketComment {
+  id: string;
+  text: string;
+  type: "internal" | "external";
+  user: User;
+  date: Date;
+}
+
+declare interface TicketAttachment {
+  id: string;
+  url: string;
+  type: string;
+  timestamp: Date;
+}

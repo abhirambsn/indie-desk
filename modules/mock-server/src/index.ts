@@ -707,6 +707,70 @@ app.patch(
   }
 );
 
+app.patch(
+  "/api/v1/tickets/:projectId/:ticketId/comments",
+  authMiddleware,
+  (req: Request, res: Response) => {
+    const username = req?.user?.sub;
+    const ticketId = req.params.ticketId;
+    const projectId = req.params.projectId;
+    const ticketCheck = db.find("tickets", { id: ticketId, owner: username, "project.id": projectId });
+    if (!ticketCheck) {
+      res.status(404).json({ message: "Ticket Not found" });
+      return;
+    }
+
+    const user = db.findOne("users", { username });
+    if (!user) {
+      res.status(404).json({ message: "User Not found" });
+      return;
+    }
+
+    delete user.password;
+    delete user.roles;
+
+    const comment = req.body;
+    const commentId = db.insert("ticket-comments", {
+      ...comment,
+      ticketId,
+      projectId,
+      user,
+      date: new Date().toISOString(),
+    })
+
+    res.status(201).json({
+      message: "ok",
+      data: {
+        id: commentId,
+        ...comment,
+        ticketId,
+        projectId,
+        user,
+        date: new Date().toISOString(),
+      },
+    })
+  }
+);
+
+app.get(
+  "/api/v1/tickets/:projectId/:ticketId/comments",
+  authMiddleware,
+  (req: Request, res: Response) => {
+    const username = req?.user?.sub;
+    const ticketId = req.params.ticketId;
+    const projectId = req.params.projectId;
+    const ticketCheck = db.find("tickets", { id: ticketId, owner: username, "project.id": projectId });
+    if (!ticketCheck) {
+      res.status(404).json({ message: "Not found" });
+      return;
+    }
+
+    const comments = db.find("ticket-comments", { ticketId, projectId });
+    res.status(200).json({ message: "ok", data: comments });
+    return;
+  }
+);
+
 app.delete(
   "/api/v1/tickets/:projectId/:ticketId",
   authMiddleware,

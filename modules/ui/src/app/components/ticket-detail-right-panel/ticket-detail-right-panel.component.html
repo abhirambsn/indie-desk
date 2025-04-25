@@ -1,4 +1,23 @@
-<div class="w-full p-4">
+<div class="w-full p-4 overflow-hidden flex flex-col">
   <div class="flex items-center justify-between mb-4">
     <h4 class="text-2xl font-semibold tracking-wide">Ticket Comments</h4>
+    <p-button (onClick)="onOpenCreate()" label="Add Comment" />
+  </div>
+
+  <div class="flex-1 flex flex-col overflow-hidden">
+    @if (createVisible) {
+      <app-ticket-comment-create 
+        (createCommentTrigger)="createComment($event)" 
+        (refreshComments)="refetchComments.emit()" 
+      />
+    }
+
+    <hr class="my-2" />
+
+    <div class="flex-1 overflow-y-auto pr-2 h-[200vh]">
+      @for (comment of ticket.comments; track comment.id) {
+        <app-ticket-comment [comment]="comment" />
+      }
+    </div>
+  </div>
 </div>

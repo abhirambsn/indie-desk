@@ -71,4 +71,49 @@ export class TicketService {
         })
       );
   }
+
+  getTicketComments(
+    projectId: string,
+    accessToken: string,
+    ticketId: string, 
+  ) {
+    return this.http
+      .get(TicketServiceConstants.getTicketCommentsEndpoint(projectId, ticketId), {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .pipe(
+        map((response: any) => response?.data),
+        catchError((error) => {
+          console.error(error);
+          return of([]);
+        })
+      );
+  }
+
+  createComment(
+    projectId: string,
+    ticketId: string,
+    commentData: any,
+    access_token: string
+  ) {
+    return this.http
+      .patch(
+        TicketServiceConstants.getTicketCommentsEndpoint(projectId, ticketId),
+        commentData,
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          }
+        }
+      )
+      .pipe(
+        map((response: any) => response?.data),
+        catchError((error) => {
+          console.error(error);
+          return of([]);
+        })
+      );
+  }
 }

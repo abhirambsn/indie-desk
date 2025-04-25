@@ -1,0 +1,23 @@
+@if (comment && comment.user) {
+    <div class="card p-2" [ngClass]="{ 'bg-yellow-100': (comment.type === 'internal') }">
+        <div class="flex gap-1 w-full">
+            <!-- Image -->
+             <img [src]="comment.user.avatar_url" alt="Senders Avatar" class="rounded-lg w-12 h-12" />
+            <!-- Details, like Username, full name, timestamp -->
+             <div class="flex flex-col flex-1">
+                <span class="text-xs font-semibold">{{ comment.user.first_name }} {{ comment.user.last_name }}</span>
+                <span class="text-xs opacity-90">&#64;{{ comment.user.username }}</span>
+                <span class="text-xs opacity-80">{{ comment.date | date: 'medium' }}</span>
+             </div>
+
+             <div>
+                <p-tag [severity]="getSeverity(comment.type)" [value]="comment.type.charAt(0).toLocaleUpperCase() + comment.type.substring(1)" [icon]="comment.type === 'internal' ? 'pi pi-lock' : 'pi pi-users'" />
+             </div>
+        </div>
+    
+        <p class="mt-4 text-sm text-gray-700 dark:text-gray-400 mb-1">
+            {{ comment.text }}
+        </p>
+    </div>
+    <hr />
+}

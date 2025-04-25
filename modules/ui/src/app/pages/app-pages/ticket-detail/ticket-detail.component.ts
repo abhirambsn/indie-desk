@@ -1,6 +1,6 @@
 import { TicketService } from '@/app/service/ticket/ticket.service';
-import { AppState, TicketActions, TicketSelectors } from '@/app/store';
-import { Component, OnInit } from '@angular/core';
+import { AppState, AuthSelectors, TicketActions, TicketSelectors } from '@/app/store';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
@@ -17,18 +17,41 @@ export class TicketDetailComponent implements OnInit {
 
   ticketData: SupportTicket = {} as SupportTicket;
 
+  private access_token = '';
+
   constructor(
     private route: ActivatedRoute,
     private readonly store$: Store<AppState>,
+    private readonly cdr: ChangeDetectorRef,
     private readonly service: TicketService
   ) {}
 
   getTicketCommments() {
-    this.ticketData.comments = [];
+    this.store$.select(AuthSelectors.selectTokens).pipe(untilDestroyed(this))
+      .subscribe((tokens) => {
+        if (tokens) {
+          this.access_token = tokens.access_token;
+        }
+      })
+    this.service.getTicketComments(this.projectId!, this.access_token, this.ticketId!).pipe(untilDestroyed(this))
+      .subscribe({
+        next: (ticketComments) => {
+          console.log('[DEBUG] Ticket comments: ', ticketComments);
+          this.ticketData.comments = ticketComments.sort((a: TicketComment, b: TicketComment) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          this.cdr.detectChanges();
+        },
+        error: (error) => {
+          console.error('[ERROR] Error fetching ticket comments: ', error);
+          this.ticketData.comments = [];
+        }
+      })
   }
 
   getTicketAttachments() {
-    this.ticketData.attachments = [];
+    this.ticketData = {
+      ...this.ticketData,
+      attachments: []
+    }
   }
 
   ngOnInit(): void {
