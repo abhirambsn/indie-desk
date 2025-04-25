@@ -133,10 +133,10 @@ declare interface SupportTicket {
   title: string;
   description: string;
   project: Project;
-  assignee: string;
+  assignee: User;
   priority: TicketPriority;
   status: TicketStatus;
-  comments: TicketComments[];
+  comments: TicketComment[];
   attachments: TicketAttachment[];
   createdAt: Date;
   updatedAt: Date;
@@ -155,6 +155,19 @@ declare interface TicketAttachment {
   url: string;
   type: string;
   timestamp: Date;
+}
+
+declare interface TicketFieldColumn {
+  id: string;
+  header: string;
+  type: string;
+  isRequired: boolean;
+  isVisible: boolean;
+  readonly: boolean;
+  options?: {
+    label: string;
+    value: string;
+  }[];
 }
 
 declare interface Comment {

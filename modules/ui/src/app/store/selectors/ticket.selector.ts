@@ -12,3 +12,8 @@ export const getTickets = (projectId: string) => createSelector(
   selectTicketState,
   (state: TicketState) => state.ticketMap.get(projectId)
 );
+
+export const getTicketById = (projectId: string, ticketId: string) => createSelector(
+  selectTicketState,
+  (state: TicketState) => state.ticketMap.get(projectId)?.find(ticket => ticket.id === ticketId)
+);

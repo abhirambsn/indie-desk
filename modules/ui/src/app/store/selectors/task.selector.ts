@@ -21,4 +21,9 @@ export const selectTasksLoaded = createSelector(
 export const getTasks = (projectId: string) => createSelector(
     selectTaskState,
     (state: TaskState) => state.taskMap.get(projectId)
-)
+);
+
+export const getTaskById = (projectId: string, taskId: string) => createSelector(
+    selectTaskState,
+    (state: TaskState) => state.taskMap.get(projectId)?.find(task => task.id === taskId)
+);

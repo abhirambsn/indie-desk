@@ -24,6 +24,11 @@ import { UserListComponent } from '@/app/components/user-list/user-list.componen
 import { ProfileComponent } from './profile/profile.component';
 import { AvatarModule } from 'primeng/avatar';
 import { ProfileTableComponent } from "../../components/profile-table/profile-table.component";
+import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
+import { ProjectDetailComponent } from './project-detail/project-detail.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { TicketDetailLeftPanelComponent } from '@/app/components/ticket-detail-left-panel/ticket-detail-left-panel.component';
+import { TicketDetailRightPanelComponent } from '@/app/components/ticket-detail-right-panel/ticket-detail-right-panel.component';
 
 export const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService]},
@@ -31,10 +36,11 @@ export const routes: Routes = [
   {path: 'invoices', component: InvoicesComponent, canActivate: [AuthGuardService]},
   {path: 'sales', component: SalesComponent, canActivate: [AuthGuardService]},
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuardService]},
-  {path: 'projects/:id', component: ProjectsComponent, canActivate: [AuthGuardService]},
+  {path: 'projects/:id', component: ProjectDetailComponent, canActivate: [AuthGuardService]},
   {path: 'tasks', component: TasksComponent, canActivate: [AuthGuardService]},
-  {path: ':projectId/tasks', component: TasksComponent, canActivate: [AuthGuardService]},
+  {path: 'tasks/:projectId/:taskId', component: TaskDetailComponent, canActivate: [AuthGuardService]},
   {path: 'tickets', component: SupportTicketsComponent, canActivate: [AuthGuardService]},
+  {path: 'tickets/:projectId/:ticketId', component: TicketDetailComponent, canActivate: [AuthGuardService]},
   {path: 'support/users', component: SupportUsersComponent, canActivate: [AuthGuardService]},
   {path: 'customer/users', component: CustomerPortalUsersComponent, canActivate: [AuthGuardService]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
@@ -50,7 +56,10 @@ export const routes: Routes = [
     TasksComponent,
     SupportTicketsComponent,
     SupportUsersComponent,
-    ProfileComponent
+    ProfileComponent,
+    TicketDetailComponent,
+    ProjectDetailComponent,
+    TaskDetailComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -66,7 +75,9 @@ export const routes: Routes = [
     TaskListComponent,
     TicketListComponent,
     UserListComponent,
-    ProfileTableComponent
+    ProfileTableComponent,
+    TicketDetailLeftPanelComponent,
+    TicketDetailRightPanelComponent
 ],
   exports: [
     RouterModule

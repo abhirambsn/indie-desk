@@ -155,8 +155,8 @@ export class TicketListComponent implements OnInit, OnChanges {
     this.createDialogOpen = true;
   }
 
-  viewTicket(ticketId: string) {
-    return `/tickets/${ticketId}`;
+  viewTicket(ticketId: string) {  
+    return ['/tickets', this.selectedProject?.id, ticketId];
   }
 
   getTicketPriorityBadge(priority: string) {
