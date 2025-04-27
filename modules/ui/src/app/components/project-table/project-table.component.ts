@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { ConfirmDialog } from 'primeng/confirmdialog';
@@ -22,10 +15,12 @@ import { Toast } from 'primeng/toast';
 import { Toolbar } from 'primeng/toolbar';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Store } from '@ngrx/store';
-import { AppState } from '@/app/store';
-import { CurrencyPipe } from '@/app/pipes/currency.pipe';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+
+import { CurrencyPipe } from '@ui/app/pipes/currency.pipe';
+import { AppState } from '@ui/app/store';
+
 import { ProjectCreateComponent } from '../project-create/project-create.component';
 
 @Component({
@@ -82,7 +77,7 @@ export class ProjectTableComponent implements OnInit {
   constructor(
     private readonly confirmationService: ConfirmationService,
     private readonly messageService: MessageService,
-    private readonly store$: Store<AppState>
+    private readonly store$: Store<AppState>,
   ) {}
 
   ngOnInit(): void {
@@ -111,10 +106,7 @@ export class ProjectTableComponent implements OnInit {
   }
 
   filterGlobal(event: any, stringVal: string) {
-    this.projectTable!.filterGlobal(
-      (event.target as HTMLInputElement).value,
-      stringVal
-    );
+    this.projectTable!.filterGlobal((event.target as HTMLInputElement).value, stringVal);
   }
 
   exportCSV() {

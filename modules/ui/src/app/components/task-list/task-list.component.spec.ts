@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import _ from 'lodash';
+import { provideMockStore } from '@ngrx/store/testing';
+
+import { initialAppState } from '@ui/app/store/constants/app.constants';
 
 import { TaskListComponent } from './task-list.component';
-import _ from 'lodash';
-import { initialAppState } from '@/app/store/constants/app.constants';
-import { provideMockStore } from '@ngrx/store/testing';
 
 describe('TaskListComponent', () => {
   let component: TaskListComponent;
@@ -13,11 +14,8 @@ describe('TaskListComponent', () => {
     const initialState = _.cloneDeep(initialAppState);
     await TestBed.configureTestingModule({
       imports: [TaskListComponent],
-      providers: [
-        provideMockStore({ initialState })
-      ]
-    })
-    .compileComponents();
+      providers: [provideMockStore({ initialState })],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskListComponent);
     component = fixture.componentInstance;

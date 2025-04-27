@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TasksComponent } from './tasks.component';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { provideMockStore } from '@ngrx/store/testing';
 import _ from 'lodash';
-import { initialAppState } from '@/app/store/constants/app.constants';
+
+import { initialAppState } from '@ui/app/store/constants/app.constants';
+
+import { TasksComponent } from './tasks.component';
 
 describe('TasksComponent', () => {
   let component: TasksComponent;

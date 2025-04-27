@@ -6,13 +6,7 @@ import { Select } from 'primeng/select';
 
 @Component({
   selector: 'app-user-create',
-  imports: [
-    IftaLabel,
-    InputText,
-    ReactiveFormsModule,
-    FormsModule,
-    Select
-  ],
+  imports: [IftaLabel, InputText, ReactiveFormsModule, FormsModule, Select],
   templateUrl: './user-create.component.html',
 })
 export class UserCreateComponent {
@@ -22,5 +16,5 @@ export class UserCreateComponent {
   readonly userRoles = [
     { label: 'Admin', value: 'ADMIN' },
     { label: 'Support', value: 'SUPPORT' },
-  ]
+  ];
 }

@@ -1,10 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '@/app/store/interfaces';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { TaskService } from '@/app/service/task/task.service';
-import { TaskActions } from '../actions';
 import { catchError, exhaustMap, map, of, withLatestFrom } from 'rxjs';
+
+import { TaskService } from '@ui/app/service/task/task.service';
+import { AppState } from '@ui/app/store/interfaces';
+
+import { TaskActions } from '../actions';
 import { AuthSelectors } from '../selectors';
 
 @Injectable()
@@ -22,11 +24,11 @@ export class TaskEffects {
           map((tasks) =>
             TaskActions.loadTasksSuccess({
               payload: { projectId: payload.projectId, tasks },
-            })
+            }),
           ),
-          catchError((err) => of(TaskActions.loadTasksFailure({ error: err })))
-        )
-      )
+          catchError((err) => of(TaskActions.loadTasksFailure({ error: err }))),
+        ),
+      ),
     );
   });
 
@@ -35,17 +37,15 @@ export class TaskEffects {
       ofType(TaskActions.saveTask),
       withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
       exhaustMap(([{ payload }, { access_token }]) =>
-        this.service
-          .createTask(payload.projectId, access_token, payload.task)
-          .pipe(
-            map((task) =>
-              TaskActions.saveTaskSuccess({
-                payload: { projectId: payload.projectId, task },
-              })
-            ),
-            catchError((err) => of(TaskActions.saveTaskFailure({ error: err })))
-          )
-      )
+        this.service.createTask(payload.projectId, access_token, payload.task).pipe(
+          map((task) =>
+            TaskActions.saveTaskSuccess({
+              payload: { projectId: payload.projectId, task },
+            }),
+          ),
+          catchError((err) => of(TaskActions.saveTaskFailure({ error: err }))),
+        ),
+      ),
     );
   });
 
@@ -54,17 +54,15 @@ export class TaskEffects {
       ofType(TaskActions.updateTask),
       withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
       exhaustMap(([{ payload }, { access_token }]) =>
-        this.service
-          .updateTask(payload.projectId, access_token, payload.task)
-          .pipe(
-            map((task) =>
-              TaskActions.saveTaskSuccess({
-                payload: { projectId: payload.projectId, task },
-              })
-            ),
-            catchError((err) => of(TaskActions.saveTaskFailure({ error: err })))
-          )
-      )
+        this.service.updateTask(payload.projectId, access_token, payload.task).pipe(
+          map((task) =>
+            TaskActions.saveTaskSuccess({
+              payload: { projectId: payload.projectId, task },
+            }),
+          ),
+          catchError((err) => of(TaskActions.saveTaskFailure({ error: err }))),
+        ),
+      ),
     );
   });
 }

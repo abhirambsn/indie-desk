@@ -1,6 +1,7 @@
-import { createReducer, on } from "@ngrx/store";
-import { initialTicketState } from "../constants/ticket.constants";
-import { TicketActions } from "../actions";
+import { createReducer, on } from '@ngrx/store';
+
+import { initialTicketState } from '@ui/app/store/constants/ticket.constants';
+import { TicketActions } from '@ui/app/store/actions';
 
 export const ticketReducer = createReducer(
   initialTicketState,
@@ -9,7 +10,7 @@ export const ticketReducer = createReducer(
     return {
       ...state,
       loading: true,
-      loaded: false
+      loaded: false,
     };
   }),
   on(TicketActions.loadTicketsSuccess, (state, { payload }) => {
@@ -17,13 +18,13 @@ export const ticketReducer = createReducer(
     return {
       ...state,
       loading: false,
-      loaded: true
+      loaded: true,
     };
   }),
   on(TicketActions.loadTicketsFailure, (state, { error }) => ({
     ...state,
     loading: false,
     loaded: false,
-    error
-  }))
-)
+    error,
+  })),
+);

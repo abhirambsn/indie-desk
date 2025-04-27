@@ -1,13 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ClientsComponent } from './clients.component';
-import {provideMockStore} from '@ngrx/store/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import _ from 'lodash';
-import {initialAppState} from '../../../store/constants/app.constants';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+import { initialAppState } from '../../../store/constants/app.constants';
+
+import { ClientsComponent } from './clients.component';
 
 describe('ClientsComponent', () => {
   let component: ClientsComponent;
@@ -20,12 +21,11 @@ describe('ClientsComponent', () => {
       imports: [CommonModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
-        provideMockStore({initialState}),
+        provideMockStore({ initialState }),
         provideHttpClient(),
-        provideHttpClientTesting()
-      ]
-    })
-    .compileComponents();
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ClientsComponent);
     component = fixture.componentInstance;

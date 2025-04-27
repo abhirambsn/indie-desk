@@ -24,7 +24,7 @@ declare interface User {
   username: string;
   org: Organization;
   projects: Project[];
-  project_id?:string;
+  project_id?: string;
   role?: string;
   password?: string;
   confirm_password?: string;
@@ -65,7 +65,7 @@ declare interface Client {
   contact: string;
   owner: string;
   projects: Project[];
-  type: ClientType
+  type: ClientType;
 }
 
 declare interface Column {
@@ -103,15 +103,15 @@ declare interface InvoiceItem {
 }
 
 declare interface PaymentInfo {
-    method: "card" | "cheque" | "cash" | "upi" | "bank";
-    transactionId: string;
-    date: Date;
-    amount: Amount;
-    bankName?: string;
-    lastFourDigits?: string;
-    cardType?: string;
-    chequeNumber?: string;
-    upiId?: string;
+  method: 'card' | 'cheque' | 'cash' | 'upi' | 'bank';
+  transactionId: string;
+  date: Date;
+  amount: Amount;
+  bankName?: string;
+  lastFourDigits?: string;
+  cardType?: string;
+  chequeNumber?: string;
+  upiId?: string;
 }
 
 declare interface Task {
@@ -145,7 +145,7 @@ declare interface SupportTicket {
 declare interface TicketComment {
   id: string;
   text: string;
-  type: "internal" | "external";
+  type: 'internal' | 'external';
   user: User;
   date: Date;
 }

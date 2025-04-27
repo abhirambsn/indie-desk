@@ -1,9 +1,10 @@
-import { TicketService } from '@/app/service/ticket/ticket.service';
-import { AppState, AuthSelectors, TicketActions } from '@/app/store';
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, withLatestFrom } from 'rxjs';
+
+import { AppState, AuthSelectors, TicketActions } from '@ui/app/store';
+import { TicketService } from '@ui/app/service/ticket/ticket.service';
 
 @Injectable()
 export class TicketEffects {
@@ -20,13 +21,11 @@ export class TicketEffects {
           map((tickets) =>
             TicketActions.loadTicketsSuccess({
               payload: { projectId: payload.projectId, tickets },
-            })
+            }),
           ),
-          catchError((err) =>
-            of(TicketActions.loadTicketsFailure({ error: err }))
-          )
-        )
-      )
+          catchError((err) => of(TicketActions.loadTicketsFailure({ error: err }))),
+        ),
+      ),
     );
   });
 
@@ -35,19 +34,15 @@ export class TicketEffects {
       ofType(TicketActions.saveTicket),
       withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
       exhaustMap(([{ payload }, { access_token }]) =>
-        this.service
-          .createTicket(payload.projectId, access_token, payload.ticket)
-          .pipe(
-            map((ticket) =>
-              TicketActions.saveTicketSuccess({
-                payload: { projectId: payload.projectId, ticket },
-              })
-            ),
-            catchError((err) =>
-              of(TicketActions.saveTicketFailure({ error: err }))
-            )
-          )
-      )
+        this.service.createTicket(payload.projectId, access_token, payload.ticket).pipe(
+          map((ticket) =>
+            TicketActions.saveTicketSuccess({
+              payload: { projectId: payload.projectId, ticket },
+            }),
+          ),
+          catchError((err) => of(TicketActions.saveTicketFailure({ error: err }))),
+        ),
+      ),
     );
   });
 
@@ -57,23 +52,16 @@ export class TicketEffects {
       withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
       exhaustMap(([{ payload }, { access_token }]) =>
         this.service
-          .updateTicket(
-            payload.projectId,
-            access_token,
-            payload.ticket.id,
-            payload.ticket
-          )
+          .updateTicket(payload.projectId, access_token, payload.ticket.id, payload.ticket)
           .pipe(
             map((ticket) =>
               TicketActions.saveTicketSuccess({
                 payload: { projectId: payload.projectId, ticket },
-              })
+              }),
             ),
-            catchError((err) =>
-              of(TicketActions.saveTicketFailure({ error: err }))
-            )
-          )
-      )
+            catchError((err) => of(TicketActions.saveTicketFailure({ error: err }))),
+          ),
+      ),
     );
   });
 }

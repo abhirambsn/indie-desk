@@ -1,35 +1,30 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {Avatar} from 'primeng/avatar';
-import {TieredMenu} from 'primeng/tieredmenu';
-import {Badge} from 'primeng/badge';
-import {MenuItem} from 'primeng/api';
-import {InputText} from 'primeng/inputtext';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
-import {Store} from '@ngrx/store';
-import {AppState} from '../../store/interfaces';
-import {SearchActions} from '../../store/actions';
-import { UserDetailsComponent } from "./user-details/user-details.component";
-import { AuthService } from '@/app/service/auth/auth.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Avatar } from 'primeng/avatar';
+import { TieredMenu } from 'primeng/tieredmenu';
+import { Badge } from 'primeng/badge';
+import { MenuItem } from 'primeng/api';
+import { InputText } from 'primeng/inputtext';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+
+import { AppState } from '@ui/app/store/interfaces';
+import { SearchActions } from '@ui/app/store/actions';
+import { AuthService } from '@ui/app/service/auth/auth.service';
+
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [
-    Avatar,
-    TieredMenu,
-    InputText,
-    ReactiveFormsModule,
-    Badge,
-    UserDetailsComponent
-],
+  imports: [Avatar, TieredMenu, InputText, ReactiveFormsModule, Badge, UserDetailsComponent],
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {
   constructor(
     private readonly store$: Store<AppState>,
     private readonly authService: AuthService,
-    private readonly router: Router
-  ) { }
+    private readonly router: Router,
+  ) {}
 
   @Input() sidebarCollapsed = false;
   @Input() userDetails: User = {} as User;
@@ -41,7 +36,7 @@ export class NavbarComponent {
     if (!this.searchInput.value || this.searchInput.value.length < 3) {
       return;
     }
-    this.store$.dispatch(SearchActions.search({payload: {query: this.searchInput.value}}));
+    this.store$.dispatch(SearchActions.search({ payload: { query: this.searchInput.value } }));
   }
 
   public items: MenuItem[] = [
@@ -50,18 +45,18 @@ export class NavbarComponent {
       id: 'user-details',
     },
     {
-      separator: true
+      separator: true,
     },
     {
       label: 'Profile',
-      icon: 'pi pi-user'
+      icon: 'pi pi-user',
     },
     {
       label: 'Settings',
-      icon: 'pi pi-cog'
+      icon: 'pi pi-cog',
     },
     {
-      separator: true
+      separator: true,
     },
     {
       label: 'Logout',
@@ -69,7 +64,7 @@ export class NavbarComponent {
       command: () => {
         this.authService.logout();
         this.router.navigate(['/auth/login']);
-      }
-    }
-  ]
+      },
+    },
+  ];
 }

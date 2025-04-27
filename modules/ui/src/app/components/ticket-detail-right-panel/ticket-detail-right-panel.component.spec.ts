@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { TicketDetailRightPanelComponent } from './ticket-detail-right-panel.component';
 import _ from 'lodash';
-import { initialAppState } from '@/app/store/constants/app.constants';
 import { provideMockStore } from '@ngrx/store/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+
+import { initialAppState } from '@ui/app/store/constants/app.constants';
+
+import { TicketDetailRightPanelComponent } from './ticket-detail-right-panel.component';
 
 describe('TicketDetailRightPanelComponent', () => {
   let component: TicketDetailRightPanelComponent;

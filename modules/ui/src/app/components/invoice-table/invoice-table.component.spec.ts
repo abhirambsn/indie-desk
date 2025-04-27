@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { InvoiceTableComponent } from './invoice-table.component';
-import { initialAppState } from '@/app/store/constants/app.constants';
 import { provideMockStore } from '@ngrx/store/testing';
 import _ from 'lodash';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+
+import { initialAppState } from '@ui/app/store/constants/app.constants';
+
+import { InvoiceTableComponent } from './invoice-table.component';
 
 describe('InvoiceTableComponent', () => {
   let component: InvoiceTableComponent;
@@ -16,12 +17,11 @@ describe('InvoiceTableComponent', () => {
     await TestBed.configureTestingModule({
       imports: [InvoiceTableComponent],
       providers: [
-        provideMockStore({initialState}),
+        provideMockStore({ initialState }),
         provideHttpClient(),
         provideHttpClientTesting(),
-      ]
-    })
-    .compileComponents();
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(InvoiceTableComponent);
     component = fixture.componentInstance;

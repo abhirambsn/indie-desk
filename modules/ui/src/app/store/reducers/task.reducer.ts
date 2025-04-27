@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { initialTaskState } from '@/app/store/constants/task.constants';
-import { TaskActions } from '../actions';
+
+import { TaskActions } from '@ui/app/store/actions';
+import { initialTaskState } from '@ui/app/store/constants/task.constants';
 
 export const taskReducer = createReducer(
   initialTaskState,
@@ -24,6 +25,6 @@ export const taskReducer = createReducer(
     ...state,
     loading: false,
     loaded: false,
-    error
-  }))
+    error,
+  })),
 );

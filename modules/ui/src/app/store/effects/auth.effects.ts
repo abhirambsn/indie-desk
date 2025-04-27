@@ -1,10 +1,11 @@
-import {Injectable, inject} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {AuthActions} from '../actions';
-import {AuthService} from '../../service/auth/auth.service';
-import {exhaustMap, map, catchError} from 'rxjs/operators';
-import {of} from 'rxjs';
-import {Router} from '@angular/router';
+import { Injectable, inject } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { exhaustMap, map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { Router } from '@angular/router';
+
+import { AuthService } from '@ui/app/service/auth/auth.service';
+import { AuthActions } from '@ui/app/store/actions';
 
 @Injectable()
 export class AuthEffects {
@@ -15,28 +16,30 @@ export class AuthEffects {
   login$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.login),
-      exhaustMap((payload) => this.service.login(payload)
-        .pipe(
-          map(loginResponse => {
+      exhaustMap((payload) =>
+        this.service.login(payload).pipe(
+          map((loginResponse) => {
             console.log('[DEBUG] loginResponse', loginResponse);
-            this.router.navigate(["/dashboard"]);
-            return AuthActions.loginSuccess(loginResponse)
+            this.router.navigate(['/dashboard']);
+            return AuthActions.loginSuccess(loginResponse);
           }),
-          catchError(() => of(AuthActions.loginFailure({error: 'Login Failed'})))
-        )
-      )
-    )
+          catchError(() => of(AuthActions.loginFailure({ error: 'Login Failed' }))),
+        ),
+      ),
+    );
   });
 
   loginSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
-      exhaustMap((payload) => this.service.getUserDetails(payload.access_token)
-        .pipe(
-          map(userDetails => AuthActions.loadUserDetails({payload: userDetails})),
-          catchError(() => of(AuthActions.userDetailError({error: 'Error loading user details'})))
-        )
-      )
-    )
+      exhaustMap((payload) =>
+        this.service.getUserDetails(payload.access_token).pipe(
+          map((userDetails) => AuthActions.loadUserDetails({ payload: userDetails })),
+          catchError(() =>
+            of(AuthActions.userDetailError({ error: 'Error loading user details' })),
+          ),
+        ),
+      ),
+    );
   });
 }

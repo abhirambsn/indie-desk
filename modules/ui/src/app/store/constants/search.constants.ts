@@ -1,6 +1,6 @@
-import {SearchState} from '../interfaces';
+import { SearchState } from '@ui/app/store/interfaces';
 
 export const initialSearchState: SearchState = {
   query: null,
-  response: null
-}
+  response: null,
+};

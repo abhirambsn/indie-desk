@@ -1,4 +1,4 @@
-import {definePreset} from '@primeng/themes';
+import { definePreset } from '@primeng/themes';
 import Aura from '@primeng/themes/aura';
 
 const IndieDeskTheme = definePreset(Aura, {
@@ -14,9 +14,9 @@ const IndieDeskTheme = definePreset(Aura, {
       700: '{stone.700}',
       800: '{stone.800}',
       900: '{stone.900}',
-      950: '{stone.950}'
-    }
-  }
+      950: '{stone.950}',
+    },
+  },
 });
 
 export default IndieDeskTheme;

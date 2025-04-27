@@ -8,9 +8,8 @@ describe('ButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ButtonComponent]
-    })
-    .compileComponents();
+      imports: [ButtonComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ButtonComponent);
     component = fixture.componentInstance;
@@ -26,5 +25,5 @@ describe('ButtonComponent', () => {
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('p-button');
     expect(button.textContent).toEqual('Test');
-  })
+  });
 });

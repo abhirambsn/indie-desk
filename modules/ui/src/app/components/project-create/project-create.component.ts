@@ -1,4 +1,3 @@
-import ProjectStatus from '@/app/enums/project-status.enum';
 import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IftaLabel } from 'primeng/iftalabel';
@@ -6,16 +5,11 @@ import { InputText } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 import { Textarea } from 'primeng/textarea';
 
+import ProjectStatus from '@ui/app/enums/project-status.enum';
+
 @Component({
   selector: 'app-project-create',
-  imports: [
-    IftaLabel,
-    InputText,
-    ReactiveFormsModule,
-    FormsModule,
-    Textarea,
-    Select,
-  ],
+  imports: [IftaLabel, InputText, ReactiveFormsModule, FormsModule, Textarea, Select],
   templateUrl: './project-create.component.html',
 })
 export class ProjectCreateComponent {
@@ -60,6 +54,6 @@ export class ProjectCreateComponent {
     { value: 'CHF', label: 'Swiss Franc (CHF)' },
     { value: 'MYR', label: 'Malaysian Ringgit (MYR)' },
     { value: 'NZD', label: 'New Zealand Dollar (NZD)' },
-    { value: 'THB', label: 'Thai Baht (THB)' }
+    { value: 'THB', label: 'Thai Baht (THB)' },
   ];
 }

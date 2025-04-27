@@ -1,3 +1,8 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Store } from '@ngrx/store';
+import { MessageService } from 'primeng/api';
+
 import {
   AppState,
   ClientActions,
@@ -6,16 +11,7 @@ import {
   InvoiceSelectors,
   ProjectActions,
   ProjectSelectors,
-} from '@/app/store';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Store } from '@ngrx/store';
-import { MessageService } from 'primeng/api';
+} from '@ui/app/store';
 
 @UntilDestroy()
 @Component({
@@ -38,7 +34,7 @@ export class InvoicesComponent implements OnInit {
   constructor(
     private readonly store$: Store<AppState>,
     private readonly cdr: ChangeDetectorRef,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -107,7 +103,7 @@ export class InvoicesComponent implements OnInit {
       this.store$.dispatch(
         InvoiceActions.saveInvoice({
           payload: { data: event?.data },
-        })
+        }),
       );
       this.messageService.add({
         severity: 'success',
@@ -118,7 +114,7 @@ export class InvoicesComponent implements OnInit {
       this.store$.dispatch(
         InvoiceActions.updateInvoice({
           payload: { data: event?.data },
-        })
+        }),
       );
       this.messageService.add({
         severity: 'success',
@@ -133,7 +129,7 @@ export class InvoicesComponent implements OnInit {
     this.store$.dispatch(
       InvoiceActions.deleteInvoice({
         payload: { data: event?.data },
-      })
+      }),
     );
     this.messageService.add({
       severity: 'success',

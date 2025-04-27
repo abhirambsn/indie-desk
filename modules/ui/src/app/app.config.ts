@@ -1,15 +1,12 @@
-import {
-  ApplicationConfig,
-  isDevMode,
-  provideZoneChangeDetection,
-} from '@angular/core';
+import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
-import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import { ActionReducer, MetaReducer, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
+import { provideHttpClient } from '@angular/common/http';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+
 import {
   AuthEffects,
   ClientEffects,
@@ -26,10 +23,10 @@ import {
   taskReducer,
   searchReducer,
   ticketReducer,
-  userReducer
-} from '@/app/store';
-import { provideHttpClient } from '@angular/common/http';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
+  userReducer,
+} from '@ui/app/store';
+
+import { routes } from './app.routes';
 import IndieDeskTheme from './indie-desk-theme';
 import { UserEffects } from './store/effects/user.effects';
 
@@ -65,11 +62,11 @@ export const appConfig: ApplicationConfig = {
         projects: projectReducer,
         tasks: taskReducer,
         tickets: ticketReducer,
-        users: userReducer
+        users: userReducer,
       },
       {
         metaReducers,
-      }
+      },
     ),
     provideStoreDevtools({
       maxAge: 25,
@@ -84,7 +81,7 @@ export const appConfig: ApplicationConfig = {
       ProjectEffects,
       TaskEffects,
       TicketEffects,
-      UserEffects
+      UserEffects,
     ),
     provideHttpClient(),
   ],

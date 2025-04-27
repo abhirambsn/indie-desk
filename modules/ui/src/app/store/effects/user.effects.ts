@@ -1,10 +1,12 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../interfaces';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { AuthService } from '@/app/service/auth/auth.service';
-import { TicketActions, UserActions } from '../actions';
 import { catchError, exhaustMap, map, of, withLatestFrom } from 'rxjs';
+
+import { AuthService } from '@ui/app/service/auth/auth.service';
+
+import { TicketActions, UserActions } from '../actions';
+import { AppState } from '../interfaces';
 import { AuthSelectors } from '../selectors';
 
 @Injectable()
@@ -25,14 +27,12 @@ export class UserEffects {
                 projectId: payload.projectId,
                 users,
               },
-            })
+            }),
           ),
-          catchError((err) =>
-            of(TicketActions.loadTicketsFailure({ error: err }))
-          )
-        )
-      )
-    )
+          catchError((err) => of(TicketActions.loadTicketsFailure({ error: err }))),
+        ),
+      ),
+    ),
   );
 
   saveUser$ = createEffect(() =>
@@ -42,20 +42,18 @@ export class UserEffects {
       exhaustMap(([{ payload }, { access_token }]) => {
         const project_id = payload.projectId;
         const user = payload.user;
-        return this.service
-          .registerProjectUser(access_token, project_id, user)
-          .pipe(
-            map((user) =>
-              UserActions.saveUserSuccess({
-                payload: {
-                  projectId: project_id,
-                  user,
-                },
-              })
-            ),
-            catchError((err) => of(UserActions.saveUserFailure({ error: err })))
-          );
-      })
-    )
+        return this.service.registerProjectUser(access_token, project_id, user).pipe(
+          map((user) =>
+            UserActions.saveUserSuccess({
+              payload: {
+                projectId: project_id,
+                user,
+              },
+            }),
+          ),
+          catchError((err) => of(UserActions.saveUserFailure({ error: err }))),
+        );
+      }),
+    ),
   );
 }

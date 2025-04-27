@@ -1,9 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { AppState, AuthSelectors, ProjectActions } from '@/app/store';
-import { ProjectService } from '@/app/service/project/project.service';
 import { catchError, exhaustMap, map, of, withLatestFrom } from 'rxjs';
+
+import { AppState, AuthSelectors, ProjectActions } from '@ui/app/store';
+import { ProjectService } from '@ui/app/service/project/project.service';
 
 @Injectable()
 export class ProjectEffects {
@@ -17,14 +18,10 @@ export class ProjectEffects {
       withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
       exhaustMap(([, { access_token }]) =>
         this.service.getProjects(access_token).pipe(
-          map((projects) =>
-            ProjectActions.loadProjectsSuccess({ payload: projects })
-          ),
-          catchError((err) =>
-            of(ProjectActions.loadProjectsFailure({ error: err }))
-          )
-        )
-      )
+          map((projects) => ProjectActions.loadProjectsSuccess({ payload: projects })),
+          catchError((err) => of(ProjectActions.loadProjectsFailure({ error: err }))),
+        ),
+      ),
     );
   });
 
@@ -34,14 +31,10 @@ export class ProjectEffects {
       withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
       exhaustMap(([{ payload }, { access_token }]) =>
         this.service.createProject(payload, access_token).pipe(
-          map((project) =>
-            ProjectActions.saveProjectsuccess({ payload: project })
-          ),
-          catchError((err) =>
-            of(ProjectActions.saveProjectFailure({ error: err }))
-          )
-        )
-      )
+          map((project) => ProjectActions.saveProjectsuccess({ payload: project })),
+          catchError((err) => of(ProjectActions.saveProjectFailure({ error: err }))),
+        ),
+      ),
     );
   });
 
@@ -51,14 +44,10 @@ export class ProjectEffects {
       withLatestFrom(this.store$.select(AuthSelectors.selectTokens)),
       exhaustMap(([{ payload }, { access_token }]) =>
         this.service.updateProject(payload?.data, access_token).pipe(
-          map((project) =>
-            ProjectActions.saveProjectsuccess({ payload: project })
-          ),
-          catchError((err) =>
-            of(ProjectActions.saveProjectFailure({ error: err }))
-          )
-        )
-      )
+          map((project) => ProjectActions.saveProjectsuccess({ payload: project })),
+          catchError((err) => of(ProjectActions.saveProjectFailure({ error: err }))),
+        ),
+      ),
     );
   });
 }

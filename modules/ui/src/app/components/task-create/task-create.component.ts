@@ -7,14 +7,7 @@ import { Textarea } from 'primeng/textarea';
 
 @Component({
   selector: 'app-task-create',
-  imports: [
-    IftaLabel,
-    InputText,
-    ReactiveFormsModule,
-    FormsModule,
-    Textarea,
-    Select,
-  ],
+  imports: [IftaLabel, InputText, ReactiveFormsModule, FormsModule, Textarea, Select],
   templateUrl: './task-create.component.html',
 })
 export class TaskCreateComponent {
@@ -33,6 +26,4 @@ export class TaskCreateComponent {
     { label: 'Medium', value: 'MEDIUM' },
     { label: 'High', value: 'HIGH' },
   ];
-
-
 }

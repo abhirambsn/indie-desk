@@ -3,7 +3,7 @@ const getInvoiceDownloadUrl = (invoiceId: string) => `${INVOICE_BASE_URL}/${invo
 const getEditInvoiceEndpoint = (invoiceId: string) => `${INVOICE_BASE_URL}/${invoiceId}`;
 
 export const InvoiceServiceConstants = {
-    INVOICE_BASE_URL,
-    getInvoiceDownloadUrl,
-    getEditInvoiceEndpoint,
-}
+  INVOICE_BASE_URL,
+  getInvoiceDownloadUrl,
+  getEditInvoiceEndpoint,
+};

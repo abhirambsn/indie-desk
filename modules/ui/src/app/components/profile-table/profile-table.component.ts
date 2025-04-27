@@ -1,6 +1,7 @@
-import { AuthHelper } from '@/app/helpers/auth.helper';
 import { Component, Input } from '@angular/core';
 import { Button } from 'primeng/button';
+
+import { AuthHelper } from '@ui/app/helpers/auth.helper';
 
 @Component({
   selector: 'app-profile-table',

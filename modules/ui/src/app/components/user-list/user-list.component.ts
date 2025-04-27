@@ -1,18 +1,5 @@
-import {
-  AppState,
-  AuthSelectors,
-  UserActions,
-  UserSelectors,
-} from '@/app/store';
 import { DatePipe } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
@@ -23,6 +10,9 @@ import { Dialog } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { Table, TableModule } from 'primeng/table';
 import { Tag } from 'primeng/tag';
+
+import { AppState, AuthSelectors, UserActions, UserSelectors } from '@ui/app/store';
+
 import { UserCreateComponent } from '../user-create/user-create.component';
 
 @UntilDestroy()
@@ -131,7 +121,7 @@ export class UserListComponent implements OnInit, OnChanges {
           projectId: this.selectedProject?.id,
           user: this.newUser,
         },
-      })
+      }),
     );
     this.closeDialog();
   }

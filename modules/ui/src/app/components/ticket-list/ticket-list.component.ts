@@ -1,17 +1,4 @@
-import {
-  AppState,
-  TicketActions,
-  TicketSelectors,
-  UserSelectors,
-} from '@/app/store';
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-  ViewChild,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -21,10 +8,13 @@ import _ from 'lodash';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { Table, TableModule } from 'primeng/table';
-import { TicketCreateComponent } from '../ticket-create/ticket-create.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { Tag } from 'primeng/tag';
 import { DatePipe } from '@angular/common';
+
+import { AppState, TicketActions, TicketSelectors, UserSelectors } from '@ui/app/store';
+
+import { TicketCreateComponent } from '../ticket-create/ticket-create.component';
 
 @UntilDestroy()
 @Component({
@@ -95,11 +85,13 @@ export class TicketListComponent implements OnInit, OnChanges {
           .pipe(untilDestroyed(this))
           .subscribe((users) => {
             if (users) {
-              this.supportUsers = users.map(user => ({label: `${user.first_name} ${user.last_name} (${user.username})`, value: user}));
+              this.supportUsers = users.map((user) => ({
+                label: `${user.first_name} ${user.last_name} (${user.username})`,
+                value: user,
+              }));
             }
             console.log('Support users', this.supportUsers);
           });
-
 
         this.store$
           .select(TicketSelectors.getTickets(this.selectedProject.id))
@@ -145,7 +137,7 @@ export class TicketListComponent implements OnInit, OnChanges {
           projectId: this.selectedProject?.id,
           ticket: this.newTicket,
         },
-      })
+      }),
     );
     this.closeDialog();
   }
@@ -155,7 +147,7 @@ export class TicketListComponent implements OnInit, OnChanges {
     this.createDialogOpen = true;
   }
 
-  viewTicket(ticketId: string) {  
+  viewTicket(ticketId: string) {
     return ['/tickets', this.selectedProject?.id, ticketId];
   }
 

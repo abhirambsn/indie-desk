@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   standalone: false,
   templateUrl: './register.component.html',
 })
-export class RegisterComponent {
-
-}
+export class RegisterComponent {}

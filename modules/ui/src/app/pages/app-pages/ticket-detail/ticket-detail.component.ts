@@ -1,9 +1,10 @@
-import { TicketService } from '@/app/service/ticket/ticket.service';
-import { AppState, AuthSelectors, TicketActions, TicketSelectors } from '@/app/store';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
+
+import { AppState, AuthSelectors, TicketActions, TicketSelectors } from '@ui/app/store';
+import { TicketService } from '@ui/app/service/ticket/ticket.service';
 
 @UntilDestroy()
 @Component({
@@ -23,35 +24,42 @@ export class TicketDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private readonly store$: Store<AppState>,
     private readonly cdr: ChangeDetectorRef,
-    private readonly service: TicketService
+    private readonly service: TicketService,
   ) {}
 
   getTicketCommments() {
-    this.store$.select(AuthSelectors.selectTokens).pipe(untilDestroyed(this))
+    this.store$
+      .select(AuthSelectors.selectTokens)
+      .pipe(untilDestroyed(this))
       .subscribe((tokens) => {
         if (tokens) {
           this.access_token = tokens.access_token;
         }
-      })
-    this.service.getTicketComments(this.projectId!, this.access_token, this.ticketId!).pipe(untilDestroyed(this))
+      });
+    this.service
+      .getTicketComments(this.projectId!, this.access_token, this.ticketId!)
+      .pipe(untilDestroyed(this))
       .subscribe({
         next: (ticketComments) => {
           console.log('[DEBUG] Ticket comments: ', ticketComments);
-          this.ticketData.comments = ticketComments.sort((a: TicketComment, b: TicketComment) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          this.ticketData.comments = ticketComments.sort(
+            (a: TicketComment, b: TicketComment) =>
+              new Date(b.date).getTime() - new Date(a.date).getTime(),
+          );
           this.cdr.detectChanges();
         },
         error: (error) => {
           console.error('[ERROR] Error fetching ticket comments: ', error);
           this.ticketData.comments = [];
-        }
-      })
+        },
+      });
   }
 
   getTicketAttachments() {
     this.ticketData = {
       ...this.ticketData,
-      attachments: []
-    }
+      attachments: [],
+    };
   }
 
   ngOnInit(): void {
@@ -61,7 +69,8 @@ export class TicketDetailComponent implements OnInit {
       console.log('[DEBUG] Setting ticketId to: ', this.ticketId);
       console.log('[DEBUG] Setting projectId to: ', this.projectId);
 
-      this.store$.select(TicketSelectors.getTicketById(this.projectId!, this.ticketId!))
+      this.store$
+        .select(TicketSelectors.getTicketById(this.projectId!, this.ticketId!))
         .pipe(untilDestroyed(this))
         .subscribe((ticket) => {
           if (ticket) {
@@ -70,7 +79,9 @@ export class TicketDetailComponent implements OnInit {
             this.getTicketAttachments();
             console.log('[DEBUG] Ticket data: ', this.ticketData);
           } else {
-            this.store$.dispatch(TicketActions.loadTickets({payload: {projectId: this.projectId!}}));
+            this.store$.dispatch(
+              TicketActions.loadTickets({ payload: { projectId: this.projectId! } }),
+            );
           }
         });
     });

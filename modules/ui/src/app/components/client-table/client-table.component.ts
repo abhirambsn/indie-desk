@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Table, TableModule } from 'primeng/table';
 import { IconField } from 'primeng/iconfield';
 import { InputIcon } from 'primeng/inputicon';
@@ -17,11 +10,12 @@ import { Toolbar } from 'primeng/toolbar';
 import { Button } from 'primeng/button';
 import { FileUpload } from 'primeng/fileupload';
 import { Dialog } from 'primeng/dialog';
-import { ClientCreateComponent } from '../client-create/client-create.component';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { TieredMenu } from 'primeng/tieredmenu';
+
+import { ClientCreateComponent } from '../client-create/client-create.component';
 
 @Component({
   selector: 'app-client-table',
@@ -73,7 +67,7 @@ export class ClientTableComponent implements OnInit {
 
   constructor(
     private readonly confirmationService: ConfirmationService,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
   ) {}
 
   ngOnInit() {
@@ -117,10 +111,7 @@ export class ClientTableComponent implements OnInit {
   }
 
   filterGlobal(event: any, stringVal: string) {
-    this.clientTable!.filterGlobal(
-      (event.target as HTMLInputElement).value,
-      stringVal
-    );
+    this.clientTable!.filterGlobal((event.target as HTMLInputElement).value, stringVal);
   }
 
   openNew() {
@@ -152,8 +143,7 @@ export class ClientTableComponent implements OnInit {
 
   deleteClient(client: Client) {
     this.confirmationService.confirm({
-      message:
-        'Are you sure you want to delete the client ' + client.name + ' ?',
+      message: 'Are you sure you want to delete the client ' + client.name + ' ?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {

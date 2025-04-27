@@ -70,15 +70,15 @@ declare interface InvoiceItem {
 }
 
 declare interface PaymentInfo {
-    method: "card" | "cheque" | "cash" | "upi" | "bank";
-    transactionId: string;
-    date: Date;
-    amount: Amount;
-    bankName?: string;
-    lastFourDigits?: string;
-    cardType?: string;
-    chequeNumber?: string;
-    upiId?: string;
+  method: 'card' | 'cheque' | 'cash' | 'upi' | 'bank';
+  transactionId: string;
+  date: Date;
+  amount: Amount;
+  bankName?: string;
+  lastFourDigits?: string;
+  cardType?: string;
+  chequeNumber?: string;
+  upiId?: string;
 }
 
 declare interface Task {
@@ -105,7 +105,7 @@ declare interface Comment {
 declare interface TicketComment {
   id: string;
   text: string;
-  type: "internal" | "external";
+  type: 'internal' | 'external';
   user: User;
   date: Date;
 }

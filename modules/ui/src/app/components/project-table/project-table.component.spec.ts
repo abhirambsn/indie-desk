@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ProjectTableComponent } from './project-table.component';
 import { provideMockStore } from '@ngrx/store/testing';
 import _ from 'lodash';
-import { initialAppState } from '@/app/store/constants/app.constants';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+
+import { initialAppState } from '@ui/app/store/constants/app.constants';
+
+import { ProjectTableComponent } from './project-table.component';
 
 describe('ProjectTableComponent', () => {
   let component: ProjectTableComponent;
@@ -18,10 +19,9 @@ describe('ProjectTableComponent', () => {
       providers: [
         provideMockStore({ initialState }),
         provideHttpClient(),
-        provideHttpClientTesting()
-      ]
-    })
-    .compileComponents();
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectTableComponent);
     component = fixture.componentInstance;

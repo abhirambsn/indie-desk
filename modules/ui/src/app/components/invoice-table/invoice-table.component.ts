@@ -1,12 +1,4 @@
-import { AppState, InvoiceActions } from '@/app/store';
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
@@ -23,8 +15,11 @@ import { Tag } from 'primeng/tag';
 import { TieredMenu } from 'primeng/tieredmenu';
 import { Toast } from 'primeng/toast';
 import { Toolbar } from 'primeng/toolbar';
-import { InvoiceCreateComponent } from '../invoice-create/invoice-create.component';
 import { DatePipe } from '@angular/common';
+
+import { AppState, InvoiceActions } from '@ui/app/store';
+
+import { InvoiceCreateComponent } from '../invoice-create/invoice-create.component';
 
 @Component({
   selector: 'app-invoice-table',
@@ -44,7 +39,7 @@ import { DatePipe } from '@angular/common';
     ConfirmDialog,
     TieredMenu,
     InvoiceCreateComponent,
-    DatePipe
+    DatePipe,
   ],
   providers: [MessageService, ConfirmationService],
   templateUrl: './invoice-table.component.html',
@@ -79,7 +74,7 @@ export class InvoiceTableComponent implements OnInit {
   constructor(
     private readonly confirmationService: ConfirmationService,
     private readonly messageService: MessageService,
-    private readonly store$: Store<AppState>
+    private readonly store$: Store<AppState>,
   ) {}
 
   ngOnInit(): void {
@@ -108,10 +103,7 @@ export class InvoiceTableComponent implements OnInit {
   }
 
   filterGlobal(event: any, stringVal: string) {
-    this.invoiceTable!.filterGlobal(
-      (event.target as HTMLInputElement).value,
-      stringVal
-    );
+    this.invoiceTable!.filterGlobal((event.target as HTMLInputElement).value, stringVal);
   }
 
   openNew() {

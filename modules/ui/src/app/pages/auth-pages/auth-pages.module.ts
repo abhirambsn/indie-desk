@@ -1,28 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {LoginComponent} from './login/login.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {PasswordModule} from 'primeng/password';
-import {InputText} from 'primeng/inputtext';
-import {RouterModule, Routes} from '@angular/router';
-import {CardModule} from 'primeng/card';
-import {ButtonComponent} from '../../components/button/button.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
+import { InputText } from 'primeng/inputtext';
+import { RouterModule, Routes } from '@angular/router';
+import { CardModule } from 'primeng/card';
 import { IftaLabelModule } from 'primeng/iftalabel';
 import { ButtonModule } from 'primeng/button';
-import {Fluid} from 'primeng/fluid';
+import { Fluid } from 'primeng/fluid';
+
+import { ButtonComponent } from '../../components/button/button.component';
+
+import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
-
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-]
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+];
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    RegisterComponent
-  ],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -34,10 +32,8 @@ const routes: Routes = [
     ButtonComponent,
     IftaLabelModule,
     ButtonModule,
-    Fluid
+    Fluid,
   ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule],
 })
-export class AuthPagesModule { }
+export class AuthPagesModule {}

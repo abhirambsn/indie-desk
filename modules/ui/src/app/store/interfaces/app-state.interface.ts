@@ -19,4 +19,3 @@ export interface AppState {
   tickets: TicketState;
   users: UserState;
 }
-

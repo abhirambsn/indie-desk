@@ -4,7 +4,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
   selector: 'app-ticket-detail-field',
   imports: [DatePipe],
-  templateUrl: './ticket-detail-field.component.html'
+  templateUrl: './ticket-detail-field.component.html',
 })
 export class TicketDetailFieldComponent {
   @Input() fieldId = '';

@@ -1,14 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NavLayoutComponent } from './nav-layout.component';
-import {provideMockStore} from '@ngrx/store/testing';
-import {initialAppState} from '../../store/constants/app.constants';
+import { provideMockStore } from '@ngrx/store/testing';
 import _ from 'lodash';
-import {provideRouter} from '@angular/router';
-import {routes} from '../../pages/app-pages/app-pages.module';
-import {NO_ERRORS_SCHEMA} from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+
+import { routes } from '../../pages/app-pages/app-pages.module';
+import { initialAppState } from '../../store/constants/app.constants';
+
+import { NavLayoutComponent } from './nav-layout.component';
 
 describe('NavLayoutComponent', () => {
   let component: NavLayoutComponent;
@@ -19,14 +20,13 @@ describe('NavLayoutComponent', () => {
     await TestBed.configureTestingModule({
       imports: [NavLayoutComponent],
       providers: [
-        provideMockStore({initialState}),
+        provideMockStore({ initialState }),
         provideHttpClient(),
         provideHttpClientTesting(),
-        provideRouter(routes)
+        provideRouter(routes),
       ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(NavLayoutComponent);
     component = fixture.componentInstance;

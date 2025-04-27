@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SupportUsersComponent } from './support-users.component';
 import _ from 'lodash';
-import { initialAppState } from '@/app/store/constants/app.constants';
 import { provideMockStore } from '@ngrx/store/testing';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
+import { initialAppState } from '@ui/app/store/constants/app.constants';
+
+import { SupportUsersComponent } from './support-users.component';
 
 describe('SupportUsersComponent', () => {
   let component: SupportUsersComponent;
@@ -17,11 +18,8 @@ describe('SupportUsersComponent', () => {
       declarations: [SupportUsersComponent],
       imports: [CommonModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      providers: [
-        provideMockStore({ initialState })
-      ]
-    })
-    .compileComponents();
+      providers: [provideMockStore({ initialState })],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SupportUsersComponent);
     component = fixture.componentInstance;

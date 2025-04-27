@@ -1,19 +1,15 @@
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Store } from '@ngrx/store';
+import { MessageService } from 'primeng/api';
+
 import {
   AppState,
   ClientActions,
   ClientSelectors,
   ProjectActions,
   ProjectSelectors,
-} from '@/app/store';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-} from '@angular/core';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Store } from '@ngrx/store';
-import { MessageService } from 'primeng/api';
+} from '@ui/app/store';
 
 @UntilDestroy()
 @Component({
@@ -35,7 +31,7 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private readonly store$: Store<AppState>,
     private readonly cdr: ChangeDetectorRef,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -88,7 +84,7 @@ export class ProjectsComponent implements OnInit {
       this.store$.dispatch(
         ProjectActions.saveProject({
           payload: { data: event?.data },
-        })
+        }),
       );
       this.messageService.add({
         severity: 'success',
@@ -99,7 +95,7 @@ export class ProjectsComponent implements OnInit {
       this.store$.dispatch(
         ProjectActions.updateProject({
           payload: { data: event?.data },
-        })
+        }),
       );
       this.messageService.add({
         severity: 'success',
@@ -114,7 +110,7 @@ export class ProjectsComponent implements OnInit {
     this.store$.dispatch(
       ProjectActions.deleteProject({
         payload: { data: event?.data },
-      })
+      }),
     );
     this.messageService.add({
       severity: 'success',

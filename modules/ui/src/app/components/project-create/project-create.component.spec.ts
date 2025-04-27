@@ -9,16 +9,15 @@ describe('ProjectCreateComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ProjectCreateComponent],
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectCreateComponent);
     component = fixture.componentInstance;
     component.project = {
       perHourRate: {
         amount: 0,
-        currency: 'USD'
-      }
+        currency: 'USD',
+      },
     } as Project;
     fixture.detectChanges();
   });

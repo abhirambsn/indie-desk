@@ -3,9 +3,7 @@ import { AvatarModule } from 'primeng/avatar';
 
 @Component({
   selector: 'app-user-details',
-  imports: [
-    AvatarModule
-  ],
+  imports: [AvatarModule],
   templateUrl: './user-details.component.html',
 })
 export class UserDetailsComponent {

@@ -1,8 +1,9 @@
-import { CommonHelper } from '@/app/helpers/common.helper';
-import { AppState, AuthSelectors } from '@/app/store';
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
+
+import { AppState, AuthSelectors } from '@ui/app/store';
+import { CommonHelper } from '@ui/app/helpers/common.helper';
 
 @UntilDestroy()
 @Component({
@@ -26,6 +27,6 @@ export class DashboardComponent implements OnInit {
           this.currentUser = user;
         }
       });
-      this.greeting = CommonHelper.getGreetingBasedOnTime();
+    this.greeting = CommonHelper.getGreetingBasedOnTime();
   }
 }

@@ -1,13 +1,9 @@
-import {
-  AppState,
-  ProjectActions,
-  ProjectSelectors,
-  TaskActions,
-} from '@/app/store';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
+
+import { AppState, ProjectActions, ProjectSelectors, TaskActions } from '@ui/app/store';
 
 @UntilDestroy()
 @Component({
@@ -24,7 +20,7 @@ export class TasksComponent implements OnInit {
   constructor(
     private readonly store$: Store<AppState>,
     private readonly cdr: ChangeDetectorRef,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -51,17 +47,13 @@ export class TasksComponent implements OnInit {
       .subscribe((project) => {
         if (project) {
           this.selectedProject = project;
-          this.store$.dispatch(
-            TaskActions.loadTasks({ payload: { projectId: project.id } })
-          );
+          this.store$.dispatch(TaskActions.loadTasks({ payload: { projectId: project.id } }));
         }
         this.cdr.detectChanges();
       });
   }
 
   onProjectChange(event: any) {
-    this.store$.dispatch(
-      ProjectActions.selectProject({ payload: event.value })
-    );
+    this.store$.dispatch(ProjectActions.selectProject({ payload: event.value }));
   }
 }

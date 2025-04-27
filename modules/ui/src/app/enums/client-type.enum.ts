@@ -1,6 +1,6 @@
 enum ClientType {
   ORGANIZATION = 'ORGANIZATION',
-  INDIVIDUAL = 'INDIVIDUAL'
+  INDIVIDUAL = 'INDIVIDUAL',
 }
 
 export default ClientType;

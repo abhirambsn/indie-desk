@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { initialUserState } from '../constants/user.constants';
-import { UserActions } from '../actions';
+
+import { initialUserState } from '@ui/app/store/constants/user.constants';
+import { UserActions } from '@ui/app/store/actions';
 
 export const userReducer = createReducer(
   initialUserState,
@@ -25,5 +26,5 @@ export const userReducer = createReducer(
     loading: false,
     loaded: false,
     error,
-  }))
+  })),
 );

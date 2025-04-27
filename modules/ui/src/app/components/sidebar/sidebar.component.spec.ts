@@ -1,11 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import _ from 'lodash';
+import { provideMockStore } from '@ngrx/store/testing';
+
+import { initialAppState } from '@ui/app/store/constants/app.constants';
+
+import { routes } from '../../pages/app-pages/app-pages.module';
 
 import { SidebarComponent } from './sidebar.component';
-import {provideRouter} from '@angular/router';
-import {routes} from '../../pages/app-pages/app-pages.module';
-import _ from 'lodash';
-import { initialAppState } from '@/app/store/constants/app.constants';
-import { provideMockStore } from '@ngrx/store/testing';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -15,12 +17,8 @@ describe('SidebarComponent', () => {
     const initialState = _.cloneDeep(initialAppState);
     await TestBed.configureTestingModule({
       imports: [SidebarComponent],
-      providers: [
-        provideRouter(routes),
-        provideMockStore({initialState})
-      ]
-    })
-    .compileComponents();
+      providers: [provideRouter(routes), provideMockStore({ initialState })],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(SidebarComponent);
     component = fixture.componentInstance;

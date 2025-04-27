@@ -1,16 +1,17 @@
-import {TestBed} from '@angular/core/testing';
-import {AuthEffects} from './auth.effects';
-import {Observable, of, toArray} from 'rxjs';
-import {MockStore, provideMockStore} from '@ngrx/store/testing';
-import {AppState} from '../interfaces';
+import { TestBed } from '@angular/core/testing';
+import { Observable, of, toArray } from 'rxjs';
+import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import _ from 'lodash';
-import {initialAppState} from '../constants/app.constants';
-import {AuthActions} from '../actions';
-import {provideMockActions} from '@ngrx/effects/testing';
-import {Action, Store} from '@ngrx/store';
-import {provideHttpClientTesting} from '@angular/common/http/testing';
-import {AuthService} from '../../service/auth/auth.service';
-import {provideHttpClient} from '@angular/common/http';
+import { provideMockActions } from '@ngrx/effects/testing';
+import { Action, Store } from '@ngrx/store';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
+
+import { AuthService } from '@ui/app/service/auth/auth.service';
+import { AuthActions } from '@ui/app/store/actions';
+import { initialAppState } from '@ui/app/store/constants/app.constants';
+import { AppState } from '@ui/app/store/interfaces';
+import { AuthEffects } from '@ui/app/store/effects';
 
 describe('AuthEffects', () => {
   let effects: AuthEffects;
@@ -24,9 +25,9 @@ describe('AuthEffects', () => {
       providers: [
         AuthEffects,
         provideMockActions(() => actions$),
-        provideMockStore({initialState}),
+        provideMockStore({ initialState }),
         provideHttpClient(),
-        provideHttpClientTesting()
+        provideHttpClientTesting(),
       ],
     }).compileComponents();
     mockStore = TestBed.inject(Store) as MockStore<AppState>;
@@ -38,21 +39,21 @@ describe('AuthEffects', () => {
     mockStore.resetSelectors();
   });
 
-  it('login$', done => {
+  it('login$', (done) => {
     actions$ = of({
       type: AuthActions.login.type,
       username: 'test.user',
-      password: 'test.password'
+      password: 'test.password',
     });
 
     const now = Date.now();
 
-    spyOn(Date, 'now').and.returnValue(now)
+    spyOn(Date, 'now').and.returnValue(now);
 
     const mockCreds = {
-      access_token: "",
-      refresh_token: "",
-      expires_at: now + (60*60*1000)
+      access_token: '',
+      refresh_token: '',
+      expires_at: now + 60 * 60 * 1000,
     };
 
     mockStore.setState({
@@ -64,30 +65,30 @@ describe('AuthEffects', () => {
         loading: false,
         error: '',
         credentials: mockCreds,
-      }
+      },
     });
 
-    effects.login$.pipe(toArray()).subscribe(actions1 => {
+    effects.login$.pipe(toArray()).subscribe((actions1) => {
       expect(actions1).toEqual([
         {
           type: AuthActions.loginSuccess.type,
-          ...mockCreds
-        }
-      ])
+          ...mockCreds,
+        },
+      ]);
     });
     done();
   });
 
-  it('loginSuccess$', done => {
+  it('loginSuccess$', (done) => {
     const now = Date.now();
 
-    spyOn(Date, 'now').and.returnValue(now)
+    spyOn(Date, 'now').and.returnValue(now);
     actions$ = of({
       type: AuthActions.loginSuccess.type,
       access_token: 'test-token',
       refresh_token: 'test-r-token',
-      expires_at: now + (60*60*1000)
-    })
+      expires_at: now + 60 * 60 * 1000,
+    });
 
     const userDetails = {
       first_name: 'test',
@@ -99,10 +100,10 @@ describe('AuthEffects', () => {
       org: {
         id: 'test-org-id',
         name: 'test-org',
-        users: []
+        users: [],
       },
-      projects: []
-    }
+      projects: [],
+    };
 
     spyOn(authService, 'getUserDetails').and.returnValue(of(userDetails));
 
@@ -115,21 +116,21 @@ describe('AuthEffects', () => {
         credentials: {
           access_token: 'test-token',
           refresh_token: 'test-r-token',
-          expires_at: now + (60*60*1000)
+          expires_at: now + 60 * 60 * 1000,
         },
-        user: userDetails
-      }
+        user: userDetails,
+      },
     });
 
-    effects.loginSuccess$.pipe(toArray()).subscribe(actions1 => {
+    effects.loginSuccess$.pipe(toArray()).subscribe((actions1) => {
       expect(actions1).toEqual([
         {
           type: AuthActions.loadUserDetails.type,
-          payload: userDetails
-        }
-      ])
+          payload: userDetails,
+        },
+      ]);
     });
     done();
     expect().nothing();
-  })
+  });
 });

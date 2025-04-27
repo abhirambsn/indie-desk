@@ -1,4 +1,4 @@
-import { ProjectState } from '@/app/store';
+import { ProjectState } from '@ui/app/store';
 
 export const initialProjectState: ProjectState = {
   projects: [],

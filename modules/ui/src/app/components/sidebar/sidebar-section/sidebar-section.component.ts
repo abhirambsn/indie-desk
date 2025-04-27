@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+
 import { SidebarLinkComponent } from '../sidebar-link/sidebar-link.component';
 
 @Component({

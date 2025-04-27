@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { initialClientsState } from '../constants/client.constants';
-import { ClientActions } from '../actions';
+
+import { initialClientsState } from '@ui/app/store/constants/client.constants';
+import { ClientActions } from '@ui/app/store/actions';
 
 export const clientReducer = createReducer(
   initialClientsState,
@@ -19,5 +20,5 @@ export const clientReducer = createReducer(
     ...state,
     loaded: false,
     loading: false,
-  }))
+  })),
 );

@@ -1,9 +1,11 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { TicketDetailFieldComponent } from "../ticket-detail-field/ticket-detail-field.component";
-import { ticketColumns } from './ticket-detail-left-panel.constants';
 import _ from 'lodash';
 import { NgClass } from '@angular/common';
 import { Button } from 'primeng/button';
+
+import { TicketDetailFieldComponent } from '../ticket-detail-field/ticket-detail-field.component';
+
+import { ticketColumns } from './ticket-detail-left-panel.constants';
 
 @Component({
   selector: 'app-ticket-detail-left-panel',

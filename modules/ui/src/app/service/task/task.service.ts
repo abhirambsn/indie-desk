@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TaskServiceConstants } from './task.service.constants';
 import { catchError, map, of } from 'rxjs';
+
+import { TaskServiceConstants } from './task.service.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,7 @@ export class TaskService {
         catchError((error) => {
           console.error(error);
           return of([]);
-        })
+        }),
       );
   }
 
@@ -36,14 +37,14 @@ export class TaskService {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
-        }
+        },
       )
       .pipe(
         map((response: any) => response?.data),
         catchError((error) => {
           console.error(error);
           return of(null);
-        })
+        }),
       );
   }
 
@@ -57,14 +58,14 @@ export class TaskService {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
-        }
+        },
       )
       .pipe(
         map((response: any) => response?.data),
         catchError((error) => {
           console.error(error);
           return of(null);
-        })
+        }),
       );
   }
 }

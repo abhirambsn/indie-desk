@@ -7,7 +7,7 @@ import { TabsModule } from 'primeng/tabs';
   selector: 'app-ticket-comment-create',
   imports: [TabsModule, FormsModule, Button],
   templateUrl: './ticket-comment-create.component.html',
-  styleUrl: './ticket-comment-create.component.scss'
+  styleUrl: './ticket-comment-create.component.scss',
 })
 export class TicketCommentCreateComponent implements OnInit {
   @Input() ticketId: string | null = null;
@@ -19,10 +19,10 @@ export class TicketCommentCreateComponent implements OnInit {
   @Output() refreshComments = new EventEmitter();
 
   ngOnInit(): void {
-      this.ticketCommentModel = {
-        type: 'internal',
-        text: ''
-      } as TicketComment;
+    this.ticketCommentModel = {
+      type: 'internal',
+      text: '',
+    } as TicketComment;
   }
 
   onTypeChange(event: any) {
@@ -34,8 +34,7 @@ export class TicketCommentCreateComponent implements OnInit {
     this.createCommentTrigger.emit(this.ticketCommentModel);
     this.ticketCommentModel = {
       type: 'internal',
-      text: ''
+      text: '',
     } as TicketComment;
   }
-
 }

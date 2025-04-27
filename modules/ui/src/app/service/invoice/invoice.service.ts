@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { InvoiceServiceConstants } from './invoice.service.constants';
 import { catchError, map, of } from 'rxjs';
+
+import { InvoiceServiceConstants } from './invoice.service.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class InvoiceService {
         catchError((error) => {
           console.error(error);
           return of([]);
-        })
+        }),
       );
   }
 
@@ -38,7 +39,7 @@ export class InvoiceService {
         catchError((error) => {
           console.error(error);
           return of({});
-        })
+        }),
       );
   }
 
@@ -59,7 +60,7 @@ export class InvoiceService {
         catchError((error) => {
           console.error(error);
           return of({});
-        })
+        }),
       );
   }
 
@@ -81,14 +82,14 @@ export class InvoiceService {
             Authorization: `Bearer ${access_token}`,
             'Content-Type': 'application/json',
           },
-        }
+        },
       )
       .pipe(
         map((response: any) => response?.data),
         catchError((error) => {
           console.error(error);
           return of({});
-        })
+        }),
       );
   }
 }

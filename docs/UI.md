@@ -28,4 +28,4 @@
     ```bash
     docker run -p 80:80 abhirambsn/indie-desk-ui
     ```
-3. Open the browser and navigate to `http://localhost:80/`.
+3. Open the browser and navigate to `http://localhost/`.

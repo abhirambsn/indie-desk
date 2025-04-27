@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+
+import { routes } from '../app-pages.module';
 
 import { ProjectDetailComponent } from './project-detail.component';
-import { provideRouter } from '@angular/router';
-import { routes } from '../app-pages.module';
 
 describe('ProjectDetailComponent', () => {
   let component: ProjectDetailComponent;
@@ -11,11 +12,8 @@ describe('ProjectDetailComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ProjectDetailComponent],
-      providers: [
-        provideRouter(routes)
-      ]
-    })
-    .compileComponents();
+      providers: [provideRouter(routes)],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectDetailComponent);
     component = fixture.componentInstance;

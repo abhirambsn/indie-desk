@@ -1,4 +1,4 @@
-import {AuthServiceConstants} from '../service/auth/auth.service.constants';
+import { AuthServiceConstants } from '../service/auth/auth.service.constants';
 
 export class AuthHelper {
   static getCredentialsFromLocalStorage() {
@@ -13,14 +13,14 @@ export class AuthHelper {
     return {
       access_token: accessToken,
       refresh_token: refreshToken,
-      expires_at: parseInt(expiresAt)*1000
+      expires_at: parseInt(expiresAt) * 1000,
     };
   }
 
   static getRoleLabel(role?: string): string {
     if (role === 'admin') return 'Administrator';
-    else if (role === "support") return 'Support User';
-    else if (role === "customer") return "Customer";
-    return "Guest";
+    else if (role === 'support') return 'Support User';
+    else if (role === 'customer') return 'Customer';
+    return 'Guest';
   }
 }

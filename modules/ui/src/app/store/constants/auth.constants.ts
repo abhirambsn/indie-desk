@@ -1,10 +1,10 @@
-import {AuthState} from '../interfaces';
+import { AuthState } from '@ui/app/store/interfaces';
 
 export const initialAuthState: AuthState = {
   credentials: {
     access_token: '',
     refresh_token: '',
-    expires_at: -1
+    expires_at: -1,
   },
   loading: false,
   loaded: false,
@@ -20,8 +20,8 @@ export const initialAuthState: AuthState = {
     org: {
       id: '',
       name: '',
-      users: []
+      users: [],
     },
-    projects: []
-  }
-}
+    projects: [],
+  },
+};

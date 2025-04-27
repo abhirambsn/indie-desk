@@ -1,5 +1,5 @@
 export class NavHelper {
   myFunction() {
-    console.log("Navigation Function")
+    console.log('Navigation Function');
   }
 }

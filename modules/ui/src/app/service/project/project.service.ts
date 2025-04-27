@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ProjectServiceConstants } from './project.service.constants';
 import { catchError, map, of } from 'rxjs';
+
+import { ProjectServiceConstants } from './project.service.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +22,7 @@ export class ProjectService {
         catchError((error) => {
           console.error(error);
           return of([]);
-        })
+        }),
       );
   }
 
@@ -37,7 +38,7 @@ export class ProjectService {
         catchError((error) => {
           console.error(error);
           return of([]);
-        })
+        }),
       );
   }
 
@@ -56,14 +57,14 @@ export class ProjectService {
           headers: {
             Authorization: `Bearer ${access_token}`,
           },
-        }
+        },
       )
       .pipe(
         map((response: any) => response?.data),
         catchError((error) => {
           console.error(error);
           return of([]);
-        })
+        }),
       );
   }
 }

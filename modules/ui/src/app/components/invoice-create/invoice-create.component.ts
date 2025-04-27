@@ -1,4 +1,3 @@
-import InvoiceStatus from '@/app/enums/invoice-status.enum';
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -7,6 +6,8 @@ import { IftaLabel } from 'primeng/iftalabel';
 import { InputText } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 import { Textarea } from 'primeng/textarea';
+
+import InvoiceStatus from '@ui/app/enums/invoice-status.enum';
 
 @Component({
   selector: 'app-invoice-create',
@@ -59,7 +60,7 @@ export class InvoiceCreateComponent {
           value: {
             perHourRate: project.perHourRate,
             id: project.id,
-            clientId: project.client.id
+            clientId: project.client.id,
           },
         };
       });
@@ -73,7 +74,7 @@ export class InvoiceCreateComponent {
       return [];
     }
     return this._projectOptions.filter(
-      (project) => project.value.clientId === this.invoice?.client?.id
+      (project) => project.value.clientId === this.invoice?.client?.id,
     );
   }
 

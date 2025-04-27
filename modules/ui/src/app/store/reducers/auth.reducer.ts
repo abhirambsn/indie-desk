@@ -1,6 +1,7 @@
-import {createReducer, on} from '@ngrx/store';
-import {AuthActions} from '../actions';
-import {initialAuthState} from '../constants/auth.constants';
+import { createReducer, on } from '@ngrx/store';
+
+import { AuthActions } from '@ui/app/store/actions';
+import { initialAuthState } from '@ui/app/store/constants/auth.constants';
 
 export const authReducer = createReducer(
   initialAuthState,
@@ -12,20 +13,20 @@ export const authReducer = createReducer(
     loading: false,
     loaded: true,
   })),
-  on(AuthActions.loginFailure, (state, {error}) => ({
+  on(AuthActions.loginFailure, (state, { error }) => ({
     ...state,
     credentials: {
       access_token: '',
       refresh_token: '',
-      expires_at: -1
+      expires_at: -1,
     },
     error,
     isAuthenticated: false,
     loading: false,
     loaded: false,
   })),
-  on(AuthActions.loadUserDetails, (state, {payload}) => ({
+  on(AuthActions.loadUserDetails, (state, { payload }) => ({
     ...state,
-    user: payload
-  }))
+    user: payload,
+  })),
 );

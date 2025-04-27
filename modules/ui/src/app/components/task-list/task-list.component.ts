@@ -1,4 +1,3 @@
-import { AppState, TaskActions, TaskSelectors } from '@/app/store';
 import { Component, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
@@ -13,8 +12,11 @@ import {
 import { Badge } from 'primeng/badge';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
-import { TaskCreateComponent } from "../task-create/task-create.component";
 import _ from 'lodash';
+
+import { AppState, TaskActions, TaskSelectors } from '@ui/app/store';
+
+import { TaskCreateComponent } from '../task-create/task-create.component';
 
 @UntilDestroy()
 @Component({
@@ -87,8 +89,12 @@ export class TaskListComponent implements OnChanges {
 
   saveTask() {
     console.log('[DEBUG] Saving task', this.newTask);
-    this.newTask.project = {id: this.selectedProject?.id} as Project;
-    this.store$.dispatch(TaskActions.saveTask({ payload: { projectId: this.selectedProject?.id, task: this.newTask } }));
+    this.newTask.project = { id: this.selectedProject?.id } as Project;
+    this.store$.dispatch(
+      TaskActions.saveTask({
+        payload: { projectId: this.selectedProject?.id, task: this.newTask },
+      }),
+    );
     this.closeDialog();
   }
 
@@ -99,6 +105,10 @@ export class TaskListComponent implements OnChanges {
   updateCard(event: any) {
     console.log('[DEBUG] Updating card', event);
     this.kanbanComponent.showSpinner();
-    this.store$.dispatch(TaskActions.updateTask({ payload: { projectId: this.selectedProject?.id, task: event.data[0] } }));
+    this.store$.dispatch(
+      TaskActions.updateTask({
+        payload: { projectId: this.selectedProject?.id, task: event.data[0] },
+      }),
+    );
   }
 }

@@ -1,9 +1,10 @@
-import { AuthHelper } from '@/app/helpers/auth.helper';
-import { AppState, AuthSelectors } from '@/app/store';
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
+
+import { AppState, AuthSelectors } from '@ui/app/store';
+import { AuthHelper } from '@ui/app/helpers/auth.helper';
 
 @UntilDestroy()
 @Component({
@@ -16,10 +17,9 @@ export class ProfileComponent implements OnInit {
   currentUser: User = {} as User;
   authHelperRef = AuthHelper;
 
-
   constructor(
     private readonly store$: Store<AppState>,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -32,5 +32,4 @@ export class ProfileComponent implements OnInit {
         }
       });
   }
-
 }
