@@ -89,8 +89,8 @@ declare interface Task {
   client: Client;
   assignee: string;
   dueDate: Date;
-  status: TaskStatus;
-  priority: TaskPriority;
+  status: 'OPEN' | 'IN_PROGRESS' | 'DONE';
+  priority: 'HIGH' | 'MEDIUM' | 'LOW';
   comments: Comment[];
   plannedHours: number;
 }

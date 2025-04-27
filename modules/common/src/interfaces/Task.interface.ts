@@ -1,0 +1,15 @@
+import { Client, Project } from '@common/interfaces';
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  project: Project;
+  client?: Client;
+  assignee: string;
+  dueDate?: Date;
+  status: 'OPEN' | 'IN_PROGRESS' | 'DONE';
+  priority: 'HIGH' | 'MEDIUM' | 'LOW';
+  comments: Comment[];
+  plannedHours: number;
+}

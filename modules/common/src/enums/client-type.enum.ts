@@ -1,0 +1,4 @@
+export enum ClientType {
+  ORGANIZATION = 'ORGANIZATION',
+  INDIVIDUAL = 'INDIVIDUAL',
+}
