@@ -15,10 +15,12 @@
     "@types/express": "^5.0.1",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.14.0"
+    "mongoose": "^8.14.0",
+    "pdfkit": "^0.16.0"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.8",
-    "@types/node": "^22.15.2"
+    "@types/node": "^22.15.2",
+    "@types/pdfkit": "^0.13.9"
   }
 }

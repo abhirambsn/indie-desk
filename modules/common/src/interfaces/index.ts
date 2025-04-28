@@ -16,3 +16,4 @@ export * from './TicketAttachment.interface';
 export * from './TicketComment.interface';
 export * from './TicketFieldColumn.interface';
 export * from './User.interface';
+export * from './CompanyInfo.interface';

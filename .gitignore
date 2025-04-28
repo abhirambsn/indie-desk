@@ -3,6 +3,7 @@ node_modules
 .env
 __pycache__
 package-lock.json
+pnpm-lock.yaml
 .pytest_cache
 *.egg-info
 *.egg

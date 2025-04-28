@@ -1,5 +1,4 @@
 import { Client, Amount } from '@common/interfaces';
-
 import { ProjectStatus } from '@common/enums';
 
 export interface Project {

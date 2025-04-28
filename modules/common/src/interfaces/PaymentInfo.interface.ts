@@ -4,10 +4,10 @@ export interface PaymentInfo {
   method: 'card' | 'cheque' | 'cash' | 'upi' | 'bank';
   transactionId: string;
   date: Date;
-  amount: Amount;
-  bankName?: string;
-  lastFourDigits?: string;
-  cardType?: string;
-  chequeNumber?: string;
-  upiId?: string;
+  amount?: Amount | null;
+  bankName?: string | null;
+  lastFourDigits?: string | null;
+  cardType?: string | null;
+  chequeNumber?: string | null;
+  upiId?: string | null;
 }

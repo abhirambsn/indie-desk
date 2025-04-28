@@ -121,6 +121,9 @@ importers:
       mongoose:
         specifier: ^8.14.0
         version: 8.14.0(socks@2.8.4)
+      pdfkit:
+        specifier: ^0.16.0
+        version: 0.16.0
     devDependencies:
       '@types/jsonwebtoken':
         specifier: ^9.0.8
@@ -128,6 +131,9 @@ importers:
       '@types/node':
         specifier: ^22.15.2
         version: 22.15.2
+      '@types/pdfkit':
+        specifier: ^0.13.9
+        version: 0.13.9
 
   modules/integration-tests:
     devDependencies:
@@ -137,6 +143,49 @@ importers:
       '@types/node':
         specifier: ^22.14.1
         version: 22.15.2
+
+  modules/invoice-service:
+    dependencies:
+      axios:
+        specifier: ^1.9.0
+        version: 1.9.0
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      express:
+        specifier: ^4.21.2
+        version: 4.21.2
+      indiedesk-common-lib:
+        specifier: workspace:*
+        version: link:../common
+      mongoose:
+        specifier: ^8.14.0
+        version: 8.14.0(socks@2.8.4)
+    devDependencies:
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.17
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.1
+      '@types/node':
+        specifier: ^22.15.2
+        version: 22.15.2
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
+      nodemon:
+        specifier: ^3.1.9
+        version: 3.1.10
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@22.15.2)(typescript@5.8.3)
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(jiti@1.21.7)(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.1)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
 
   modules/mock-server:
     dependencies:
@@ -185,6 +234,135 @@ importers:
         version: 10.9.2(@types/node@22.15.2)(typescript@5.8.3)
       typescript:
         specifier: ^5.7.3
+        version: 5.8.3
+
+  modules/project-service:
+    dependencies:
+      axios:
+        specifier: ^1.9.0
+        version: 1.9.0
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      express:
+        specifier: ^4.21.2
+        version: 4.21.2
+      indiedesk-common-lib:
+        specifier: workspace:*
+        version: link:../common
+      mongoose:
+        specifier: ^8.14.0
+        version: 8.14.0(socks@2.8.4)
+    devDependencies:
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.17
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.1
+      '@types/node':
+        specifier: ^22.15.2
+        version: 22.15.2
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
+      nodemon:
+        specifier: ^3.1.9
+        version: 3.1.10
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@22.15.2)(typescript@5.8.3)
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(jiti@1.21.7)(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.1)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+
+  modules/task-service:
+    dependencies:
+      axios:
+        specifier: ^1.9.0
+        version: 1.9.0
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      express:
+        specifier: ^4.21.2
+        version: 4.21.2
+      indiedesk-common-lib:
+        specifier: workspace:*
+        version: link:../common
+      mongoose:
+        specifier: ^8.14.0
+        version: 8.14.0(socks@2.8.4)
+    devDependencies:
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.17
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.1
+      '@types/node':
+        specifier: ^22.15.2
+        version: 22.15.2
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
+      nodemon:
+        specifier: ^3.1.9
+        version: 3.1.10
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@22.15.2)(typescript@5.8.3)
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(jiti@1.21.7)(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.1)
+      typescript:
+        specifier: ^5.8.3
+        version: 5.8.3
+
+  modules/ticket-service:
+    dependencies:
+      axios:
+        specifier: ^1.9.0
+        version: 1.9.0
+      cors:
+        specifier: ^2.8.5
+        version: 2.8.5
+      express:
+        specifier: ^4.21.2
+        version: 4.21.2
+      indiedesk-common-lib:
+        specifier: workspace:*
+        version: link:../common
+      mongoose:
+        specifier: ^8.14.0
+        version: 8.14.0(socks@2.8.4)
+    devDependencies:
+      '@types/cors':
+        specifier: ^2.8.17
+        version: 2.8.17
+      '@types/express':
+        specifier: ^5.0.0
+        version: 5.0.1
+      '@types/node':
+        specifier: ^22.15.2
+        version: 22.15.2
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
+      nodemon:
+        specifier: ^3.1.9
+        version: 3.1.10
+      ts-node:
+        specifier: ^10.9.2
+        version: 10.9.2(@types/node@22.15.2)(typescript@5.8.3)
+      tsup:
+        specifier: ^8.4.0
+        version: 8.4.0(jiti@1.21.7)(postcss@8.5.3)(typescript@5.8.3)(yaml@2.7.1)
+      typescript:
+        specifier: ^5.8.3
         version: 5.8.3
 
   modules/ui:

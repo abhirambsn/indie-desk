@@ -1,7 +1,5 @@
 import { Project } from '@common/interfaces';
-
 import { ClientType } from '@common/enums';
-
 
 export interface Client {
   id: string;

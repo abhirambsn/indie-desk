@@ -28,6 +28,7 @@
             "msgpackr-extract",
             "sharp",
             "sonar-scanner",
+            "unrs-resolver",
             "workerd"
         ]
     },
