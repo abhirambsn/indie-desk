@@ -8,11 +8,11 @@ const projectSchema = new Schema(
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     owner: {
-      type: String, // Username of the owner (from external user service)
+      type: String,
       required: true,
     },
     client: {
-      type: mongoose.Schema.Types.ObjectId, // Link to Client model
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'Client',
       required: true,
     },
@@ -25,16 +25,6 @@ const projectSchema = new Schema(
       enum: ['NEW', 'ONGOING', 'COMPLETED', 'CANCELLED', 'PENDING'],
       default: 'NEW',
     },
-    tasks: {
-      type: [String],
-      default: [],
-    },
-    users: [
-      {
-        type: String, // List of usernames who can access the project
-        required: true,
-      },
-    ],
   },
   {
     timestamps: true,

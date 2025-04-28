@@ -78,7 +78,7 @@ export class TaskListComponent implements OnChanges {
   }
 
   getTaskLink(task: Task) {
-    return `/tasks/${task.id}`;
+    return `/tasks/${this.selectedProject!.id}/${task.id}`;
   }
 
   getBadgeType(priority: string) {

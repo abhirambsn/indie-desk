@@ -27,6 +27,24 @@ export class ProjectService {
       );
   }
 
+  getProjectById(projectId: string, access_token: string) {
+    const endpoint = ProjectServiceConstants.getProjectByIdEndpoint(projectId);
+
+    return this.http
+      .get(endpoint, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .pipe(
+        map((response: any) => response?.data),
+        catchError((error) => {
+          console.error(error);
+          return of([]);
+        }),
+      );
+  }
+
   createProject(project: Project, access_token: string) {
     return this.http
       .post(ProjectServiceConstants.PROJECT_BASE_URL, project, {

@@ -11,4 +11,6 @@ export interface Project {
   perHourRate: Amount;
   status: ProjectStatus;
   description: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

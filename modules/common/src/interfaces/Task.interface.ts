@@ -12,4 +12,6 @@ export interface Task {
   priority: 'HIGH' | 'MEDIUM' | 'LOW';
   comments: Comment[];
   plannedHours: number;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

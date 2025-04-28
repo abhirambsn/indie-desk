@@ -59,7 +59,7 @@ taskRouter.get(
     const projectId = req.params.projectId;
     const taskId = req.params.taskId;
 
-    const task = await TaskModel.find({ id: taskId, project: projectId });
+    const task = await TaskModel.findOne({ id: taskId, project: projectId });
     if (!task) {
       res.status(404).json({ message: 'Not found' });
       return;
@@ -71,7 +71,7 @@ taskRouter.get(
 );
 
 taskRouter.patch(
-  '/:projectId/:taskId',
+  '/api/v1/:projectId/task/:taskId',
   getAuthMiddleware(jwtSecret),
   async (req: Request, res: Response) => {
     const projectId = req.params.projectId;
@@ -97,7 +97,7 @@ taskRouter.patch(
 );
 
 taskRouter.delete(
-  '/:projectId/:taskId',
+  '/api/v1/:projectId/task/:taskId',
   getAuthMiddleware(jwtSecret),
   async (req: Request, res: Response) => {
     const projectId = req.params.projectId;

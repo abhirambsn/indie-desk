@@ -1,21 +1,21 @@
 <div class="w-full flex flex-col gap-2 p-2">
   <div class="flex items-center justify-between">
     <h6 class="text font-bold flex-[0.4]">Full Name</h6>
-    <p class="text text-gray-500 flex-1">
+    <p class="text text-gray-500 dark:text-gray-200 flex-1">
       {{ user.first_name }} {{ user.last_name }}
     </p>
   </div>
   <hr />
   <div class="flex items-center justify-between">
     <h6 class="text font-bold flex-[0.4]">Username</h6>
-    <p class="text text-gray-500 flex-1">
+    <p class="text text-gray-500 dark:text-gray-200 flex-1">
       {{ user.username }}
     </p>
   </div>
   <hr />
   <div class="flex items-center justify-between">
     <h6 class="text font-bold flex-[0.4]">Role</h6>
-    <p class="text text-gray-500 flex-1">
+    <p class="text text-gray-500 dark:text-gray-200 flex-1">
       {{ authHelperRef.getRoleLabel(user.role) }}
     </p>
   </div>

@@ -32,6 +32,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TicketDetailComponent } from './ticket-detail/ticket-detail.component';
 import { ProjectDetailComponent } from './project-detail/project-detail.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { TagModule } from 'primeng/tag';
+import { ChartModule } from 'primeng/chart';
+import { ButtonModule } from 'primeng/button';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
@@ -93,6 +96,9 @@ export const routes: Routes = [
     ProfileTableComponent,
     TicketDetailLeftPanelComponent,
     TicketDetailRightPanelComponent,
+    TagModule,
+    ChartModule,
+    ButtonModule,
   ],
   exports: [RouterModule],
 })

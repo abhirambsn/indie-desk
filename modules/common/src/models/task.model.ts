@@ -21,6 +21,14 @@ const taskSchema = new Schema(
       required: true,
     },
     plannedHours: { type: Number },
+    assignee: { type: String },
+    comments: [
+      {
+        user: { type: String },
+        comment: { type: String },
+        createdAt: { type: Date, default: Date.now },
+      },
+    ],
   },
   {
     timestamps: true,

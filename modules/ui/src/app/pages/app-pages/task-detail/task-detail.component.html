@@ -1,0 +1,105 @@
+@if (taskData) {
+  <section class="px-4 py-2 overflow-auto">
+    <p-toast />
+    <div class="flex items-center justify-between">
+      <h3 class="text-2xl tracking-wide">Task Details</h3>
+      <div class="flex items-center gap-3">
+        @if (taskEdited) {
+          <p-button icon="pi pi-save" label="Save" size="small" (onClick)="updateTask()" />
+        }
+        <p-select
+          inputId="assignee"
+          id="assignee"
+          [(ngModel)]="selectedAssignee"
+          [options]="users"
+          [filter]="true"
+          filterBy="label"
+          [showClear]="true"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Assignee"
+          size="small"
+          fluid
+          (ngModelChange)="updateTaskAssignee()"
+        />
+
+        <p-select
+          [options]="taskStatuses"
+          [(ngModel)]="selectedStatus"
+          optionLabel="label"
+          placeholder="Update Status"
+          (ngModelChange)="updateTaskStatus()"
+          size="small"
+          class="w-full"
+        />
+
+        <p-select
+          [options]="taskPriorities"
+          [(ngModel)]="selectedPriority"
+          optionLabel="label"
+          placeholder="Update Priority"
+          (ngModelChange)="updateTaskPriority()"
+          size="small"
+          class="w-full"
+        />
+      </div>
+    </div>
+
+    <div class="mt-10 grid grid-cols-4 gap-3">
+      <div class="flex flex-col gap-1">
+        <p class="text-gray-500 dark:text-gray-300">ID</p>
+        <p class="text-gray-800 dark:text-gray-50 text">
+          {{ taskData.id }}
+        </p>
+      </div>
+      <div class="flex flex-col gap-1">
+        <p class="text-gray-500 dark:text-gray-300">Title</p>
+        <p class="text-gray-800 dark:text-gray-50 text">
+          {{ taskData.title }}
+        </p>
+      </div>
+      <div class="flex flex-col gap-1">
+        <p class="text-gray-500 dark:text-gray-300">Priority</p>
+        <p class="text-gray-800 dark:text-gray-50 text">
+          {{ taskData.priority }}
+        </p>
+      </div>
+      <div class="flex flex-col gap-1">
+        <p class="text-gray-500 dark:text-gray-300">Planned Hours</p>
+        <p class="text-gray-800 dark:text-gray-50 text">
+          {{ taskData.plannedHours }}
+        </p>
+      </div>
+      <div class="flex flex-col gap-1 col-span-4">
+        <p class="text-gray-500 dark:text-gray-300">Description</p>
+        <textarea rows="10" disabled class="text-gray-800 dark:text-gray-50 text rounded-md">
+          {{ taskData.description }}
+        </textarea>
+      </div>
+      <div class="flex flex-col gap-1">
+        <p class="text-gray-500 dark:text-gray-300">Assigned To</p>
+        <p class="text-gray-800 dark:text-gray-50 text">
+          {{ getAssigneeName(taskData.assignee) || '-' }}
+        </p>
+      </div>
+      <div class="flex flex-col gap-1">
+        <p class="text-gray-500 dark:text-gray-300">Status</p>
+        <p class="text-gray-800 dark:text-gray-50 text">
+          {{ taskData.status }}
+        </p>
+      </div>
+      <div class="flex flex-col gap-1">
+        <p class="text-gray-500 dark:text-gray-300">Created At</p>
+        <p class="text-gray-800 dark:text-gray-50 text">
+          {{ taskData.createdAt | date: 'medium' }}
+        </p>
+      </div>
+      <div class="flex flex-col gap-1">
+        <p class="text-gray-500 dark:text-gray-300">Updated At</p>
+        <p class="text-gray-800 dark:text-gray-50 text">
+          {{ taskData.updatedAt | date: 'medium' }}
+        </p>
+      </div>
+    </div>
+  </section>
+}

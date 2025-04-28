@@ -27,6 +27,23 @@ export class TaskService {
       );
   }
 
+  getTaskById(projectId: string, taskId: string, access_token: string) {
+    const endpoint = TaskServiceConstants.getTaskURL(projectId, taskId);
+    return this.http
+      .get(endpoint, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .pipe(
+        map((response: any) => response?.data),
+        catchError((error) => {
+          console.error(error);
+          return of(null);
+        }),
+      );
+  }
+
   createTask(projectId: string, access_token: string, task: any) {
     const endpoint = TaskServiceConstants.getTaskBaseURL(projectId);
     return this.http
