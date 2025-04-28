@@ -1,6 +1,7 @@
 import { DatePipe, NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Tag } from 'primeng/tag';
+import { TicketComment } from 'indiedesk-common-lib';
 
 @Component({
   selector: 'app-ticket-comment',

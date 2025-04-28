@@ -135,6 +135,30 @@
   </p-table>
 
   <p-dialog
+    [(visible)]="paymentInfoDialogOpen"
+    (onHide)="closePaymentInfoDialog()"
+    [modal]="true"
+    [style]="{ width: '500px' }"
+    header="Add Payment Information and Mark as Paid"
+  >
+  <ng-template #content>
+    <app-invoice-pi-add
+      [invoice]="currentInvoice"
+    />
+  </ng-template>
+
+  <ng-template #footer>
+    <p-button
+      label="Cancel"
+      icon="pi pi-times"
+      text
+      (click)="closeDialog()"
+    />
+    <p-button label="Save" icon="pi pi-check" (click)="saveInvoice()" />
+  </ng-template>
+  </p-dialog>
+
+  <p-dialog
     [(visible)]="invoiceDialogOpen"
     (onHide)="closeDialog()"
     [modal]="true"

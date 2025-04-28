@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, of } from 'rxjs';
 
 import { InvoiceServiceConstants } from './invoice.service.constants';
+import { Invoice } from 'indiedesk-common-lib';
 
 @Injectable({
   providedIn: 'root',

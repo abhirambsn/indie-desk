@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Button } from 'primeng/button';
+import { User } from 'indiedesk-common-lib';
 
 import { AuthHelper } from '@ui/app/helpers/auth.helper';
 

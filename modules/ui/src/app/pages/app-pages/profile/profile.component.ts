@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 
 import { AppState, AuthSelectors } from '@ui/app/store';
 import { AuthHelper } from '@ui/app/helpers/auth.helper';
+import { User } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({

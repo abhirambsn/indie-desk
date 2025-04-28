@@ -14,6 +14,7 @@ import { Tag } from 'primeng/tag';
 import { AppState, AuthSelectors, UserActions, UserSelectors } from '@ui/app/store';
 
 import { UserCreateComponent } from '../user-create/user-create.component';
+import { Project, User, Column } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({

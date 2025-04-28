@@ -215,7 +215,7 @@ export class InvoiceBuilder {
       .font('Helvetica')
       .fontSize(10)
       .text('Subtotal:', 350, y, { width: 100, align: 'right' })
-      .text(`${this.project.perHourRate.currency}${subtotal.toFixed(2)}`, totalX, y, {
+      .text(`${this.project.perHourRate.currency} ${subtotal.toFixed(2)}`, totalX, y, {
         width: 100,
         align: 'right',
       });
@@ -225,7 +225,7 @@ export class InvoiceBuilder {
     this.doc
       .font('Helvetica')
       .text(`Tax (${taxRate * 100}%):`, 350, y, { width: 100, align: 'right' })
-      .text(`${this.project.perHourRate.currency}${tax.toFixed(2)}`, totalX, y, {
+      .text(`${this.project.perHourRate.currency} ${tax.toFixed(2)}`, totalX, y, {
         width: 100,
         align: 'right',
       });
@@ -233,7 +233,7 @@ export class InvoiceBuilder {
 
     this.doc
       .text(`Discount (${this.discount}%):`, 350, y, { width: 100, align: 'right' })
-      .text(`-${this.project.perHourRate.currency}${discountAmount.toFixed(2)}`, totalX, y, {
+      .text(`-${this.project.perHourRate.currency} ${discountAmount.toFixed(2)}`, totalX, y, {
         width: 100,
         align: 'right',
       });
@@ -243,7 +243,7 @@ export class InvoiceBuilder {
     this.doc
       .font('Helvetica-Bold')
       .text('Total:', 350, y, { width: 100, align: 'right' })
-      .text(`${this.project.perHourRate.currency}${total.toFixed(2)}`, totalX, y, {
+      .text(`${this.project.perHourRate.currency} ${total.toFixed(2)}`, totalX, y, {
         width: 100,
         align: 'right',
       });
@@ -262,7 +262,7 @@ export class InvoiceBuilder {
       this.doc
         .fontSize(14)
         .font('Helvetica-Bold')
-        .text('Payment Information:', 50, undefined, { underline: true })
+        .text('Payment Information:', 50, undefined, { underline: true, align: 'left' })
         .moveDown(0.5);
 
       switch (paymentInfo.method) {
@@ -316,22 +316,6 @@ export class InvoiceBuilder {
 
   private addFooter(): void {
     const footerTop = this.doc.page.height - 150;
-
-    if (this.invoice.status !== 'PAID') {
-      this.doc
-        .font('Helvetica-Bold')
-        .fontSize(10)
-        .text('Payment Details:', 50, undefined)
-        .font('Helvetica')
-        .fontSize(10)
-        .moveDown(0.5)
-        .text('Please make payment by bank transfer to:')
-        .text('Bank: Your Bank Name')
-        .text('Account: Your Account Number')
-        .text('Routing: Your Routing Number')
-        .moveDown(1)
-        .text('Payment Terms: Due on receipt');
-    }
 
     this.doc
       .font('Helvetica')

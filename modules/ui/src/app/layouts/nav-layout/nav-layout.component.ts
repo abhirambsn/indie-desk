@@ -10,6 +10,7 @@ import { NavActions, AuthActions } from '../../store/actions';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { AuthHelper } from '../../helpers/auth.helper';
 import { sidebarSections } from '../../store/constants/app.constants';
+import { User } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({

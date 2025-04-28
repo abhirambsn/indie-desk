@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, of } from 'rxjs';
 
 import { ProjectServiceConstants } from './project.service.constants';
+import { Project } from 'indiedesk-common-lib';
 
 @Injectable({
   providedIn: 'root',

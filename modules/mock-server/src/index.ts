@@ -77,7 +77,7 @@ app.post('/api/v1/auth/token', (req: Request, res: Response) => {
   });
 });
 
-const authMiddleware = (req: Request, res: Response, next: any) => {
+const getAuthMiddleware = (req: Request, res: Response, next: any) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     res.status(401).json({ message: 'Unauthorized' });
@@ -112,7 +112,7 @@ const authMiddleware = (req: Request, res: Response, next: any) => {
   next();
 };
 
-app.get('/api/v1/auth/me', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/auth/me', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const user = users.find((user) => user.username === username);
   if (!user) {
@@ -137,14 +137,14 @@ app.post('/api/v1/search', (req: Request, res: Response) => {
   return;
 });
 
-app.get('/api/v1/clients', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/clients', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const userClients = db.find('clients', { owner: username });
   res.status(200).json({ message: 'ok', data: userClients });
   return;
 });
 
-app.post('/api/v1/clients', authMiddleware, (req: Request, res: Response) => {
+app.post('/api/v1/clients', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const client = {
     ...req.body?.data,
@@ -156,7 +156,7 @@ app.post('/api/v1/clients', authMiddleware, (req: Request, res: Response) => {
   return;
 });
 
-app.patch('/api/v1/clients/:id', authMiddleware, (req: Request, res: Response) => {
+app.patch('/api/v1/clients/:id', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   const clientCheck = db.find('clients', { id, owner: username });
@@ -174,7 +174,7 @@ app.patch('/api/v1/clients/:id', authMiddleware, (req: Request, res: Response) =
   return;
 });
 
-app.delete('/api/v1/clients/:id', authMiddleware, (req: Request, res: Response) => {
+app.delete('/api/v1/clients/:id', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   const clientCheck = db.find('clients', { id, owner: username });
@@ -188,13 +188,13 @@ app.delete('/api/v1/clients/:id', authMiddleware, (req: Request, res: Response) 
   return;
 });
 
-app.get('/api/v1/projects', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/projects', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projects = db.find('projects', { owner: username });
   res.status(200).json({ message: 'ok', data: projects });
 });
 
-app.get('/api/v1/projects/:id', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/projects/:id', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   const project = db.find('projects', { id, owner: username });
@@ -205,7 +205,7 @@ app.get('/api/v1/projects/:id', authMiddleware, (req: Request, res: Response) =>
   res.status(200).json({ message: 'ok', data: project });
 });
 
-app.post('/api/v1/projects', authMiddleware, (req: Request, res: Response) => {
+app.post('/api/v1/projects', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const project = {
     ...req.body?.data,
@@ -222,7 +222,7 @@ app.post('/api/v1/projects', authMiddleware, (req: Request, res: Response) => {
   res.status(200).json({ message: 'ok', data: { id: insertedId, ...project } });
 });
 
-app.patch('/api/v1/projects/:id', authMiddleware, (req: Request, res: Response) => {
+app.patch('/api/v1/projects/:id', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   const projectCheck = db.find('projects', { id, owner: username });
@@ -239,7 +239,7 @@ app.patch('/api/v1/projects/:id', authMiddleware, (req: Request, res: Response) 
   res.status(200).json({ message: 'ok', data: project });
 });
 
-app.delete('/api/v1/projects/:id', authMiddleware, (req: Request, res: Response) => {
+app.delete('/api/v1/projects/:id', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   const projectCheck = db.find('projects', { id, owner: username });
@@ -374,7 +374,7 @@ const generatePdfInvoice = (invoiceId: string) => {
   });
 };
 
-app.post('/api/v1/invoices', authMiddleware, (req: Request, res: Response) => {
+app.post('/api/v1/invoices', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const invoice = {
     ...req.body?.data,
@@ -398,14 +398,14 @@ app.post('/api/v1/invoices', authMiddleware, (req: Request, res: Response) => {
   return;
 });
 
-app.get('/api/v1/invoices', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/invoices', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const invoices = db.find('invoices', { owner: username });
   res.status(200).json({ message: 'ok', data: invoices });
   return;
 });
 
-app.get('/api/v1/invoices/:id', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/invoices/:id', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   const invoice = db.find('invoices', { id, owner: username });
@@ -417,7 +417,7 @@ app.get('/api/v1/invoices/:id', authMiddleware, (req: Request, res: Response) =>
   return;
 });
 
-app.patch('/api/v1/invoices/:id', authMiddleware, (req: Request, res: Response) => {
+app.patch('/api/v1/invoices/:id', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   const invoiceCheck = db.find('invoices', { id, owner: username });
@@ -435,7 +435,7 @@ app.patch('/api/v1/invoices/:id', authMiddleware, (req: Request, res: Response) 
   return;
 });
 
-app.get('/api/v1/invoices/:id/pdf', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/invoices/:id/pdf', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   const invoice = db.find('invoices', { id, owner: username });
@@ -464,7 +464,7 @@ const getTaskIdByProject = (project: any, existingIds: string[]) => {
 
   return `${initials}-${nextNumber.toString().padStart(5, '0')}`;
 };
-app.post('/api/v1/:projectId/task', authMiddleware, (req: Request, res: Response) => {
+app.post('/api/v1/:projectId/task', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projectId = req.params.projectId;
   const project = db.find('projects', { id: projectId, owner: username });
@@ -486,7 +486,7 @@ app.post('/api/v1/:projectId/task', authMiddleware, (req: Request, res: Response
   return;
 });
 
-app.get('/api/v1/:projectId/task', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/:projectId/task', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projectId = req.params.projectId;
   const project = db.find('projects', { id: projectId, owner: username });
@@ -500,7 +500,7 @@ app.get('/api/v1/:projectId/task', authMiddleware, (req: Request, res: Response)
   return;
 });
 
-app.get('/api/v1/:projectId/task/:taskId', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/:projectId/task/:taskId', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projectId = req.params.projectId;
   const taskId = req.params.taskId;
@@ -520,7 +520,7 @@ app.get('/api/v1/:projectId/task/:taskId', authMiddleware, (req: Request, res: R
   return;
 });
 
-app.patch('/api/v1/:projectId/task/:taskId', authMiddleware, (req: Request, res: Response) => {
+app.patch('/api/v1/:projectId/task/:taskId', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projectId = req.params.projectId;
   const taskId = req.params.taskId;
@@ -540,7 +540,7 @@ app.patch('/api/v1/:projectId/task/:taskId', authMiddleware, (req: Request, res:
   return;
 });
 
-app.delete('/api/v1/:projectId/task/:taskId', authMiddleware, (req: Request, res: Response) => {
+app.delete('/api/v1/:projectId/task/:taskId', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projectId = req.params.projectId;
   const taskId = req.params.taskId;
@@ -565,7 +565,7 @@ const getTicketIDFromProject = (project: any) => {
   return `${initials}${randomNumber}`;
 };
 
-app.post('/api/v1/tickets/:projectId', authMiddleware, (req: Request, res: Response) => {
+app.post('/api/v1/tickets/:projectId', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projectId = req.params.projectId;
   const project = db.findOne('projects', { id: projectId, owner: username });
@@ -585,14 +585,14 @@ app.post('/api/v1/tickets/:projectId', authMiddleware, (req: Request, res: Respo
   res.status(200).json({ message: 'ok', data: { id: insertedId, ...ticket } });
 });
 
-app.get('/api/v1/tickets/:projectId', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/tickets/:projectId', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projectId = req.params.projectId;
   const tickets = db.find('tickets', { owner: username, 'project.id': projectId });
   res.status(200).json({ message: 'ok', data: tickets });
 });
 
-app.get('/api/v1/tickets/:projectId/:ticketId', authMiddleware, (req: Request, res: Response) => {
+app.get('/api/v1/tickets/:projectId/:ticketId', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const projectId = req.params.projectId;
   const ticketId = req.params.ticketId;
@@ -604,7 +604,7 @@ app.get('/api/v1/tickets/:projectId/:ticketId', authMiddleware, (req: Request, r
   res.status(200).json({ message: 'ok', data: ticket });
 });
 
-app.patch('/api/v1/tickets/:projectId/:ticketId', authMiddleware, (req: Request, res: Response) => {
+app.patch('/api/v1/tickets/:projectId/:ticketId', getAuthMiddleware, (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const ticketId = req.params.ticketId;
   const projectId = req.params.projectId;
@@ -628,7 +628,7 @@ app.patch('/api/v1/tickets/:projectId/:ticketId', authMiddleware, (req: Request,
 
 app.patch(
   '/api/v1/tickets/:projectId/:ticketId/comments',
-  authMiddleware,
+  getAuthMiddleware,
   (req: Request, res: Response) => {
     const username = req?.user?.sub;
     const ticketId = req.params.ticketId;
@@ -677,7 +677,7 @@ app.patch(
 
 app.get(
   '/api/v1/tickets/:projectId/:ticketId/comments',
-  authMiddleware,
+  getAuthMiddleware,
   (req: Request, res: Response) => {
     const username = req?.user?.sub;
     const ticketId = req.params.ticketId;
@@ -700,7 +700,7 @@ app.get(
 
 app.delete(
   '/api/v1/tickets/:projectId/:ticketId',
-  authMiddleware,
+  getAuthMiddleware,
   (req: Request, res: Response) => {
     const username = req?.user?.sub;
     const ticketId = req.params.ticketId;
@@ -792,11 +792,11 @@ app.post('/api/v1/auth/refresh', (req: Request, res: Response) => {
   }
 });
 
-app.post('/api/v1/users', authMiddleware, (req: Request, res: Response) => {});
+app.post('/api/v1/users', getAuthMiddleware, (req: Request, res: Response) => {});
 
-app.get('/api/v1/users', authMiddleware, (req: Request, res: Response) => {});
+app.get('/api/v1/users', getAuthMiddleware, (req: Request, res: Response) => {});
 
-app.get('/api/v1/users/:userId', authMiddleware, (req: Request, res: Response) => {});
+app.get('/api/v1/users/:userId', getAuthMiddleware, (req: Request, res: Response) => {});
 
 app.listen(3002, () => {
   console.log('Server is running on port 3000');

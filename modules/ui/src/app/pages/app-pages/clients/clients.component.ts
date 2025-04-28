@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { AppState } from '@ui/app/store/interfaces';
 import { ClientActions } from '@ui/app/store/actions';
 import { ClientSelectors } from '@ui/app/store/selectors';
+import { Client } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({
@@ -17,6 +18,7 @@ import { ClientSelectors } from '@ui/app/store/selectors';
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
   clientModalOpen = false;
+  clientsLoading = true;
   submitting = false;
 
   constructor(
@@ -35,6 +37,13 @@ export class ClientsComponent implements OnInit {
           this.clients = clients;
           this.cdr.detectChanges();
         }
+      });
+    this.store$
+      .select(ClientSelectors.selectClientLoading)
+      .pipe(untilDestroyed(this))
+      .subscribe((loading: any) => {
+        this.clientsLoading = loading;
+        this.cdr.detectChanges();
       });
   }
 

@@ -14,9 +14,10 @@ import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import _ from 'lodash';
 
-import { AppState, TaskActions, TaskSelectors } from '@ui/app/store';
+import { AppState, TaskActions, TaskSelectors, UserSelectors } from '@ui/app/store';
 
 import { TaskCreateComponent } from '../task-create/task-create.component';
+import { Project, Task } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({
@@ -34,6 +35,8 @@ export class TaskListComponent implements OnChanges {
   newTask: Task = {} as Task;
   createDialogOpen = false;
 
+  supportUsers: any[] = [];
+
   cardSettings: CardSettingsModel = {
     contentField: 'description',
     headerField: 'id',
@@ -45,6 +48,19 @@ export class TaskListComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedProject']?.currentValue) {
       if (this.selectedProject) {
+        this.store$
+          .select(UserSelectors.getUsers(this.selectedProject.id))
+          .pipe(untilDestroyed(this))
+          .subscribe((users) => {
+            if (users) {
+              this.supportUsers = users.map((user) => ({
+                label: `${user.first_name} ${user.last_name} (${user.username})`,
+                value: user,
+              }));
+            }
+            console.log('Support users', this.supportUsers);
+          });
+
         this.store$
           .select(TaskSelectors.getTasks(this.selectedProject.id))
           .pipe(untilDestroyed(this))
@@ -89,7 +105,7 @@ export class TaskListComponent implements OnChanges {
 
   saveTask() {
     console.log('[DEBUG] Saving task', this.newTask);
-    this.newTask.project = { id: this.selectedProject?.id } as Project;
+    this.newTask.project = this.selectedProject?.id;
     this.store$.dispatch(
       TaskActions.saveTask({
         payload: { projectId: this.selectedProject?.id, task: this.newTask },

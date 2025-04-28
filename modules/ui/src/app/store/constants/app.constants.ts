@@ -9,6 +9,7 @@ import { initialProjectState } from './project.constants';
 import { initialTaskState } from './task.constants';
 import { initialTicketState } from './ticket.constants';
 import { initialUserState } from './user.constants';
+import { SidebarSection } from 'indiedesk-common-lib';
 
 export const initialAppState: AppState = {
   auth: initialAuthState,

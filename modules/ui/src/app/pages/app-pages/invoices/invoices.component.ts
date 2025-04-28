@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
+import { Invoice, Client, Project } from 'indiedesk-common-lib';
 
 import {
   AppState,
@@ -28,6 +29,7 @@ export class InvoicesComponent implements OnInit {
   clients: Client[] = [];
   projects: Project[] = [];
   invoiceModalOpen = false;
+  paymentInfoModalOpen = false;
   submitting = false;
   loading = false;
 
@@ -93,6 +95,10 @@ export class InvoicesComponent implements OnInit {
 
   onInvoiceModalOpenToggle(event: any) {
     this.invoiceModalOpen = event?.open;
+  }
+
+  onPaymentInfoModalOpenToggle(event: any) {
+    this.paymentInfoModalOpen = event?.open;
   }
 
   onSaveInvoice(event: any) {

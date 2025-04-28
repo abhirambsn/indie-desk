@@ -10,6 +10,7 @@ import {
   ProjectActions,
   ProjectSelectors,
 } from '@ui/app/store';
+import { Client, Project } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({

@@ -6,6 +6,7 @@ import { catchError, map } from 'rxjs/operators';
 import { AuthHelper } from '../../helpers/auth.helper';
 
 import { AuthServiceConstants } from './auth.service.constants';
+import { User } from 'indiedesk-common-lib';
 
 @Injectable({
   providedIn: 'root',

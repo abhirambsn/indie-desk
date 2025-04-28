@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 const paymentInfoSchema = new Schema({
   method: { type: String, required: true, enum: ['card', 'cheque', 'cash', 'upi', 'bank'] },
@@ -17,7 +18,7 @@ const paymentInfoSchema = new Schema({
 
 const invoiceSchema = new Schema(
   {
-    id: { type: String, required: true },
+    id: { type: String, required: true, default: uuidv4 },
     description: { type: String, required: true },
     client: {
       type: String,

@@ -15,6 +15,7 @@ import { DatePipe } from '@angular/common';
 import { AppState, TicketActions, TicketSelectors, UserSelectors } from '@ui/app/store';
 
 import { TicketCreateComponent } from '../ticket-create/ticket-create.component';
+import { Project, SupportTicket, Column } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({

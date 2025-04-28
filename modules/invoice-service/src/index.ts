@@ -20,7 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT ?? 3000;
+const PORT = process.env.PORT ?? 3005;
 const MONGO_URI = process.env.MONGO_URI ?? 'mongodb://localhost:27017/iddb';
 
 app.use('/api/v1/invoices', invoiceRouter);

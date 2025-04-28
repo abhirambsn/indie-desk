@@ -1,9 +1,10 @@
-import { authMiddleware, ClientModel, logger } from 'indiedesk-common-lib';
+import { getAuthMiddleware, ClientModel, logger } from 'indiedesk-common-lib';
 import { Router, type Request, type Response } from 'express';
 
 export const clientRouter = Router();
+const jwtSecret = process.env.JWT_SECRET || 'supersecret';
 
-clientRouter.get('', authMiddleware, async (req: Request, res: Response) => {
+clientRouter.get('', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
   const username = req?.user?.sub;
   if (!username) {
     res.status(401).json({ message: 'Unauthorized' });
@@ -13,7 +14,7 @@ clientRouter.get('', authMiddleware, async (req: Request, res: Response) => {
   res.status(200).json({ message: 'ok', data: userClients });
 });
 
-clientRouter.post('', authMiddleware, async (req: Request, res: Response) => {
+clientRouter.post('', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const client = {
     ...req.body?.data,
@@ -24,7 +25,7 @@ clientRouter.post('', authMiddleware, async (req: Request, res: Response) => {
   res.status(200).json({ message: 'ok', data: newClient });
 });
 
-clientRouter.patch('/:id', authMiddleware, async (req: Request, res: Response) => {
+clientRouter.patch('/:id', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   if (!req.body?.data) {
@@ -44,7 +45,7 @@ clientRouter.patch('/:id', authMiddleware, async (req: Request, res: Response) =
   }
 });
 
-clientRouter.delete('/:id', authMiddleware, async (req: Request, res: Response) => {
+clientRouter.delete('/:id', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   try {

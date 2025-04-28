@@ -14,6 +14,7 @@ import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { TieredMenu } from 'primeng/tieredmenu';
+import { Client, Column, ExportColumn } from 'indiedesk-common-lib';
 
 import { ClientCreateComponent } from '../client-create/client-create.component';
 

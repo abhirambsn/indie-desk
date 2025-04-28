@@ -4,6 +4,7 @@ import { InputText } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Textarea } from 'primeng/textarea';
 import { Select } from 'primeng/select';
+import { Client } from 'indiedesk-common-lib';
 
 import ClientType from '@ui/app/enums/client-type.enum';
 

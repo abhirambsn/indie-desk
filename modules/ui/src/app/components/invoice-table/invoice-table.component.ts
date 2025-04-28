@@ -21,7 +21,8 @@ import { AppState, InvoiceActions } from '@ui/app/store';
 
 import { InvoiceCreateComponent } from '../invoice-create/invoice-create.component';
 
-import { Invoice, InvoiceItem, Column, ExportColumn } from 'indiedesk-common-lib';
+import { Invoice, InvoiceItem, Column, ExportColumn, Client, Project } from 'indiedesk-common-lib';
+import { InvoicePiAddComponent } from "../invoice-pi-add/invoice-pi-add.component";
 @Component({
   selector: 'app-invoice-table',
   imports: [
@@ -41,7 +42,8 @@ import { Invoice, InvoiceItem, Column, ExportColumn } from 'indiedesk-common-lib
     TieredMenu,
     InvoiceCreateComponent,
     DatePipe,
-  ],
+    InvoicePiAddComponent
+],
   providers: [MessageService, ConfirmationService],
   templateUrl: './invoice-table.component.html',
 })
@@ -51,9 +53,11 @@ export class InvoiceTableComponent implements OnInit {
   @Input() projects: Project[] = [];
   @Input() loading = false;
   @Input() invoiceDialogOpen = false;
+  @Input() paymentInfoDialogOpen = false;
   @Input() submitting = false;
 
   @Output() invoiceDialogOpenClick = new EventEmitter();
+  @Output() paymentInfoDialogOpenClick = new EventEmitter();
   @Output() invoiceSave = new EventEmitter();
   @Output() invoiceDataExport = new EventEmitter();
   @Output() invoiceDataDelete = new EventEmitter();
@@ -105,6 +109,13 @@ export class InvoiceTableComponent implements OnInit {
 
   filterGlobal(event: any, stringVal: string) {
     this.invoiceTable!.filterGlobal((event.target as HTMLInputElement).value, stringVal);
+  }
+
+  openPaymentInfoDialog(invoice: Invoice) {
+    this.currentInvoice = { ...invoice };
+    this.isNewInvoice = false;
+    console.log('[DEBUG] Opening payment info dialog', this.currentInvoice);
+    this.paymentInfoDialogOpenClick.emit({ open: true });
   }
 
   openNew() {
@@ -167,8 +178,19 @@ export class InvoiceTableComponent implements OnInit {
     this.invoiceDialogOpenClick.emit({ open: false });
   }
 
+  closePaymentInfoDialog() {
+    this.currentInvoice = {} as Invoice;
+    this.paymentInfoDialogOpenClick.emit({ open: false });
+  }
+
   saveInvoice() {
     this.currentInvoice.date = new Date();
+    if (typeof this.currentInvoice.client === 'object') {
+      this.currentInvoice.client = this.currentInvoice.client?.id;
+    }
+    if (typeof this.currentInvoice.project === 'object') {
+      this.currentInvoice.project = this.currentInvoice.project?.id;
+    }
     this.invoiceSave.emit({
       data: this.currentInvoice,
       type: this.isNewInvoice ? 'new' : 'edit',
@@ -214,6 +236,12 @@ export class InvoiceTableComponent implements OnInit {
   private sendInvoice(invoice: Invoice) {
     console.log('[DEBUG] Sending invoice', invoice);
     this.currentInvoice = { ...invoice };
+    if (typeof this.currentInvoice.client === 'object') {
+      this.currentInvoice.client = this.currentInvoice.client?.id;
+    }
+    if (typeof this.currentInvoice.project === 'object') {
+      this.currentInvoice.project = this.currentInvoice.project?.id;
+    }
     this.currentInvoice.status = 'SENT';
     this.invoiceSave.emit({
       data: this.currentInvoice,
@@ -257,11 +285,17 @@ export class InvoiceTableComponent implements OnInit {
       command: () => this.voidInvoice(invoice),
     };
 
+    const markAsPaid = {
+      label: 'Add Payment Info and Mark as Paid',
+      icon: 'pi pi-check',
+      command: () => this.openPaymentInfoDialog(invoice)
+    }
+
     switch (invoice.status) {
       case 'DRAFT':
         return [editInvoice, deleteInvoice, sendInvoice];
       case 'SENT':
-        return [voidInvoice];
+        return [markAsPaid, voidInvoice];
       default:
         return [];
     }

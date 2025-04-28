@@ -1,3 +1,5 @@
+import { TicketFieldColumn } from 'indiedesk-common-lib';
+
 export const ticketColumns: TicketFieldColumn[] = [
   {
     id: 'id',

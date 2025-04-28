@@ -13,39 +13,41 @@ declare global {
   }
 }
 
-const JWT_SECRET = process.env.JWT_SECRET ?? 'mmmy-super-secret-f1-team-key-haha';
-
-export const authMiddleware = (req: Request, res: Response, next: any) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
-    res.status(401).json({ message: 'Unauthorized' });
-    return;
-  }
-
-  const token = authHeader.split(' ')[1];
-  if (!token) {
-    res.status(401).json({ message: 'Unauthorized' });
-    return;
-  }
-
-  try {
-    const payload = jwt.verify(token, JWT_SECRET, {
-      issuer: 'auth.indie-desk.co',
-      audience: 'indie-desk.co',
-      ignoreNotBefore: true,
-    });
-
-    if (payload instanceof String) {
+export const getAuthMiddleware = (jwtSecret: string) => {
+  const getAuthMiddleware = (req: Request, res: Response, next: any) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
       res.status(401).json({ message: 'Unauthorized' });
       return;
     }
 
-    req.user = payload;
-  } catch (err) {
-    console.error('[JWT] Error', err);
-    res.status(401).json({ message: 'Unauthorized' });
-    return;
-  }
+    const token = authHeader.split(' ')[1];
+    if (!token) {
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
 
-  next();
+    try {
+      const payload = jwt.verify(token, jwtSecret, {
+        issuer: 'auth.indie-desk.co',
+        audience: 'indie-desk.co',
+        ignoreNotBefore: true,
+      });
+
+      if (payload instanceof String) {
+        res.status(401).json({ message: 'Unauthorized' });
+        return;
+      }
+
+      req.user = payload;
+    } catch (err) {
+      console.error('[JWT] Error', err);
+      res.status(401).json({ message: 'Unauthorized' });
+      return;
+    }
+
+    next();
+  };
+
+  return getAuthMiddleware;
 };

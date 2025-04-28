@@ -1,8 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 const projectSchema = new Schema(
   {
-    id: { type: String, required: true },
+    id: { type: String, required: true, default: uuidv4 },
     name: { type: String, required: true },
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
@@ -21,8 +22,8 @@ const projectSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ['ONGOING', 'COMPLETED', 'CANCELLED', 'PENDING'],
-      default: 'ONGOING',
+      enum: ['NEW', 'ONGOING', 'COMPLETED', 'CANCELLED', 'PENDING'],
+      default: 'NEW',
     },
     tasks: {
       type: [String],

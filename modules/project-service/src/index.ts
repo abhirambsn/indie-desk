@@ -5,7 +5,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 
-import { clientRouter } from './routes/client.routes';
+import { projectRouter } from './routes/project.routes';
 
 declare global {
   namespace Express {
@@ -20,14 +20,30 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT ?? 3000;
-const MONGO_URI = process.env.MONGO_URI ?? 'mongodb://localhost:27017/client-service';
+const PORT = process.env.PORT ?? 3002;
+const MONGO_URI = process.env.MONGO_URI ?? 'mongodb://localhost:27017/iddb';
 
-app.use('/api/v1/clients', clientRouter);
+app.use('/api/v1/projects', projectRouter);
 
 // Setup Health Check route
 app.get('/health', (_, res) => {
-  res.status(200).json({ status: 'UP', id: 'client-service', name: 'Indie Desk Client Service' });
+  res.status(200).json({ status: 'UP', id: 'project-service', name: 'Indie Desk Project Service' });
+});
+
+mongoose.set('toObject', {
+  transform: function (doc, ret) {
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  },
+});
+
+mongoose.set('toJSON', {
+  transform: function (doc, ret) {
+    delete ret._id;
+    delete ret.__v;
+    return ret;
+  },
 });
 
 mongoose
@@ -35,7 +51,7 @@ mongoose
   .then(() => {
     console.log('MongoDB connected successfully');
     app.listen(PORT, () => {
-      console.log(`Client service is running on port ${PORT}`);
+      console.log(`Project service is running on port ${PORT}`);
     });
   })
   .catch((err) => {

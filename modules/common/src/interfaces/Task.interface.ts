@@ -4,8 +4,8 @@ export interface Task {
   id: string;
   title: string;
   description: string;
-  project: Project;
-  client?: Client;
+  project?: string | Project;
+  client?: string | Client;
   assignee: string;
   dueDate?: Date;
   status: 'OPEN' | 'IN_PROGRESS' | 'DONE';

@@ -8,7 +8,7 @@
       (clientSave)="onSaveClient($event)"
       (clientDataDelete)="onDeleteClient($event)"
       [clientDialogOpen]="clientModalOpen"
-      [loading]="clients.length <= 0"
+      [loading]="clientsLoading"
       [clients]="clients"
       [submitting]="submitting"
     />

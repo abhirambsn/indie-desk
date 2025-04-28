@@ -5,7 +5,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
 import { AppState, AuthSelectors } from '@ui/app/store';
 
-import { sidebarSections } from '../../store/constants/app.constants';
+import { sidebarSections } from '@ui/app/store/constants/app.constants';
+import { SidebarSection } from 'indiedesk-common-lib';
 
 import { SidebarTitleComponent } from './sidebar-title/sidebar-title.component';
 import { SidebarSectionComponent } from './sidebar-section/sidebar-section.component';
@@ -48,7 +49,7 @@ export class SidebarComponent implements OnInit {
   }
   linkClicked(item_id: string) {
     this.sections.forEach((section) => {
-      section.children.forEach((child) => {
+      section.children.forEach((child: any) => {
         child.isActive = child.id === item_id;
       });
     });

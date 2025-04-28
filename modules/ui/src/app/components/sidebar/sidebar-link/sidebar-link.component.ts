@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgClass } from '@angular/common';
+import { SidebarItem } from 'indiedesk-common-lib';
 
 @Component({
   selector: 'app-sidebar-link',

@@ -20,6 +20,7 @@ import { RouterLink } from '@angular/router';
 
 import { CurrencyPipe } from '@ui/app/pipes/currency.pipe';
 import { AppState } from '@ui/app/store';
+import { Project, Column, ExportColumn, Client } from 'indiedesk-common-lib';
 
 import { ProjectCreateComponent } from '../project-create/project-create.component';
 

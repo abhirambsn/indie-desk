@@ -1,5 +1,5 @@
 import {
-  authMiddleware,
+  getAuthMiddleware,
   InvoiceModel,
   logger,
   InvoiceBuilder,
@@ -9,27 +9,23 @@ import {
 import { Router, type Request, type Response } from 'express';
 
 export const invoiceRouter = Router();
+const jwtSecret = process.env.JWT_SECRET || 'supersecret';
 
-invoiceRouter.post('/api/v1/invoices', authMiddleware, async (req: Request, res: Response) => {
+invoiceRouter.post('', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const invoice = {
     ...req.body?.data,
     owner: username,
+    generatedBy: username,
   };
 
-  const { client, project, ...invoiceData } = invoice;
-
-  if (!invoice?.client?.id || !invoice?.project?.id) {
+  if (!invoice?.client || !invoice?.project) {
     logger.error('Client and Project are required');
     res.status(400).json({ message: 'Client and Project are required' });
     return;
   }
 
-  const savedInvoice = await InvoiceModel.create({
-    ...invoiceData,
-    client: client.id,
-    project: project.id,
-  });
+  const savedInvoice = await InvoiceModel.create(invoice);
 
   const fetchInvoice = await InvoiceModel.findById(savedInvoice._id)
     .populate({
@@ -66,24 +62,44 @@ invoiceRouter.post('/api/v1/invoices', authMiddleware, async (req: Request, res:
     },
   );
 
-  const outputPath = `${__dirname}/invoices/${savedInvoice.id}.pdf`;
+  const outputPath = `${__dirname}/../invoices/${savedInvoice.id}.pdf`;
   await invoiceGenerator.generate(outputPath);
   logger.info(`Invoice ${savedInvoice.id} created successfully`);
   res.status(201).json({ message: 'ok', data: savedInvoice });
   return;
 });
 
-invoiceRouter.get('/api/v1/invoices', authMiddleware, async (req: Request, res: Response) => {
+invoiceRouter.get('', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
   const username = req?.user?.sub;
-  const invoices = await InvoiceModel.find({ owner: username });
+  const invoices = await InvoiceModel.find({ owner: username })
+    .populate({
+      path: 'client',
+      localField: 'client',
+      foreignField: 'id',
+    })
+    .populate({
+      path: 'project',
+      localField: 'project',
+      foreignField: 'id',
+    });
   res.status(200).json({ message: 'ok', data: invoices });
   return;
 });
 
-invoiceRouter.get('/api/v1/invoices/:id', authMiddleware, async (req: Request, res: Response) => {
+invoiceRouter.get('/:id', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
-  const invoice = await InvoiceModel.findOne({ id, owner: username });
+  const invoice = await InvoiceModel.findOne({ id, owner: username })
+    .populate({
+      path: 'client',
+      localField: 'client',
+      foreignField: 'id',
+    })
+    .populate({
+      path: 'project',
+      localField: 'project',
+      foreignField: 'id',
+    });
   if (!invoice) {
     res.status(404).json({ message: 'Not found' });
     return;
@@ -92,7 +108,7 @@ invoiceRouter.get('/api/v1/invoices/:id', authMiddleware, async (req: Request, r
   return;
 });
 
-invoiceRouter.patch('/api/v1/invoices/:id', authMiddleware, async (req: Request, res: Response) => {
+invoiceRouter.patch('/:id', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
   const username = req?.user?.sub;
   const id = req.params.id;
   try {
@@ -132,7 +148,7 @@ invoiceRouter.patch('/api/v1/invoices/:id', authMiddleware, async (req: Request,
         zip: '12345',
       },
     );
-    const outputPath = `${__dirname}/invoices/${updatedInvoice.id}.pdf`;
+    const outputPath = `${__dirname}/../invoices/${updatedInvoice.id}.pdf`;
     await invoiceGenerator.generate(outputPath);
     logger.info(`Invoice ${updatedInvoice.id} updated successfully`);
     res.status(200).json({ message: 'ok', data: updatedInvoice });
@@ -142,20 +158,16 @@ invoiceRouter.patch('/api/v1/invoices/:id', authMiddleware, async (req: Request,
   }
 });
 
-invoiceRouter.get(
-  '/api/v1/invoices/:id/pdf',
-  authMiddleware,
-  async (req: Request, res: Response) => {
-    const username = req?.user?.sub;
-    const id = req.params.id;
-    const invoice = await InvoiceModel.findOne({ id, owner: username });
-    if (!invoice) {
-      res.status(404).json({ message: 'Not found' });
-      return;
-    }
-
-    const invoicePath = `${__dirname}/invoices/${id}.pdf`;
-    res.download(invoicePath, `invoice-${id}.pdf`);
+invoiceRouter.get('/:id/pdf', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
+  const username = req?.user?.sub;
+  const id = req.params.id;
+  const invoice = await InvoiceModel.findOne({ id, owner: username });
+  if (!invoice) {
+    res.status(404).json({ message: 'Not found' });
     return;
-  },
-);
+  }
+
+  const invoicePath = `${__dirname}/invoices/${id}.pdf`;
+  res.download(invoicePath, `invoice-${id}.pdf`);
+  return;
+});

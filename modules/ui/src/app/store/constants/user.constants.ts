@@ -1,4 +1,5 @@
 import { UserState } from '@ui/app/store/interfaces';
+import { User } from 'indiedesk-common-lib';
 
 export const initialUserState: UserState = {
   loading: false,

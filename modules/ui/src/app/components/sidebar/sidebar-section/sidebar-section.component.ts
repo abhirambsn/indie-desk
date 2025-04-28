@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { SidebarSection } from 'indiedesk-common-lib';
 
 import { SidebarLinkComponent } from '../sidebar-link/sidebar-link.component';
 
@@ -16,7 +17,7 @@ export class SidebarSectionComponent implements OnChanges {
     if (changes['userRole']?.currentValue) {
       if (this.userRole) {
         console.log('[DEBUG] userRole', this.userRole);
-        this.section.children = this.section.children.filter((child) => {
+        this.section.children = this.section.children.filter((child: any) => {
           return child.roles?.includes(this.userRole);
         });
       }

@@ -4,6 +4,7 @@ import { catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { ClientServiceConstants } from './client.service.constants';
+import { Client } from 'indiedesk-common-lib';
 
 @Injectable({
   providedIn: 'root',

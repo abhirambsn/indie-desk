@@ -8,6 +8,7 @@ import { AppState, AuthSelectors } from '@ui/app/store';
 
 import { TicketCommentCreateComponent } from '../ticket-comment-create/ticket-comment-create.component';
 import { TicketCommentComponent } from '../ticket-comment/ticket-comment.component';
+import { TicketComment, SupportTicket } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({

@@ -4,6 +4,7 @@ import { IftaLabel } from 'primeng/iftalabel';
 import { InputText } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 import { Textarea } from 'primeng/textarea';
+import { Project, SupportTicket, User } from 'indiedesk-common-lib';
 
 @Component({
   selector: 'app-ticket-create',

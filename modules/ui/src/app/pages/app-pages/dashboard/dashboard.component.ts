@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { AppState, AuthSelectors } from '@ui/app/store';
 import { CommonHelper } from '@ui/app/helpers/common.helper';
+import { User } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({

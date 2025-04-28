@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 
 import { AppState, AuthSelectors, TicketActions, TicketSelectors } from '@ui/app/store';
 import { TicketService } from '@ui/app/service/ticket/ticket.service';
+import { SupportTicket, TicketComment } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({

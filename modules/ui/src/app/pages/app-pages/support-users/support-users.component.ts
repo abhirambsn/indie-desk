@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
+import { Project } from 'indiedesk-common-lib';
 
 import { AppState, ProjectActions, ProjectSelectors, UserActions } from '@ui/app/store';
 

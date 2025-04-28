@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { TabsModule } from 'primeng/tabs';
+import { TicketComment } from 'indiedesk-common-lib';
 
 @Component({
   selector: 'app-ticket-comment-create',

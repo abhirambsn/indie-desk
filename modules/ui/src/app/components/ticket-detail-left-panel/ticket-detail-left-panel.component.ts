@@ -6,6 +6,7 @@ import { Button } from 'primeng/button';
 import { TicketDetailFieldComponent } from '../ticket-detail-field/ticket-detail-field.component';
 
 import { ticketColumns } from './ticket-detail-left-panel.constants';
+import { SupportTicket, TicketFieldColumn } from 'indiedesk-common-lib';
 
 @Component({
   selector: 'app-ticket-detail-left-panel',

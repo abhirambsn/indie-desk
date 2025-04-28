@@ -11,7 +11,7 @@ import { Client, Invoice, InvoiceItem } from 'indiedesk-common-lib';
 import InvoiceStatus from '@ui/app/enums/invoice-status.enum';
 
 @Component({
-  selector: 'app-invoice-create',
+  selector: 'app-invoice-pi-add',
   imports: [
     IftaLabel,
     InputText,
@@ -22,9 +22,9 @@ import InvoiceStatus from '@ui/app/enums/invoice-status.enum';
     Select,
     NgTemplateOutlet,
   ],
-  templateUrl: './invoice-create.component.html',
+  templateUrl: './invoice-pi-add.component.html',
 })
-export class InvoiceCreateComponent {
+export class InvoicePiAddComponent {
   @Input() invoice: Invoice = {
     description: '',
     items: [] as InvoiceItem[],

@@ -65,7 +65,7 @@
     [header]="'New Task'"
   >
     <ng-template #content>
-      <app-task-create [project]="selectedProject" [task]="newTask" />
+      <app-task-create [users]="supportUsers" [project]="selectedProject" [task]="newTask" />
     </ng-template>
     <ng-template #footer>
       <p-button

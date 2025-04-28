@@ -4,6 +4,7 @@ import { IftaLabel } from 'primeng/iftalabel';
 import { InputText } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 import { Textarea } from 'primeng/textarea';
+import { Project, User, Task } from 'indiedesk-common-lib';
 
 @Component({
   selector: 'app-task-create',

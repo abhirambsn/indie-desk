@@ -4,6 +4,7 @@ import { IftaLabel } from 'primeng/iftalabel';
 import { InputText } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 import { Textarea } from 'primeng/textarea';
+import { Client, Project } from 'indiedesk-common-lib';
 
 import ProjectStatus from '@ui/app/enums/project-status.enum';
 
@@ -23,9 +24,7 @@ export class ProjectCreateComponent {
       this._clientOptions = val.map((client: Client) => {
         return {
           label: client.name,
-          value: {
-            id: client.id,
-          },
+          value: client.id,
         };
       });
     } else {
