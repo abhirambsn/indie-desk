@@ -42,7 +42,6 @@ export class TicketDetailComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe({
         next: (ticketComments) => {
-          console.log('[DEBUG] Ticket comments: ', ticketComments);
           this.ticketData.comments = ticketComments.sort(
             (a: TicketComment, b: TicketComment) =>
               new Date(b.date).getTime() - new Date(a.date).getTime(),
@@ -78,7 +77,6 @@ export class TicketDetailComponent implements OnInit {
             this.ticketData = ticket;
             this.getTicketCommments();
             this.getTicketAttachments();
-            console.log('[DEBUG] Ticket data: ', this.ticketData);
           } else {
             this.store$.dispatch(
               TicketActions.loadTickets({ payload: { projectId: this.projectId! } }),

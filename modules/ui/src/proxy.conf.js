@@ -28,7 +28,8 @@ const PROXY_CONFIG = [
   },
   {
     context: [
-      "/api/v1/*/task"
+      "/api/v1/*/task/**",
+      "/api/v1/*/task",
     ],
     target: "http://localhost:3003",
     secure: false,
@@ -37,7 +38,8 @@ const PROXY_CONFIG = [
   },
   {
     context: [
-      "/api/v1/tickets/**"
+      "/api/v1/tickets/**",
+      "/api/v1/tickets/*"
     ],
     target: "http://localhost:3004",
     secure: false,

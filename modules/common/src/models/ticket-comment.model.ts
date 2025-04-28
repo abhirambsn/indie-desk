@@ -1,10 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 const ticketCommentSchema = new Schema({
-  id: { type: String, required: true, unique: true },
+  id: { type: String, required: true, unique: true, default: uuidv4 },
   type: {
     type: String,
-    enum: ['internal', 'public'],
+    enum: ['internal', 'external'],
     default: 'internal',
     required: true,
   },

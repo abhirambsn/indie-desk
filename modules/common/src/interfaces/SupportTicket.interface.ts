@@ -4,8 +4,8 @@ export interface SupportTicket {
   id: string;
   title: string;
   description: string;
-  project: Project;
-  assignee: User;
+  project: string | Project;
+  assignee: string | User;
   priority: 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
   status: 'OPEN' | 'IN_PROGRESS' | 'DONE' | 'CANCELLED';
   comments: TicketComment[];

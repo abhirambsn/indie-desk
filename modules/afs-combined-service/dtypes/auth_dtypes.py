@@ -20,3 +20,5 @@ class User(BaseModel):
     hashed_password: str
     role: str
     project_id: Optional[str] = None
+    createdAt: Optional[str] = None
+    updatedAt: Optional[str] = None

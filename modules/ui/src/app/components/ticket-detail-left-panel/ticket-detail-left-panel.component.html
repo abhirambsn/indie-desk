@@ -1,45 +1,57 @@
 <div class="p-4 border-r border-r-gray-200 dark:border-r-gray-700">
   <div class="flex items-center justify-between">
     <h4 class="text-2xl font-semibold tracking-wide">Ticket Details</h4>
-    @if (ticketEdited) {
-      <p-button
-        label="Save"
-        size="small"
-        icon="pi pi-save"
-        (onClick)="onSaveClick()"
-        class="mr-2"
-      />
-    }
+    <div class="flex items-center gap-2">
+      @if (!ticket.assignee) {
+        <p-button
+          label="Assign to me"
+          size="small"
+          variant="outlined"
+          (onClick)="selfAssignTicket()"
+          class="mr-2"
+        />
+      }
+      @if (ticketEdited) {
+        <p-button
+          label="Save"
+          size="small"
+          icon="pi pi-save"
+          (onClick)="onSaveClick()"
+          class="mr-2"
+        />
+      }
+    </div>
   </div>
 
   <div class="mt-10 grid grid-cols-2 gap-3">
-    @for (col of ticketColumns; track col.id) { @if (col.type === 'code' &&
-    col.options) {
-    <app-ticket-detail-field
-      [fieldId]="col.id"
-      [fieldName]="col.header"
-      [type]="col.type"
-      [value]="getValue(col)"
-      [readonly]="col.readonly"
-      [isVisible]="col.isVisible"
-      [isRequired]="col.isRequired"
-      [options]="col.options"
-      (fieldEdited)="onFieldEdit($event)"
-    />
-    } @else {
-    <app-ticket-detail-field
-      [fieldId]="col.id"
-      [fieldName]="col.header"
-      [type]="col.type"
-      [value]="getValue(col)"
-      [readonly]="col.readonly"
-      [isVisible]="col.isVisible"
-      [isRequired]="col.isRequired"
-      (fieldEdited)="onFieldEdit($event)"
-      [ngClass]="{
-        'col-span-2': col.type === 'textarea'
-      }"
-    />
-    } }
+    @for (col of ticketColumns; track col.id) {
+      @if (col.type === 'code' && col.options) {
+        <app-ticket-detail-field
+          [fieldId]="col.id"
+          [fieldName]="col.header"
+          [type]="col.type"
+          [value]="getValue(col)"
+          [readonly]="col.readonly"
+          [isVisible]="col.isVisible"
+          [isRequired]="col.isRequired"
+          [options]="col.options"
+          (fieldEdited)="onFieldEdit($event)"
+        />
+      } @else {
+        <app-ticket-detail-field
+          [fieldId]="col.id"
+          [fieldName]="col.header"
+          [type]="col.type"
+          [value]="getValue(col)"
+          [readonly]="col.readonly"
+          [isVisible]="col.isVisible"
+          [isRequired]="col.isRequired"
+          (fieldEdited)="onFieldEdit($event)"
+          [ngClass]="{
+            'col-span-2': col.type === 'textarea',
+          }"
+        />
+      }
+    }
   </div>
 </div>

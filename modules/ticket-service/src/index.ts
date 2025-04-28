@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 const PORT = process.env.PORT ?? 3004;
 const MONGO_URI = process.env.MONGO_URI ?? 'mongodb://localhost:27017/iddb';
 
-app.use('/api/v1/tickets/:projectId', ticketRouter);
+app.use('/api/v1/tickets', ticketRouter);
 
 // Setup Health Check route
 app.get('/health', (_, res) => {
@@ -47,7 +47,6 @@ mongoose.set('toJSON', {
     return ret;
   },
 });
-
 
 mongoose
   .connect(MONGO_URI, {})

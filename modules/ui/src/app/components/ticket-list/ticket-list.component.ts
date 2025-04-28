@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -48,7 +48,10 @@ export class TicketListComponent implements OnInit, OnChanges {
 
   @ViewChild('ticketTable') ticketTable: Table | undefined;
 
-  constructor(private readonly store$: Store<AppState>) {}
+  constructor(
+    private readonly store$: Store<AppState>,
+    private readonly cdr: ChangeDetectorRef,
+  ) {}
 
   readonly ticketStatuses = [
     { label: 'Open', value: 'OPEN' },
@@ -102,6 +105,7 @@ export class TicketListComponent implements OnInit, OnChanges {
               console.log('Setting tickets', tickets);
               this.tickets = tickets;
               this.tempTickets = _.cloneDeep(this.tickets);
+              this.cdr.detectChanges();
             }
           });
       }
@@ -131,7 +135,7 @@ export class TicketListComponent implements OnInit, OnChanges {
 
   saveTicket() {
     console.log('[DEBUG] Saving ticket', this.newTicket);
-    this.newTicket.project = { id: this.selectedProject?.id } as Project;
+    this.newTicket.project = this.selectedProject?.id as string;
     this.store$.dispatch(
       TicketActions.saveTicket({
         payload: {

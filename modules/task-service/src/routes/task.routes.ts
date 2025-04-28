@@ -71,7 +71,7 @@ taskRouter.get(
 );
 
 taskRouter.patch(
-  '/api/v1/:projectId/task/:taskId',
+  '/:projectId/:taskId',
   getAuthMiddleware(jwtSecret),
   async (req: Request, res: Response) => {
     const projectId = req.params.projectId;
@@ -97,7 +97,7 @@ taskRouter.patch(
 );
 
 taskRouter.delete(
-  '/api/v1/:projectId/task/:taskId',
+  '/:projectId/:taskId',
   getAuthMiddleware(jwtSecret),
   async (req: Request, res: Response) => {
     const projectId = req.params.projectId;

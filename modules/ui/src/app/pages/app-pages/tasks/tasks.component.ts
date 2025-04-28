@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { Project } from 'indiedesk-common-lib';
 
-import { AppState, ProjectActions, ProjectSelectors, TaskActions } from '@ui/app/store';
+import { AppState, ProjectActions, ProjectSelectors, TaskActions, UserActions } from '@ui/app/store';
 
 @UntilDestroy()
 @Component({
@@ -49,6 +49,7 @@ export class TasksComponent implements OnInit {
         if (project) {
           this.selectedProject = project;
           this.store$.dispatch(TaskActions.loadTasks({ payload: { projectId: project.id } }));
+          this.store$.dispatch(UserActions.loadUsers({ payload: { projectId: project.id } }));
         }
         this.cdr.detectChanges();
       });

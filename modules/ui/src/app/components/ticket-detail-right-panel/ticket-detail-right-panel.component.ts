@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Button } from 'primeng/button';
@@ -8,7 +8,7 @@ import { AppState, AuthSelectors } from '@ui/app/store';
 
 import { TicketCommentCreateComponent } from '../ticket-comment-create/ticket-comment-create.component';
 import { TicketCommentComponent } from '../ticket-comment/ticket-comment.component';
-import { TicketComment, SupportTicket } from 'indiedesk-common-lib';
+import { TicketComment, SupportTicket, Project } from 'indiedesk-common-lib';
 
 @UntilDestroy()
 @Component({
@@ -26,6 +26,7 @@ export class TicketDetailRightPanelComponent {
   constructor(
     private readonly store$: Store<AppState>,
     private readonly service: TicketService,
+    private readonly cdr: ChangeDetectorRef,
   ) {}
 
   onOpenCreate() {
@@ -43,15 +44,16 @@ export class TicketDetailRightPanelComponent {
         }
       });
     this.service
-      .createComment(this.ticket.project.id, this.ticket.id, comment, this.access_token)
+      .createComment((this.ticket.project as Project).id, this.ticket.id, comment, this.access_token)
       .subscribe({
         next: (response) => {
           console.log('[DEBUG] Comment created successfully: ', response);
           this.ticket.comments.push(response);
           this.refetchComments.emit();
           this.createVisible = false;
+          this.cdr.detectChanges();
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('[ERROR] Error creating comment: ', error);
         },
       });

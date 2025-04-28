@@ -16,7 +16,6 @@ export class AuthService {
     if (response.status !== 200) {
       throw new Error(`Failed to fetch user with ID ${userId}`);
     }
-
     return response.data;
   }
 }

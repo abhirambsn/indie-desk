@@ -57,7 +57,9 @@ async def signup(data: SignupRequest):
         first_name=data.first_name,
         last_name=data.last_name,
         hashed_password=hashed,
-        role=data.role
+        role=data.role,
+        createdAt=datetime.now().isoformat(),
+        updatedAt=datetime.now().isoformat(),
     )
     if data.project_id:
         user.project_id = data.project_id

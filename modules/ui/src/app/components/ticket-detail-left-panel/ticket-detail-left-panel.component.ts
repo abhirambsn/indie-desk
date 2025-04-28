@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import _ from 'lodash';
 import { NgClass } from '@angular/common';
 import { Button } from 'primeng/button';
@@ -6,26 +6,44 @@ import { Button } from 'primeng/button';
 import { TicketDetailFieldComponent } from '../ticket-detail-field/ticket-detail-field.component';
 
 import { ticketColumns } from './ticket-detail-left-panel.constants';
-import { SupportTicket, TicketFieldColumn } from 'indiedesk-common-lib';
+import { SupportTicket, TicketFieldColumn, User } from 'indiedesk-common-lib';
+import { Store } from '@ngrx/store';
+import { AppState, AuthSelectors } from '@ui/app/store';
 
 @Component({
   selector: 'app-ticket-detail-left-panel',
   imports: [TicketDetailFieldComponent, NgClass, Button],
   templateUrl: './ticket-detail-left-panel.component.html',
 })
-export class TicketDetailLeftPanelComponent {
+export class TicketDetailLeftPanelComponent implements OnInit {
   @Input() ticket: SupportTicket = {} as SupportTicket;
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
+  constructor(
+    private readonly store$: Store<AppState>,
+    private readonly cdr: ChangeDetectorRef
+
+  ) {}
 
   ticketEdited = false;
+  user: User | null = null;
 
   readonly ticketColumns = ticketColumns;
 
+  ngOnInit(): void {
+      this.store$.select(AuthSelectors.selectUser)
+      .subscribe((user) => {
+        if (user) {
+          this.user = user;
+          this.cdr.detectChanges();
+        }
+      })
+  }
+
   getValue(col: TicketFieldColumn): any {
     let value = _.get(this.ticket, col.id);
+    const user = this.ticket.assignee as User;
     if (col.id === 'assignee' && this.ticket.assignee) {
-      value = `${this.ticket.assignee?.first_name} ${this.ticket.assignee?.last_name}`;
+      value = `${user?.first_name} ${user?.last_name}`;
     }
     if (value) {
       switch (col.type) {
@@ -41,6 +59,16 @@ export class TicketDetailLeftPanelComponent {
       }
     }
     return '';
+  }
+
+  selfAssignTicket() {
+    console.log('[DEBUG] Self-assigning ticket: ', this.ticket);
+    const updatedTicket = {
+      ...this.ticket,
+      assignee: this.user?.username
+    }
+    console.log('[DEBUG] Updated ticket: ', updatedTicket);
+    this.cdr.detectChanges();
   }
 
   onFieldEdit(event: any) {

@@ -31,7 +31,7 @@ export const ticketColumns: TicketFieldColumn[] = [
     type: 'text',
     isRequired: true,
     isVisible: true,
-    readonly: false,
+    readonly: true,
   },
   {
     id: 'project.client.name',

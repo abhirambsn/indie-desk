@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProjectCreateComponent } from './project-create.component';
+import { Project } from 'indiedesk-common-lib';
 
 describe('ProjectCreateComponent', () => {
   let component: ProjectCreateComponent;

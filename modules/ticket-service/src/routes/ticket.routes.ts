@@ -8,47 +8,92 @@ import {
 } from 'indiedesk-common-lib';
 import { Router, type Request, type Response } from 'express';
 
+import { AuthService } from '../service/auth.service';
+
 export const ticketRouter = Router();
 const jwtSecret = process.env.JWT_SECRET || 'supersecret';
+const authService = new AuthService();
 
-ticketRouter.post('', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
-  const username = req?.user?.sub;
-  const projectId = req.params.projectId;
-  const project = await ProjectModel.findOne({ id: projectId, owner: username });
-  if (!project) {
-    res.status(404).json({ message: 'Not found' });
-    return;
-  }
-  const ticket = {
-    ...req.body,
-    owner: username,
-    id: getTicketIDFromProject(project),
-    project,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-  const savedTicket = await SupportTicketModel.create(ticket);
-  res.status(200).json({ message: 'ok', data: savedTicket });
-});
+const appendUserDataToComments = async (comments: any[], token: string) => {
+  const commentsWithUser = await Promise.all(
+    comments.map(async (comment) => {
+      const updatedComment: any = { ...comment.toObject() };
+      if (comment.username) {
+        updatedComment.user = await authService.getUserById(comment.username, token);
+      }
+      return updatedComment;
+    }),
+  );
+  return commentsWithUser;
+};
 
-ticketRouter.get('', getAuthMiddleware(jwtSecret), async (req: Request, res: Response) => {
-  const username = req?.user?.sub;
-  const projectId = req.params.projectId;
-  const tickets = await SupportTicketModel.find({ owner: username, 'project.id': projectId });
-  res.status(200).json({ message: 'ok', data: tickets });
-});
-
-ticketRouter.get(
-  '/:ticketId',
+ticketRouter.post(
+  '/:projectId',
   getAuthMiddleware(jwtSecret),
   async (req: Request, res: Response) => {
     const username = req?.user?.sub;
     const projectId = req.params.projectId;
+    const project = await ProjectModel.findOne({ id: projectId });
+    if (!project) {
+      res.status(404).json({ message: 'Not found' });
+      return;
+    }
+    const ticket = {
+      ...req.body,
+      owner: username,
+      id: getTicketIDFromProject(project),
+      project: projectId,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    const savedTicket = await SupportTicketModel.create(ticket);
+    res.status(200).json({ message: 'ok', data: savedTicket });
+  },
+);
+
+ticketRouter.get(
+  '/:projectId',
+  getAuthMiddleware(jwtSecret),
+  async (req: Request, res: Response) => {
+    const projectId = req.params.projectId;
+    const tickets = await SupportTicketModel.find({ project: projectId }).populate({
+      path: 'project',
+      localField: 'project',
+      foreignField: 'id',
+      populate: {
+        path: 'client',
+        localField: 'client',
+        foreignField: 'id',
+      },
+    });
+    const token = req.headers.authorization?.split(' ')[1];
+    tickets.forEach(async (ticket) => {
+      if (ticket.assignee) {
+        ticket.assignee = await authService.getUserById(ticket.assignee, token as string);
+      }
+    });
+    res.status(200).json({ message: 'ok', data: tickets });
+  },
+);
+
+ticketRouter.get(
+  '/:projectId/:ticketId',
+  getAuthMiddleware(jwtSecret),
+  async (req: Request, res: Response) => {
+    const projectId = req.params.projectId;
     const ticketId = req.params.ticketId;
     const ticket = await SupportTicketModel.findOne({
       id: ticketId,
-      owner: username,
-      'project.id': projectId,
+      project: projectId,
+    }).populate({
+      path: 'project',
+      localField: 'project',
+      foreignField: 'id',
+      populate: {
+        path: 'client',
+        localField: 'client',
+        foreignField: 'id',
+      },
     });
     if (!ticket) {
       res.status(404).json({ message: 'Not found' });
@@ -59,15 +104,14 @@ ticketRouter.get(
 );
 
 ticketRouter.patch(
-  '/:ticketId',
+  '/:projectId/:ticketId',
   getAuthMiddleware(jwtSecret),
   async (req: Request, res: Response) => {
-    const username = req?.user?.sub;
     const ticketId = req.params.ticketId;
     const projectId = req.params.projectId;
     try {
       const updatedTicket = await SupportTicketModel.findOneAndUpdate(
-        { id: ticketId, owner: username, 'project.id': projectId },
+        { id: ticketId, 'project.id': projectId },
         { $set: req.body?.data },
         { new: true, runValidators: true },
       );
@@ -86,7 +130,7 @@ ticketRouter.patch(
 );
 
 ticketRouter.patch(
-  '/:ticketId/comments',
+  '/:projectId/:ticketId/comments',
   getAuthMiddleware(jwtSecret),
   async (req: Request, res: Response) => {
     const username = req?.user?.sub;
@@ -94,8 +138,7 @@ ticketRouter.patch(
     const projectId = req.params.projectId;
     const ticketCheck = await SupportTicketModel.findOne({
       id: ticketId,
-      owner: username,
-      'project.id': projectId,
+      project: projectId,
     });
     if (!ticketCheck) {
       res.status(404).json({ message: 'Ticket Not found' });
@@ -119,29 +162,29 @@ ticketRouter.patch(
 );
 
 ticketRouter.get(
-  '/:ticketId/comments',
+  '/:projectId/:ticketId/comments',
   getAuthMiddleware(jwtSecret),
   async (req: Request, res: Response) => {
     const ticketId = req.params.ticketId;
     const projectId = req.params.projectId;
 
     const comments = await TicketCommentModel.find({ ticketId, projectId });
-    res.status(200).json({ message: 'ok', data: comments });
+    const token = req.headers.authorization?.split(' ')[1];
+    const commentsWithUser = await appendUserDataToComments(comments, token as string);
+    res.status(200).json({ message: 'ok', data: commentsWithUser });
     return;
   },
 );
 
 ticketRouter.delete(
-  '/:ticketId',
+  '/:projectId/:ticketId',
   getAuthMiddleware(jwtSecret),
   async (req: Request, res: Response) => {
-    const username = req?.user?.sub;
     const ticketId = req.params.ticketId;
     const projectId = req.params.projectId;
     try {
       await SupportTicketModel.findOneAndDelete({
         id: ticketId,
-        owner: username,
         'project.id': projectId,
       });
       if (!ticketId) {

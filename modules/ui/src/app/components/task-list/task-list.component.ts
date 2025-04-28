@@ -120,10 +120,16 @@ export class TaskListComponent implements OnChanges {
 
   updateCard(event: any) {
     console.log('[DEBUG] Updating card', event);
+    const task = event.data[0];
+    if (typeof task.project === 'object') {
+      task.project = task.project.id;
+    }
+    delete task.createdAt;
+    delete task.updatedAt;
     this.kanbanComponent.showSpinner();
     this.store$.dispatch(
       TaskActions.updateTask({
-        payload: { projectId: this.selectedProject?.id, task: event.data[0] },
+        payload: { projectId: this.selectedProject?.id, task: task },
       }),
     );
   }
