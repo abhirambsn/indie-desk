@@ -798,6 +798,6 @@ app.get('/api/v1/users', authMiddleware, (req: Request, res: Response) => {});
 
 app.get('/api/v1/users/:userId', authMiddleware, (req: Request, res: Response) => {});
 
-app.listen(3000, () => {
+app.listen(3002, () => {
   console.log('Server is running on port 3000');
 });

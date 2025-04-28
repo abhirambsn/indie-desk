@@ -1,16 +1,34 @@
-"use strict";
 var __create = Object.create;
 var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __commonJS = (cb, mod) => function __require() {
-  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
 };
-var __export = (target, all) => {
-  for (var name in all)
-    __defProp(target, name, { get: all[name], enumerable: true });
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require : typeof Proxy !== "undefined" ? new Proxy(x, {
+  get: (a, b) => (typeof require !== "undefined" ? require : a)[b]
+}) : x)(function(x) {
+  if (typeof require !== "undefined") return require.apply(this, arguments);
+  throw Error('Dynamic require of "' + x + '" is not supported');
+});
+var __commonJS = (cb, mod) => function __require2() {
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
 var __copyProps = (to, from, except, desc) => {
   if (from && typeof from === "object" || typeof from === "function") {
@@ -28,12 +46,31 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+var __async = (__this, __arguments, generator) => {
+  return new Promise((resolve, reject) => {
+    var fulfilled = (value) => {
+      try {
+        step(generator.next(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var rejected = (value) => {
+      try {
+        step(generator.throw(value));
+      } catch (e) {
+        reject(e);
+      }
+    };
+    var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+    step((generator = generator.apply(__this, __arguments)).next());
+  });
+};
 
 // ../../node_modules/.pnpm/dotenv@16.5.0/node_modules/dotenv/package.json
 var require_package = __commonJS({
-  "../../node_modules/.pnpm/dotenv@16.5.0/node_modules/dotenv/package.json"(exports2, module2) {
-    module2.exports = {
+  "../../node_modules/.pnpm/dotenv@16.5.0/node_modules/dotenv/package.json"(exports, module) {
+    module.exports = {
       name: "dotenv",
       version: "16.5.0",
       description: "Loads environment variables from .env file",
@@ -100,12 +137,12 @@ var require_package = __commonJS({
 
 // ../../node_modules/.pnpm/dotenv@16.5.0/node_modules/dotenv/lib/main.js
 var require_main = __commonJS({
-  "../../node_modules/.pnpm/dotenv@16.5.0/node_modules/dotenv/lib/main.js"(exports2, module2) {
+  "../../node_modules/.pnpm/dotenv@16.5.0/node_modules/dotenv/lib/main.js"(exports, module) {
     "use strict";
-    var fs = require("fs");
-    var path = require("path");
-    var os = require("os");
-    var crypto = require("crypto");
+    var fs = __require("fs");
+    var path = __require("path");
+    var os = __require("os");
+    var crypto = __require("crypto");
     var packageJson = require_package();
     var version = packageJson.version;
     var LINE = /(?:^|^)\s*(?:export\s+)?([\w.-]+)(?:\s*=\s*?|:\s+?)(\s*'(?:\\'|[^'])*'|\s*"(?:\\"|[^"])*"|\s*`(?:\\`|[^`])*`|[^#\r\n]+)?\s*(?:#.*)?(?:$|$)/mg;
@@ -355,275 +392,101 @@ var require_main = __commonJS({
       parse,
       populate
     };
-    module2.exports.configDotenv = DotenvModule.configDotenv;
-    module2.exports._configVault = DotenvModule._configVault;
-    module2.exports._parseVault = DotenvModule._parseVault;
-    module2.exports.config = DotenvModule.config;
-    module2.exports.decrypt = DotenvModule.decrypt;
-    module2.exports.parse = DotenvModule.parse;
-    module2.exports.populate = DotenvModule.populate;
-    module2.exports = DotenvModule;
+    module.exports.configDotenv = DotenvModule.configDotenv;
+    module.exports._configVault = DotenvModule._configVault;
+    module.exports._parseVault = DotenvModule._parseVault;
+    module.exports.config = DotenvModule.config;
+    module.exports.decrypt = DotenvModule.decrypt;
+    module.exports.parse = DotenvModule.parse;
+    module.exports.populate = DotenvModule.populate;
+    module.exports = DotenvModule;
   }
 });
 
 // src/index.ts
-var index_exports = {};
-__export(index_exports, {
-  ClientModel: () => ClientModel,
-  InvoiceModel: () => InvoiceModel,
-  ProjectModel: () => ProjectModel,
-  SupportTicketModel: () => SupportTicketModel,
-  TaskModel: () => TaskModel,
-  TicketCommentModel: () => TicketCommentModel,
-  authMiddleware: () => authMiddleware,
-  logger: () => logger
-});
-module.exports = __toCommonJS(index_exports);
-
-// src/utils/logger.ts
-var logger = {
-  info: (msg) => console.log(`[INFO]: ${msg}`),
-  error: (msg) => console.error(`[ERROR]: ${msg}`),
-  warn: (msg) => console.warn(`[WARN]: ${msg}`),
-  debug: (msg) => console.debug(`[DEBUG]: ${msg}`),
-  log: (msg) => console.log(`[LOG]: ${msg}`)
-};
-
-// src/utils/auth-middleware.ts
-var import_jsonwebtoken = __toESM(require("jsonwebtoken"));
 var import_dotenv = __toESM(require_main());
-(0, import_dotenv.config)();
-var _a;
-var JWT_SECRET = (_a = process.env.JWT_SECRET) != null ? _a : "mmmy-super-secret-f1-team-key-haha";
-var authMiddleware = (req, res, next) => {
-  const authHeader = req.headers.authorization;
-  if (!authHeader) {
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+
+// src/routes/client.routes.ts
+import { authMiddleware, ClientModel, logger } from "indiedesk-common-lib";
+import { Router } from "express";
+var clientRouter = Router();
+clientRouter.get("", authMiddleware, (req, res) => __async(void 0, null, function* () {
+  var _a3;
+  const username = (_a3 = req == null ? void 0 : req.user) == null ? void 0 : _a3.sub;
+  if (!username) {
     res.status(401).json({ message: "Unauthorized" });
     return;
   }
-  const token = authHeader.split(" ")[1];
-  if (!token) {
-    res.status(401).json({ message: "Unauthorized" });
+  const userClients = yield ClientModel.find({ owner: username });
+  res.status(200).json({ message: "ok", data: userClients });
+}));
+clientRouter.post("", authMiddleware, (req, res) => __async(void 0, null, function* () {
+  var _a3, _b;
+  const username = (_a3 = req == null ? void 0 : req.user) == null ? void 0 : _a3.sub;
+  const client = __spreadProps(__spreadValues({}, (_b = req.body) == null ? void 0 : _b.data), {
+    owner: username,
+    projects: []
+  });
+  const newClient = yield ClientModel.create(client);
+  res.status(200).json({ message: "ok", data: newClient });
+}));
+clientRouter.patch("/:id", authMiddleware, (req, res) => __async(void 0, null, function* () {
+  var _a3, _b, _c;
+  const username = (_a3 = req == null ? void 0 : req.user) == null ? void 0 : _a3.sub;
+  const id = req.params.id;
+  if (!((_b = req.body) == null ? void 0 : _b.data)) {
+    res.status(400).json({ message: "Bad request" });
     return;
   }
   try {
-    const payload = import_jsonwebtoken.default.verify(token, JWT_SECRET, {
-      issuer: "auth.indie-desk.co",
-      audience: "indie-desk.co",
-      ignoreNotBefore: true
-    });
-    if (payload instanceof String) {
-      res.status(401).json({ message: "Unauthorized" });
-      return;
-    }
-    req.user = payload;
+    const updatedClient = yield ClientModel.findOneAndUpdate(
+      { id, owner: username },
+      (_c = req.body) == null ? void 0 : _c.data,
+      { new: true }
+    );
+    res.status(200).json({ message: "ok", data: updatedClient });
   } catch (err) {
-    console.error("[JWT] Error", err);
-    res.status(401).json({ message: "Unauthorized" });
-    return;
+    console.error("[Client] Error", err);
+    res.status(404).json({ message: "Client not found" });
   }
-  next();
-};
-
-// src/models/client.model.ts
-var import_mongoose = __toESM(require("mongoose"));
-var clientSchema = new import_mongoose.Schema(
-  {
-    id: { type: String, default: () => new import_mongoose.default.Types.ObjectId().toString() },
-    name: { type: String, required: true },
-    address: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    zip: { type: String, required: true },
-    phone: { type: String, required: true },
-    email: { type: String, required: true },
-    contact: { type: String, required: true },
-    projects: { type: [String], default: [] },
-    // Array of project ids or names
-    type: { type: String, enum: ["INDIVIDUAL", "ORGANIZATION"], default: "INDIVIDUAL" },
-    owner: { type: String, required: true }
-  },
-  {
-    timestamps: true
+}));
+clientRouter.delete("/:id", authMiddleware, (req, res) => __async(void 0, null, function* () {
+  var _a3;
+  const username = (_a3 = req == null ? void 0 : req.user) == null ? void 0 : _a3.sub;
+  const id = req.params.id;
+  try {
+    yield ClientModel.findOneAndDelete({ id, owner: username });
+    res.status(204).send();
+  } catch (err) {
+    logger.error(`[Client] Error: ${err}`);
+    res.status(404).json({ message: "Not found" });
   }
-);
-var ClientModel = import_mongoose.default.model("Client", clientSchema);
+}));
 
-// src/models/invoice.model.ts
-var import_mongoose2 = __toESM(require("mongoose"));
-var invoiceSchema = new import_mongoose2.Schema(
-  {
-    id: { type: String, required: true },
-    description: { type: String, required: true },
-    client: {
-      name: { type: String, required: true },
-      address: { type: String, required: true }
-    },
-    project: {
-      type: import_mongoose2.default.Schema.Types.ObjectId,
-      ref: "Project",
-      required: true
-    },
-    date: { type: Date, required: true },
-    status: { type: String, enum: ["DRAFT", "SENT", "PAID"], default: "DRAFT" },
-    generatedBy: { type: String, required: true },
-    dueDate: { type: Date, required: true },
-    items: [
-      {
-        id: { type: String, required: true },
-        description: { type: String, required: true },
-        hours: { type: Number, required: true }
-      }
-    ],
-    owner: { type: String, required: true }
-  },
-  {
-    timestamps: true
-  }
-);
-var InvoiceModel = import_mongoose2.default.model("Invoice", invoiceSchema);
-
-// src/models/project.model.ts
-var import_mongoose3 = __toESM(require("mongoose"));
-var projectSchema = new import_mongoose3.Schema(
-  {
-    id: { type: String, required: true },
-    name: { type: String, required: true },
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
-    owner: {
-      type: String,
-      // Username of the owner (from external user service)
-      required: true
-    },
-    client: {
-      type: import_mongoose3.default.Schema.Types.ObjectId,
-      // Link to Client model
-      ref: "Client",
-      required: true
-    },
-    perHourRate: {
-      amount: { type: Number, required: true },
-      currency: { type: String, required: true }
-    },
-    status: {
-      type: String,
-      enum: ["ONGOING", "COMPLETED", "CANCELLED", "PENDING"],
-      default: "ONGOING"
-    },
-    tasks: {
-      type: [String],
-      default: []
-    },
-    users: [
-      {
-        type: String,
-        // List of usernames who can access the project
-        required: true
-      }
-    ]
-  },
-  {
-    timestamps: true
-  }
-);
-var ProjectModel = import_mongoose3.default.model("Project", projectSchema);
-
-// src/models/task.model.ts
-var import_mongoose4 = __toESM(require("mongoose"));
-var taskSchema = new import_mongoose4.Schema(
-  {
-    id: { type: String, required: true },
-    title: { type: String, required: true },
-    status: {
-      type: String,
-      enum: ["OPEN", "IN_PROGRESS", "COMPLETED", "BLOCKED"],
-      default: "OPEN"
-    },
-    priority: {
-      type: String,
-      enum: ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
-      default: "MEDIUM"
-    },
-    description: { type: String },
-    project: {
-      type: import_mongoose4.default.Schema.Types.ObjectId,
-      ref: "Project",
-      required: true
-    },
-    plannedHours: { type: Number }
-  },
-  {
-    timestamps: true
-  }
-);
-var TaskModel = import_mongoose4.default.model("Task", taskSchema);
-
-// src/models/support-ticket.model.ts
-var import_mongoose5 = __toESM(require("mongoose"));
-var supportTicketSchema = new import_mongoose5.Schema(
-  {
-    id: { type: String, required: true, unique: true },
-    title: { type: String, required: true },
-    status: {
-      type: String,
-      enum: ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"],
-      default: "OPEN"
-    },
-    priority: {
-      type: String,
-      enum: ["LOW", "MEDIUM", "HIGH", "CRITICAL"],
-      default: "MEDIUM"
-    },
-    description: { type: String },
-    project: {
-      type: import_mongoose5.default.Schema.Types.ObjectId,
-      ref: "Project",
-      required: true
-    },
-    owner: { type: String, required: true },
-    assignee: { type: String }
-  },
-  {
-    timestamps: true
-  }
-);
-var SupportTicketModel = import_mongoose5.default.model("SupportTicket", supportTicketSchema);
-
-// src/models/ticket-comment.model.ts
-var import_mongoose6 = __toESM(require("mongoose"));
-var ticketCommentSchema = new import_mongoose6.Schema({
-  id: { type: String, required: true, unique: true },
-  type: {
-    type: String,
-    enum: ["internal", "public"],
-    default: "internal",
-    required: true
-  },
-  text: { type: String, required: true },
-  ticketId: {
-    type: String,
-    ref: "SupportTicket",
-    required: true
-  },
-  projectId: {
-    type: String,
-    ref: "Project",
-    required: true
-  },
-  username: { type: String, required: true },
-  date: { type: Date, default: Date.now }
+// src/index.ts
+(0, import_dotenv.config)();
+var app = express();
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+var _a;
+var PORT = (_a = process.env.PORT) != null ? _a : 3e3;
+var _a2;
+var MONGO_URI = (_a2 = process.env.MONGO_URI) != null ? _a2 : "mongodb://localhost:27017/client-service";
+app.use("/api/v1/clients", clientRouter);
+app.get("/health", (_, res) => {
+  res.status(200).json({ status: "UP", id: "client-service", name: "Indie Desk Client Service" });
 });
-var TicketCommentModel = import_mongoose6.default.model("TicketComment", ticketCommentSchema);
-// Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  ClientModel,
-  InvoiceModel,
-  ProjectModel,
-  SupportTicketModel,
-  TaskModel,
-  TicketCommentModel,
-  authMiddleware,
-  logger
+mongoose.connect(MONGO_URI, {}).then(() => {
+  console.log("MongoDB connected successfully");
+  app.listen(PORT, () => {
+    console.log(`Client service is running on port ${PORT}`);
+  });
+}).catch((err) => {
+  console.error("MongoDB connection error:", err);
+  process.exit(1);
 });
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.mjs.map

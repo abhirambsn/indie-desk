@@ -21,6 +21,7 @@ import { AppState, InvoiceActions } from '@ui/app/store';
 
 import { InvoiceCreateComponent } from '../invoice-create/invoice-create.component';
 
+import { Invoice, InvoiceItem, Column, ExportColumn } from 'indiedesk-common-lib';
 @Component({
   selector: 'app-invoice-table',
   imports: [

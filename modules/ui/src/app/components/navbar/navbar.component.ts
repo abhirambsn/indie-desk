@@ -13,7 +13,7 @@ import { SearchActions } from '@ui/app/store/actions';
 import { AuthService } from '@ui/app/service/auth/auth.service';
 
 import { UserDetailsComponent } from './user-details/user-details.component';
-
+import { User } from 'indiedesk-common-lib';
 @Component({
   selector: 'app-navbar',
   imports: [Avatar, TieredMenu, InputText, ReactiveFormsModule, Badge, UserDetailsComponent],
