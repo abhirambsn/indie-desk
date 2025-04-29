@@ -1,4 +1,11 @@
 on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Deploy the UI'
+        required: false
+        default: false
+        type: boolean
   push:
     branches:
       - main
