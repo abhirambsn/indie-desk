@@ -29,7 +29,7 @@ jobs:
           node-version: '23'
 
       - name: Install dependencies
-        run: pnpm install --filter "./modules/ui..." --filter "./modules/common..."
+        run: pnpm install --filter "./modules/ui" --filter "./modules/common"
 
       - name: Lint
         run: pnpm run lint
