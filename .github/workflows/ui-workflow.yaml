@@ -4,9 +4,11 @@ on:
       - main
     paths:
       - 'modules/ui/**'
+      - 'modules/common/**'
+
 jobs:
   build:
-    name: Build, Test and Deploy
+    name: Build, Test, and Deploy
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -14,23 +16,30 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         name: Checkout
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
           version: '10.8.1'
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '23'
+
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --filter "./modules/ui..." --filter "./modules/common..."
+
       - name: Lint
         run: pnpm run lint
+
       - name: Build
         run: pnpm run build
+
       - name: Test
         run: pnpm run test:ci
+
       - name: Deploy
         if: contains(github.event.head_commit.message, '[DEPLOY]')
         uses: cloudflare/wrangler-action@v3
