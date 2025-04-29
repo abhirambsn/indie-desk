@@ -39,6 +39,10 @@ jobs:
       - name: Install dependencies of common lib
         run: pnpm install
         working-directory: modules/common
+      
+      - name: Build the common lib
+        run: pnpm run build
+        working-directory: modules/common
 
       - name: Install dependencies of ui
         run: pnpm install
