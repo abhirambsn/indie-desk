@@ -35,6 +35,8 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TagModule } from 'primeng/tag';
 import { ChartModule } from 'primeng/chart';
 import { ButtonModule } from 'primeng/button';
+import { TaskCommentComponent } from '@ui/app/components/task-comment/task-comment.component';
+import { TaskCommentCreateComponent } from '@ui/app/components/task-comment-create/task-comment-create.component';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
@@ -90,15 +92,17 @@ export const routes: Routes = [
     SelectModule,
     FormsModule,
     AvatarModule,
+    TagModule,
+    ChartModule,
+    ButtonModule,
     TaskListComponent,
     TicketListComponent,
     UserListComponent,
     ProfileTableComponent,
     TicketDetailLeftPanelComponent,
     TicketDetailRightPanelComponent,
-    TagModule,
-    ChartModule,
-    ButtonModule,
+    TaskCommentComponent,
+    TaskCommentCreateComponent,
   ],
   exports: [RouterModule],
 })

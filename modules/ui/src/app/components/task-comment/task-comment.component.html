@@ -1,0 +1,19 @@
+@if (comment && comment.user) {
+  <div class="w-full p-2">
+    <div class="flex gap-1 w-full">
+      <img [src]="comment.user.avatar_url" alt="Senders Avatar" class="rounded-lg w-12 h-12" />
+      <div class="flex flex-col flex-1">
+        <span class="text-xs font-semibold"
+          >{{ comment.user.first_name }} {{ comment.user.last_name }}</span
+        >
+        <span class="text-xs opacity-90">&#64;{{ comment.user.username }}</span>
+        <span class="text-xs opacity-80">{{ comment.date | date: 'medium' }}</span>
+      </div>
+    </div>
+
+    <p class="mt-4 text-sm text-gray-700 dark:text-gray-400 whitespace-pre-line mb-1">
+      {{ comment.comment?.trim() }}
+    </p>
+  </div>
+  <hr class="mb-2" />
+}

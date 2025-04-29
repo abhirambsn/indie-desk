@@ -99,6 +99,7 @@ export class InvoicesComponent implements OnInit {
 
   onPaymentInfoModalOpenToggle(event: any) {
     this.paymentInfoModalOpen = event?.open;
+    this.cdr.detectChanges();
   }
 
   onSaveInvoice(event: any) {

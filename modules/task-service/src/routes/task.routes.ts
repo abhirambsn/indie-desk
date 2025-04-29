@@ -7,8 +7,24 @@ import {
 } from 'indiedesk-common-lib';
 import { Router, type Request, type Response } from 'express';
 
+import { AuthService } from '../service/auth.service';
+
 export const taskRouter = Router();
 const jwtSecret = process.env.JWT_SECRET || 'supersecret';
+const authService = new AuthService();
+
+const getCommentsWithUser = async (comments: any[], token: string) => {
+  const commentsWithUser = await Promise.all(
+    comments.map(async (comment) => {
+      const updatedComment: any = { ...comment.toObject() };
+      if (comment.user) {
+        updatedComment.user = await authService.getUserById(comment.user, token);
+      }
+      return updatedComment;
+    }),
+  );
+  return commentsWithUser;
+};
 
 taskRouter.post(
   '/api/v1/:projectId/task',
@@ -61,11 +77,16 @@ taskRouter.get(
 
     const task = await TaskModel.findOne({ id: taskId, project: projectId });
     if (!task) {
-      res.status(404).json({ message: 'Not found' });
+      res.status(404).json({ message: 'Task Not found' });
       return;
     }
 
-    res.status(200).json({ message: 'ok', data: task });
+    const token = req.headers.authorization?.split(' ')[1];
+    const taskWithUser: any = { ...task.toObject() };
+    if (task.assignee) {
+      taskWithUser.assignee = await authService.getUserById(task.assignee, token as string);
+    }
+    res.status(200).json({ message: 'ok', data: taskWithUser });
     return;
   },
 );
@@ -90,6 +111,56 @@ taskRouter.patch(
       res.status(200).json({ message: 'ok', data: updatedTask });
     } catch (error) {
       logger.error(`Error updating task: ${error}`);
+      res.status(500).json({ message: 'Internal server error' });
+      return;
+    }
+  },
+);
+
+taskRouter.patch(
+  '/api/v1/:projectId/task/:taskId/comment',
+  getAuthMiddleware(jwtSecret),
+  async (req: Request, res: Response) => {
+    const projectId = req.params.projectId;
+    const taskId = req.params.taskId;
+
+    try {
+      const updatedTask = await TaskModel.findOneAndUpdate(
+        { id: taskId, project: projectId },
+        { $push: { comments: req.body?.data } },
+        { new: true },
+      );
+      if (!updatedTask) {
+        res.status(404).json({ message: 'Not found' });
+        return;
+      }
+      res.status(200).json({ message: 'ok', data: updatedTask });
+    } catch (error) {
+      logger.error(`Error updating task comment: ${error}`);
+      res.status(500).json({ message: 'Internal server error' });
+      return;
+    }
+  },
+);
+
+taskRouter.get(
+  '/api/v1/:projectId/task/:taskId/comment',
+  getAuthMiddleware(jwtSecret),
+  async (req: Request, res: Response) => {
+    const projectId = req.params.projectId;
+    const taskId = req.params.taskId;
+
+    try {
+      const task = await TaskModel.findOne({ id: taskId, project: projectId });
+      if (!task) {
+        res.status(404).json({ message: 'Not found' });
+        return;
+      }
+      const token = req.headers.authorization?.split(' ')[1];
+      const commentsWithUser: any[] = await getCommentsWithUser(task.comments, token as string);
+      res.status(200).json({ message: 'ok', data: commentsWithUser });
+    } catch (error) {
+      logger.error(`Error fetching task comments: ${error}`);
       res.status(500).json({ message: 'Internal server error' });
       return;
     }

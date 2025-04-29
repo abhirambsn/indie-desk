@@ -65,6 +65,44 @@ export class TaskService {
       );
   }
 
+  addCommentToTask(projectId: string, taskId: string, access_token: string, comment: any) {
+    const endpoint = TaskServiceConstants.getTaskCommentUrl(projectId, taskId);
+    return this.http
+      .patch(
+        endpoint,
+        { data: comment },
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        },
+      )
+      .pipe(
+        map((response: any) => response?.data),
+        catchError((error) => {
+          console.error(error);
+          return of(null);
+        }),
+      );
+  }
+
+  getComments(projectId: string, taskId: string, access_token: string) {
+    const endpoint = TaskServiceConstants.getTaskCommentUrl(projectId, taskId);
+    return this.http
+      .get(endpoint, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+      .pipe(
+        map((response: any) => response?.data),
+        catchError((error) => {
+          console.error(error);
+          return of([]);
+        }),
+      );
+  }
+
   updateTask(projectId: string, access_token: string, task: any) {
     const endpoint = TaskServiceConstants.getTaskURL(projectId, task.id);
     return this.http

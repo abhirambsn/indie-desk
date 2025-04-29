@@ -2,13 +2,7 @@
   <p-toast />
   <p-toolbar styleClass="mb-6">
     <ng-template #start>
-      <p-button
-        label="New"
-        size="small"
-        icon="pi pi-plus"
-        class="mr-2"
-        (onClick)="openNew()"
-      />
+      <p-button label="New" size="small" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
     </ng-template>
 
     <ng-template #end>
@@ -93,16 +87,14 @@
                   placeholder="Any"
                 >
                   <ng-template let-option #item>
-                    <p-tag
-                      [value]="option.value"
-                      [severity]="getTypeBadge(option.label)"
-                    />
+                    <p-tag [value]="option.value" [severity]="getTypeBadge(option.label)" />
                   </ng-template>
                 </p-dropdown>
               </ng-template>
             </p-columnFilter>
           </div>
         </th>
+        <th scope="col" style="width: 12%">Amount</th>
         <th scope="col" style="width: 12%">Due Date</th>
         <th scope="col"></th>
       </tr>
@@ -113,7 +105,7 @@
         <td>{{ invoice.description }}</td>
         <td>{{ invoice.client?.name }}</td>
         <td>{{ invoice.project?.name }}</td>
-        <td>{{ invoice.date | date : "mediumDate" }}</td>
+        <td>{{ invoice.date | date: 'mediumDate' }}</td>
         <td>
           <p-tag
             styleClass="text-xs"
@@ -121,7 +113,8 @@
             [severity]="getTypeBadge(invoice.status)"
           />
         </td>
-        <td>{{ invoice.dueDate | date : "mediumDate" }}</td>
+        <td>{{ calculateInvoiceAmount(invoice) }}</td>
+        <td>{{ invoice.dueDate | date: 'mediumDate' }}</td>
         <td>
           <p-button
             [outlined]="true"
@@ -138,24 +131,17 @@
     [(visible)]="paymentInfoDialogOpen"
     (onHide)="closePaymentInfoDialog()"
     [modal]="true"
-    [style]="{ width: '500px' }"
+    [style]="{ width: '500px', height: '600px' }"
     header="Add Payment Information and Mark as Paid"
   >
-  <ng-template #content>
-    <app-invoice-pi-add
-      [invoice]="currentInvoice"
-    />
-  </ng-template>
+    <ng-template #content>
+      <app-invoice-pi-add [invoice]="currentInvoice" />
+    </ng-template>
 
-  <ng-template #footer>
-    <p-button
-      label="Cancel"
-      icon="pi pi-times"
-      text
-      (click)="closeDialog()"
-    />
-    <p-button label="Save" icon="pi pi-check" (click)="saveInvoice()" />
-  </ng-template>
+    <ng-template #footer>
+      <p-button label="Cancel" icon="pi pi-times" text (click)="closePaymentInfoDialog()" />
+      <p-button label="Save" icon="pi pi-check" (click)="saveInvoice(true)" />
+    </ng-template>
   </p-dialog>
 
   <p-dialog
@@ -166,20 +152,11 @@
     [header]="getModalHeader()"
   >
     <ng-template #content>
-      <app-invoice-create
-        [projects]="projects"
-        [clients]="clients"
-        [invoice]="currentInvoice"
-      />
+      <app-invoice-create [projects]="projects" [clients]="clients" [invoice]="currentInvoice" />
     </ng-template>
 
     <ng-template #footer>
-      <p-button
-        label="Cancel"
-        icon="pi pi-times"
-        text
-        (click)="closeDialog()"
-      />
+      <p-button label="Cancel" icon="pi pi-times" text (click)="closeDialog()" />
       <p-button label="Save" icon="pi pi-check" (click)="saveInvoice()" />
     </ng-template>
   </p-dialog>

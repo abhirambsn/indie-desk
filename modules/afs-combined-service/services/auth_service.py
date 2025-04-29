@@ -85,7 +85,7 @@ def get_profile(request: Request):
     token = auth_header.split(" ")[1]
     return decode_jwt(token)
 
-def get_profile_from_username(username: str):
+def get_profile_from_username(username: str, get_password = True):
     collection = MongoDB.get_collection("iddb", "users")
     user = collection.find_one({"username": username})
     
@@ -94,6 +94,9 @@ def get_profile_from_username(username: str):
     
     user['id'] = str(user["_id"])
     del user["_id"] 
+
+    if not get_password:
+        del user["hashed_password"]
     
     return dict(user, avatar_url=f"https://api.dicebear.com/9.x/initials/svg?seed={user['first_name']}+{user['last_name']}")
 

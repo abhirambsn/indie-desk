@@ -1,27 +1,14 @@
-import { NgTemplateOutlet } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { IftaLabel } from 'primeng/iftalabel';
 import { InputText } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
-import { Textarea } from 'primeng/textarea';
-import { Client, Invoice, InvoiceItem } from 'indiedesk-common-lib';
-
-import InvoiceStatus from '@ui/app/enums/invoice-status.enum';
+import { Invoice, InvoiceItem, PaymentInfo } from 'indiedesk-common-lib';
 
 @Component({
   selector: 'app-invoice-pi-add',
-  imports: [
-    IftaLabel,
-    InputText,
-    ReactiveFormsModule,
-    FormsModule,
-    Textarea,
-    ButtonModule,
-    Select,
-    NgTemplateOutlet,
-  ],
+  imports: [IftaLabel, InputText, ReactiveFormsModule, FormsModule, ButtonModule, Select],
   templateUrl: './invoice-pi-add.component.html',
 })
 export class InvoicePiAddComponent {
@@ -30,84 +17,51 @@ export class InvoicePiAddComponent {
     items: [] as InvoiceItem[],
   } as Invoice;
 
-  _clientOptions: any[] = [];
-  _projectOptions: any[] = [];
-
-  _projectData: any[] = [];
-
-  taskCount = 1;
-  _counter = [] as number[];
-
-  selectedProject: any = null;
-
-  @Input()
-  set clients(val: any) {
-    if (val) {
-      this._clientOptions = val.map((client: any) => {
-        return {
-          label: client.name,
-          value: client.id,
-        };
-      });
-    } else {
-      this._clientOptions = [];
+  paymentInfo: PaymentInfo = {
+    amount: {
+      currency: '',
+      amount: 0
     }
-  }
+  } as PaymentInfo;
 
-  @Input()
-  set projects(val: any) {
-    if (val) {
-      this._projectData = val;
-      this._projectOptions = val.map((project: any) => {
-        return {
-          label: project.name,
-          value: project.id,
-        };
-      });
-    } else {
-      this._projectOptions = [];
-    }
-  }
-
-  get projectsByClient() {
-    if (!this.invoice.client) {
-      return [];
-    }
-    return this._projectOptions.filter(
-      (project) => project.value.clientId === (this.invoice?.client as Client)?.id,
-    );
-  }
-
-  onProjectChange(event: any) {
-    const project = this._projectData.find((project) => project.id === event.value);
-    this.selectedProject = project;
-  }
-
-  invoiceStatuses = [
-    { label: 'Draft', value: InvoiceStatus.DRAFT },
-    { label: 'Sent', value: InvoiceStatus.SENT },
-    { label: 'Paid', value: InvoiceStatus.PAID },
+  readonly paymentMethods = [
+    { label: 'Card', value: 'card' },
+    { label: 'Cheque', value: 'cheque' },
+    { label: 'Cash', value: 'cash' },
+    { label: 'UPI', value: 'upi' },
+    { label: 'Bank', value: 'bank' },
   ];
 
-  addTask() {
-    this.taskCount++;
-    this._counter = [...Array(this.taskCount - 1).keys()];
-  }
+  readonly currencies = [
+    { value: 'USD', label: 'US Dollar (USD)' },
+    { value: 'EUR', label: 'Euro (EUR)' },
+    { value: 'GBP', label: 'Great Britain Pound (GBP)' },
+    { value: 'AUD', label: 'Australian Dollar (AUD)' },
+    { value: 'CAD', label: 'Canadian Dollar (CAD)' },
+    { value: 'INR', label: 'Indian Rupee (INR)' },
+    { value: 'JPY', label: 'Japanese Yen (JPY)' },
+    { value: 'CNY', label: 'Chinese Yuan (CNY)' },
+    { value: 'SGD', label: 'Singapore Dollar (SGD)' },
+    { value: 'CHF', label: 'Swiss Franc (CHF)' },
+    { value: 'MYR', label: 'Malaysian Ringgit (MYR)' },
+    { value: 'NZD', label: 'New Zealand Dollar (NZD)' },
+    { value: 'THB', label: 'Thai Baht (THB)' },
+  ];
 
-  removeTask(index: number) {
-    console.log('removing task', index);
-    this.taskCount--;
-    this._counter = [...Array(this.taskCount - 1).keys()];
-  }
+  readonly cardTypes = [
+    { label: 'Visa Credit', value: 'visa_credit' },
+    { label: 'Visa Debit', value: 'visa_debit' },
+    { label: 'MasterCard Credit', value: 'mastercard_credit' },
+    { label: 'MasterCard Debit', value: 'mastercard_debit' },
+    { label: 'American Express', value: 'amex' },
+    { label: 'Maestro', value: 'maestro' },
+    { label: 'RuPay Debit', value: 'rupay_debit' },
+    { label: 'Rupay Credit', value: 'rupay_credit' }
+  ];
 
-  removeExistingTask(id: string) {
-    this.invoice.items = this.invoice.items.filter((task: any) => task.id !== id);
-  }
-
-  saveTask(task: any) {
-    this.invoice.items.push({
-      ...task,
-      id: `${this.invoice.items.length + 1}`,
-    });
+  addPaymentInfoToInvoice() {
+    if (this.invoice && this.paymentInfo) {
+      this.invoice.paymentInfo = this.paymentInfo;
+    }
   }
 }

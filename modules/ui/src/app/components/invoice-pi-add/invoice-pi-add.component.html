@@ -1,219 +1,185 @@
 <div class="flex flex-col gap-4">
   <p-iftalabel>
-    <input
-      type="text"
-      pInputText
-      id="name"
-      pSize="small"
-      [(ngModel)]="invoice.description"
-      required
-      fluid
-    />
-    <label for="name">Name</label>
-  </p-iftalabel>
-
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-6">
-      <p-iftalabel>
-        <p-select
-          inputId="client"
-          id="client"
-          [(ngModel)]="invoice.client"
-          [options]="_clientOptions"
-          [filter]="true"
-          filterBy="label"
-          [showClear]="true"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Select Client"
-          size="small"
-          fluid
-        />
-        <label for="client">Client</label>
-      </p-iftalabel>
-    </div>
-
-    <div class="col-span-6">
-      <p-iftalabel>
-        <p-select
-          inputId="project"
-          id="project"
-          [(ngModel)]="invoice.project"
-          (ngModelChange)="onProjectChange($event)"
-          [options]="projectsByClient"
-          [filter]="true"
-          filterBy="label"
-          [showClear]="true"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Select Project"
-          size="small"
-          fluid
-        />
-        <label for="project">Project</label>
-      </p-iftalabel>
-    </div>
-  </div>
-
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-4">
-      <p-iftalabel>
-        <p-select
-          inputId="status"
-          id="status"
-          [(ngModel)]="invoice.status"
-          [options]="invoiceStatuses"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Select Invoice Status"
-          size="small"
-          fluid
-        />
-        <label for="status">Status</label>
-      </p-iftalabel>
-    </div>
-    <div class="col-span-4">
-      <p-iftalabel>
-        <input
-          type="date"
-          pInputText
-          id="dueDate"
-          pSize="small"
-          [(ngModel)]="invoice.dueDate"
-          required
-          fluid
-        />
-        <label for="dueDate">Due Date</label>
-      </p-iftalabel>
-    </div>
-
-    <div class="col-span-4">
-      <p-iftalabel class="flex-1">
-        <input
-          type="number"
-          pInputText
-          id="discount"
-          pSize="small"
-          [(ngModel)]="invoice.discount"
-          required
-          fluid
-          max="100"
-          min="0"
-        />
-        <label for="discount">Discount (%)</label>
-      </p-iftalabel>
-    </div>
-  </div>
-
-  <p-iftalabel>
-    <textarea
-      id="notes"
-      pTextarea
-      [(ngModel)]="invoice.notes"
-      pSize="small"
-      rows="3"
-      cols="20"
-      fluid
-    ></textarea>
-    <label for="notes">Notes</label>
-  </p-iftalabel>
-
-  <div class="flex w-full items-center justify-between">
-    <h4 class="text-2xl">Tasks</h4>
-    <p-button
-      (onClick)="addTask()"
-      icon="pi pi-plus"
+    <p-select
+      inputId="method"
+      id="method"
+      [(ngModel)]="paymentInfo.method"
+      (ngModelChange)="addPaymentInfoToInvoice()"
+      [options]="paymentMethods"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Select Payment Method"
       size="small"
-      [disabled]="!invoice.project"
-      aria-label="Add Task"
+      fluid
     />
-  </div>
+    <label for="method">Payment Method</label>
+  </p-iftalabel>
 
-  @if (invoice.items.length) {
-  <table class="gap-2">
-    <tr>
-      <th class="text-left">Task ID</th>
-      <th class="text-left">Description</th>
-      <th class="text-left">Hours</th>
-      <th class="text-left">Amount</th>
-      <th class="text-left">Actions</th>
-    </tr>
-    @for(task of invoice.items; track $index) {
-    <ng-container
-      *ngTemplateOutlet="invoiceTaskDisplay; context: { task: task }"
-    ></ng-container>
-    }
-  </table>
-
-  } @for (count of _counter; track $index) {
-  <ng-container
-    *ngTemplateOutlet="invoiceTask; context: { task: {}, index: $index }"
-  />
-  }
-</div>
-
-<ng-template #invoiceTaskDisplay let-task="task">
-  <tr class="text-sm text-left">
-    <td>{{ task.id }}</td>
-    <td>{{ task.description }}</td>
-    <td>{{ task.hours }}</td>
-    <td>{{ (selectedProject?.perHourRate?.amount || 1000) * task.hours }}</td>
-
-    <td>
-      <p-button
-        (onClick)="removeExistingTask(task.id)"
-        icon="pi pi-times"
-        size="small"
-        aria-label="Remove Task"
-      />
-    </td>
-  </tr>
-</ng-template>
-
-<ng-template
-  #invoiceTask
-  let-task="task"
-  let-index="index"
-  let-disabled="disabled"
->
   <div class="grid grid-cols-12 gap-4">
     <div class="col-span-6">
       <p-iftalabel>
         <input
           type="text"
           pInputText
-          id="name"
-          [disabled]="disabled"
+          id="transactionId"
           pSize="small"
-          [(ngModel)]="task.description"
+          [(ngModel)]="paymentInfo.transactionId"
+          (ngModelChange)="addPaymentInfoToInvoice()"
           required
           fluid
         />
-        <label for="task">Task</label>
+        <label for="transactionId">Transaction Reference Number</label>
       </p-iftalabel>
     </div>
+    <div class="col-span-6">
+      <p-iftalabel>
+        <input
+          type="date"
+          pInputText
+          id="date"
+          pSize="small"
+          [(ngModel)]="paymentInfo.date"
+          (ngModelChange)="addPaymentInfoToInvoice()"
+          required
+          fluid
+        />
+        <label for="date">Payment Date</label>
+      </p-iftalabel>
+    </div>
+  </div>
 
-    <div class="col-span-6 flex items-center gap-3">
-      <p-iftalabel class="flex-1">
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-6">
+      <p-iftalabel>
+        <p-select
+          inputId="currency"
+          id="currency"
+          [(ngModel)]="paymentInfo.amount!.currency"
+          (ngModelChange)="addPaymentInfoToInvoice()"
+          [options]="currencies"
+          [filter]="true"
+          filterBy="label"
+          [showClear]="true"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Currency"
+          size="small"
+          fluid
+        />
+        <label for="currency">Currency</label>
+      </p-iftalabel>
+    </div>
+    <div class="col-span-6">
+      <p-iftalabel>
         <input
           type="number"
           pInputText
-          id="quantity"
+          id="amount"
           pSize="small"
-          [disabled]="disabled"
-          [(ngModel)]="task.hours"
+          [(ngModel)]="paymentInfo.amount!.amount"
+          (ngModelChange)="addPaymentInfoToInvoice()"
+          required
+          fluid
+          min="0"
+        />
+        <label for="amount">Amount</label>
+      </p-iftalabel>
+    </div>
+  </div>
+
+  @switch (paymentInfo.method) {
+    @case ('cash') {
+      <div></div>
+    }
+    @case ('card') {
+      <p-iftalabel>
+        <p-select
+          inputId="cardType"
+          id="cardType"
+          [(ngModel)]="paymentInfo.cardType"
+          (ngModelChange)="addPaymentInfoToInvoice()"
+          [options]="cardTypes"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Select Card Type"
+          size="small"
+          fluid
+        />
+        <label for="cardType">Card Type</label>
+      </p-iftalabel>
+      <p-iftalabel>
+        <input
+          type="number"
+          pInputText
+          id="last4digits"
+          pSize="small"
+          [(ngModel)]="paymentInfo.lastFourDigits"
+          (ngModelChange)="addPaymentInfoToInvoice()"
+          required
+          fluid
+          min="0"
+          max="9999"
+        />
+        <label for="last4digits">Last 4 digits of card</label>
+      </p-iftalabel>
+    }
+    @case ('upi') {
+      <p-iftalabel>
+        <input
+          type="text"
+          pInputText
+          id="upiId"
+          pSize="small"
+          [(ngModel)]="paymentInfo.upiId"
+          (ngModelChange)="addPaymentInfoToInvoice()"
           required
           fluid
         />
-        <label for="quantity">Hours</label>
+        <label for="upiId">UPI ID</label>
       </p-iftalabel>
-      <p-button
-        (onClick)="saveTask(task)"
-        icon="pi pi-plus"
-        [disabled]="disabled"
-        size="small"
-        aria-label="Add Task"
-      />
-    </div>
-  </div>
-</ng-template>
+    }
+    @case ('cheque') {
+      <p-iftalabel>
+        <input
+          type="text"
+          pInputText
+          id="bankName"
+          pSize="small"
+          [(ngModel)]="paymentInfo.bankName"
+          (ngModelChange)="addPaymentInfoToInvoice()"
+          required
+          fluid
+        />
+        <label for="bankName">Bank Name</label>
+      </p-iftalabel>
+      <p-iftalabel>
+        <input
+          type="text"
+          pInputText
+          id="chequeNumber"
+          pSize="small"
+          [(ngModel)]="paymentInfo.chequeNumber"
+          (ngModelChange)="addPaymentInfoToInvoice()"
+          required
+          fluid
+        />
+        <label for="chequeNumber">Cheque Number</label>
+      </p-iftalabel>
+    }
+    @case ('bank') {
+      <p-iftalabel>
+        <input
+          type="text"
+          pInputText
+          id="bankName"
+          pSize="small"
+          [(ngModel)]="paymentInfo.bankName"
+          (ngModelChange)="addPaymentInfoToInvoice()"
+          required
+          fluid
+        />
+        <label for="bankName">Bank Name</label>
+      </p-iftalabel>
+    }
+  }
+</div>

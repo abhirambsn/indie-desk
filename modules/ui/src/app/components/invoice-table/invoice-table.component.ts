@@ -183,13 +183,34 @@ export class InvoiceTableComponent implements OnInit {
     this.paymentInfoDialogOpenClick.emit({ open: false });
   }
 
-  saveInvoice() {
+  calculateInvoiceAmount(invoice: Invoice) {
+    const currency = (invoice.project as Project)?.perHourRate?.currency;
+    const perHourRate = (invoice.project as Project)?.perHourRate?.amount;
+
+    const total = invoice.items.reduce((acc, item) => {
+      return acc + (item.hours * perHourRate);
+    }, 0);
+    const tax = (total * 18) / 100;
+    const totalWithTax = total + tax;
+    const discountPercentage = invoice.discount || 0;
+    if (discountPercentage > 0) {
+      const discount = (totalWithTax * discountPercentage) / 100;
+      return `${currency} ${totalWithTax - discount}`;
+    }
+    return `${currency} ${totalWithTax}`;
+
+  }
+
+  saveInvoice(isPaid = false) {
     this.currentInvoice.date = new Date();
     if (typeof this.currentInvoice.client === 'object') {
       this.currentInvoice.client = this.currentInvoice.client?.id;
     }
     if (typeof this.currentInvoice.project === 'object') {
       this.currentInvoice.project = this.currentInvoice.project?.id;
+    }
+    if (isPaid) {
+      this.currentInvoice.status = 'PAID';
     }
     this.invoiceSave.emit({
       data: this.currentInvoice,

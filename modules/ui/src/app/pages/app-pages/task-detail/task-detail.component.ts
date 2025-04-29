@@ -28,8 +28,12 @@ export class TaskDetailComponent implements OnInit {
 
   taskData: Task = {} as Task;
   users: any[] = [];
+  comments: any[] = [];
+
+  commentCreateVisible = false;
 
   access_token = '';
+  currentUser: any = null;
 
   selectedStatus: any = '';
   selectedPriority: any = '';
@@ -48,6 +52,100 @@ export class TaskDetailComponent implements OnInit {
     { label: 'Medium', value: 'MEDIUM' },
     { label: 'High', value: 'HIGH' },
   ];
+
+  toggleCommentCreate() {
+    this.commentCreateVisible = !this.commentCreateVisible;
+    this.cdr.detectChanges();
+  }
+
+  getPriorityBadgeType(priority: string) {
+    switch (priority) {
+      case 'HIGH':
+        return 'danger';
+      case 'MEDIUM':
+        return 'warn';
+      case 'LOW':
+        return 'secondary';
+      default:
+        return 'info';
+    }
+  }
+
+  getStatusBadgeType(status: string) {
+    switch (status) {
+      case 'OPEN':
+        return 'info';
+      case 'IN_PROGRESS':
+        return 'warn';
+      case 'DONE':
+        return 'success';
+      default:
+        return 'info';
+    }
+  }
+
+  getStatusLabel(status: string) {
+    switch (status) {
+      case 'OPEN':
+        return 'Open';
+      case 'IN_PROGRESS':
+        return 'In Progress';
+      case 'DONE':
+        return 'Done';
+      default:
+        return status;
+    }
+  }
+
+  getPriorityLabel(priority: string) {
+    switch (priority) {
+      case 'HIGH':
+        return 'High';
+      case 'MEDIUM':
+        return 'Medium';
+      case 'LOW':
+        return 'Low';
+      default:
+        return priority;
+    }
+  }
+
+  createComment(event: any) {
+    const taskId = event.taskId;
+    const projectId = event.projectId;
+    const commentText = event.comment;
+
+    if (!this.access_token) {
+      console.error('[ERROR] Access token is not available');
+      return;
+    }
+
+    const commentPayload = {
+      user: this.currentUser.username,
+      comment: commentText,
+    };
+
+    this.service.addCommentToTask(projectId, taskId, this.access_token, commentPayload).subscribe({
+      next: (response) => {
+        console.log('[DEBUG] Comment created successfully: ', response);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Comment created successfully',
+        });
+        this.toggleCommentCreate();
+        this.getTaskDetails(this.taskId!, this.projectId!);
+      },
+      error: (error) => {
+        console.error('[ERROR] Error creating comment: ', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error creating comment',
+        });
+      },
+    });
+  }
 
   private getTaskDetails(taskId: string, projectId: string) {
     this.store$
@@ -73,6 +171,22 @@ export class TaskDetailComponent implements OnInit {
           severity: 'error',
           summary: 'Error',
           detail: 'Error fetching task details',
+        });
+      },
+    });
+
+    this.service.getComments(projectId, taskId, this.access_token).subscribe({
+      next: (comments) => {
+        this.comments = comments;
+        console.log('[DEBUG] Comments: ', this.comments);
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('[ERROR] Error fetching comments: ', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error fetching comments',
         });
       },
     });
@@ -111,6 +225,12 @@ export class TaskDetailComponent implements OnInit {
         },
       }),
     );
+    this.taskEdited = false;
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: 'Task updated successfully',
+    });
   }
 
   getAssigneeName(assignee: any) {
@@ -148,5 +268,14 @@ export class TaskDetailComponent implements OnInit {
           }
         });
     });
+    this.store$
+      .select(AuthSelectors.selectUser)
+      .pipe(untilDestroyed(this))
+      .subscribe((user) => {
+        if (user) {
+          this.currentUser = user;
+          console.log('[DEBUG] Current user: ', this.currentUser);
+        }
+      });
   }
 }

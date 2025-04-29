@@ -3,7 +3,6 @@ import { Avatar } from 'primeng/avatar';
 import { TieredMenu } from 'primeng/tieredmenu';
 import { Badge } from 'primeng/badge';
 import { MenuItem } from 'primeng/api';
-import { InputText } from 'primeng/inputtext';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -16,7 +15,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { User } from 'indiedesk-common-lib';
 @Component({
   selector: 'app-navbar',
-  imports: [Avatar, TieredMenu, InputText, ReactiveFormsModule, Badge, UserDetailsComponent],
+  imports: [Avatar, TieredMenu, ReactiveFormsModule, Badge, UserDetailsComponent],
   templateUrl: './navbar.component.html',
 })
 export class NavbarComponent {

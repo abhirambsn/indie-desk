@@ -167,7 +167,7 @@ invoiceRouter.get('/:id/pdf', getAuthMiddleware(jwtSecret), async (req: Request,
     return;
   }
 
-  const invoicePath = `${__dirname}/invoices/${id}.pdf`;
+  const invoicePath = `${__dirname}/../invoices/${id}.pdf`;
   res.download(invoicePath, `invoice-${id}.pdf`);
   return;
 });

@@ -23,7 +23,7 @@ async def user_profile(username: str, data: Annotated[dict, Depends(get_profile)
     user_role = data.get("role")
     if str(user_role).lower() not in ["admin", "support"]:
         raise HTTPException(status_code=403, detail="You don't have permission to access this resource")
-    return get_profile_from_username(username)
+    return get_profile_from_username(username, False)
 
 @router.get("/{project_id}/users")
 async def project_users(project_id: str, data: Annotated[dict, Depends(get_profile)]):
