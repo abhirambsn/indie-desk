@@ -5,6 +5,7 @@ on:
     paths:
       - 'modules/ui/**'
       - 'modules/common/**'
+      - '.github/workflows/ui-workflow.yaml'
 
 jobs:
   build:
@@ -28,8 +29,13 @@ jobs:
         with:
           node-version: '23'
 
-      - name: Install dependencies
-        run: pnpm install --filter "./modules/ui" --filter "./modules/common"
+      - name: Install dependencies of common lib
+        run: pnpm install
+        working-directory: modules/common
+
+      - name: Install dependencies of ui
+        run: pnpm install
+        working-directory: modules/ui
 
       - name: Lint
         run: pnpm run lint
