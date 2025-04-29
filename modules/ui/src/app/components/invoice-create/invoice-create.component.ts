@@ -110,4 +110,4 @@ export class InvoiceCreateComponent {
       id: `${this.invoice.items.length + 1}`,
     });
   }
-}
+} 
