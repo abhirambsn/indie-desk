@@ -109,7 +109,8 @@
               "**/src/app/app.component.ts",
               "**/src/app/app.routes.ts",
               "**/src/app/environments/**",
-              "**/src/app/enums/**"
+              "**/src/app/enums/**",
+              "src/app/**/*.module.ts"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
