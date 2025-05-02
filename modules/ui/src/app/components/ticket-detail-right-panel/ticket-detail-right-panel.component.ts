@@ -44,7 +44,12 @@ export class TicketDetailRightPanelComponent {
         }
       });
     this.service
-      .createComment((this.ticket.project as Project).id, this.ticket.id, comment, this.access_token)
+      .createComment(
+        (this.ticket.project as Project).id,
+        this.ticket.id,
+        comment,
+        this.access_token,
+      )
       .subscribe({
         next: (response) => {
           console.log('[DEBUG] Comment created successfully: ', response);

@@ -8,6 +8,7 @@ import { initialAppState } from '@ui/app/store/constants/app.constants';
 import { routes } from '../../pages/app-pages/app-pages.module';
 
 import { SidebarComponent } from './sidebar.component';
+import { SidebarSection } from 'indiedesk-common-lib';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -27,5 +28,20 @@ describe('SidebarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set active link on click of link', () => {
+    const itemId = 'test-item';
+    const section = {
+      id: 'test-section',
+      children: [
+        { id: 'item-1', isActive: false },
+        { id: itemId, isActive: false },
+      ],
+    };
+    component.sections = [section] as SidebarSection[];
+    component.linkClicked(itemId);
+    expect(component.sections[0].children[0].isActive).toBe(false);
+    expect(component.sections[0].children[1].isActive).toBe(true);
   });
 });

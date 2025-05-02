@@ -41,7 +41,7 @@ export class ProjectDetailComponent implements OnInit {
   taskListKpiChartConfig: any;
   taskListKpiChartOptions: any;
 
-  private getProjectDetails(projectId: string) {
+  getProjectDetails(projectId: string) {
     this.store$.select(AuthSelectors.selectTokens).subscribe((tokens) => {
       if (tokens) {
         this.access_token = tokens.access_token;
@@ -65,11 +65,11 @@ export class ProjectDetailComponent implements OnInit {
     });
   }
 
-  private isDarkMode(): boolean {
+  isDarkMode(): boolean {
     return window.matchMedia('(prefers-color-scheme: dark)').matches;
   }
 
-  private initUserKpiChart() {
+  initUserKpiChart() {
     const adminCount = this.supportUsersList.filter((user) => user.role === 'admin').length;
     const supportCount = this.supportUsersList.filter((user) => user.role === 'support').length;
 
@@ -98,7 +98,7 @@ export class ProjectDetailComponent implements OnInit {
     this.cdr.markForCheck();
   }
 
-  private initTaskKpiChart() {
+  initTaskKpiChart() {
     const openTask = this.taskList.filter((task) => task.status === 'OPEN').length;
     const inProgressTask = this.taskList.filter((task) => task.status === 'IN_PROGRESS').length;
     const completedTask = this.taskList.filter((task) => task.status === 'COMPLETED').length;

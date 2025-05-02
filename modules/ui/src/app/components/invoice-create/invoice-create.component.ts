@@ -6,9 +6,10 @@ import { IftaLabel } from 'primeng/iftalabel';
 import { InputText } from 'primeng/inputtext';
 import { Select } from 'primeng/select';
 import { Textarea } from 'primeng/textarea';
-import { Client, Invoice, InvoiceItem } from 'indiedesk-common-lib';
+import { Amount, Client, Invoice, InvoiceItem } from 'indiedesk-common-lib';
 
 import InvoiceStatus from '@ui/app/enums/invoice-status.enum';
+import { CurrencyPipe } from '@ui/app/pipes/currency.pipe';
 
 @Component({
   selector: 'app-invoice-create',
@@ -21,6 +22,7 @@ import InvoiceStatus from '@ui/app/enums/invoice-status.enum';
     ButtonModule,
     Select,
     NgTemplateOutlet,
+    CurrencyPipe,
   ],
   templateUrl: './invoice-create.component.html',
 })
@@ -73,9 +75,16 @@ export class InvoiceCreateComponent {
     if (!this.invoice.client) {
       return [];
     }
-    return this._projectOptions.filter(
-      (project) => project.value.clientId === (this.invoice?.client as Client)?.id,
+    const projectsList = this._projectData.filter(
+      (project) => project.client.id === (this.invoice.client as Client)?.id,
     );
+
+    return projectsList.map((project) => {
+      return {
+        label: project.name,
+        value: project.id,
+      };
+    });
   }
 
   onProjectChange(event: any) {
@@ -110,4 +119,11 @@ export class InvoiceCreateComponent {
       id: `${this.invoice.items.length + 1}`,
     });
   }
-} 
+
+  calcTaskAmount(task: any): Amount {
+    return {
+      currency: this.selectedProject?.perHourRate?.currency || 'INR',
+      amount: (this.selectedProject?.perHourRate?.amount || 1000) * task.hours,
+    };
+  }
+}

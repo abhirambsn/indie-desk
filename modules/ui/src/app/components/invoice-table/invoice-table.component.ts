@@ -23,6 +23,7 @@ import { InvoiceCreateComponent } from '../invoice-create/invoice-create.compone
 
 import { Invoice, InvoiceItem, Column, ExportColumn, Client, Project } from 'indiedesk-common-lib';
 import { InvoicePiAddComponent } from "../invoice-pi-add/invoice-pi-add.component";
+import { CurrencyPipe } from '@ui/app/pipes/currency.pipe';
 @Component({
   selector: 'app-invoice-table',
   imports: [
@@ -42,6 +43,7 @@ import { InvoicePiAddComponent } from "../invoice-pi-add/invoice-pi-add.componen
     TieredMenu,
     InvoiceCreateComponent,
     DatePipe,
+    CurrencyPipe,
     InvoicePiAddComponent
 ],
   providers: [MessageService, ConfirmationService],
@@ -195,9 +197,15 @@ export class InvoiceTableComponent implements OnInit {
     const discountPercentage = invoice.discount || 0;
     if (discountPercentage > 0) {
       const discount = (totalWithTax * discountPercentage) / 100;
-      return `${currency} ${totalWithTax - discount}`;
+      return {
+        currency,
+        amount: totalWithTax - discount,
+      }
     }
-    return `${currency} ${totalWithTax}`;
+    return {
+      currency,
+      amount: totalWithTax,
+    };
 
   }
 
@@ -234,7 +242,7 @@ export class InvoiceTableComponent implements OnInit {
     return !this.currentInvoice?.id ? 'New Invoice' : 'Edit Invoice';
   }
 
-  downloadInoice(invoice: Invoice) {
+  downloadInvoice(invoice: Invoice) {
     console.log('[DEBUG] Downloading invoice', invoice);
     this.store$.dispatch(InvoiceActions.downloadInvoice({ id: invoice.id }));
   }
@@ -249,7 +257,7 @@ export class InvoiceTableComponent implements OnInit {
       {
         label: 'Download Invoice',
         icon: 'pi pi-download',
-        command: () => this.downloadInoice(invoice),
+        command: () => this.downloadInvoice(invoice),
       },
     ];
   }

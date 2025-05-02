@@ -10,10 +10,14 @@ import { routes } from '../../pages/app-pages/app-pages.module';
 import { initialAppState } from '../../store/constants/app.constants';
 
 import { NavLayoutComponent } from './nav-layout.component';
+import { Store } from '@ngrx/store';
+import { AppState } from '@ui/app/store';
+import { AuthHelper } from '@ui/app/helpers/auth.helper';
 
 describe('NavLayoutComponent', () => {
   let component: NavLayoutComponent;
   let fixture: ComponentFixture<NavLayoutComponent>;
+  let mockStore: Store<AppState>;
 
   beforeEach(async () => {
     const initialState = _.cloneDeep(initialAppState);
@@ -29,11 +33,29 @@ describe('NavLayoutComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(NavLayoutComponent);
+    mockStore = TestBed.inject(Store) as Store<AppState>;
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should dispatch toggleSidebarAction on sidebarCollapseClick', () => {
+    const collapseSidebarSpy = spyOn(mockStore, 'dispatch');
+    component.sidebarCollapseClick();
+    expect(collapseSidebarSpy).toHaveBeenCalled();
+  });
+
+  it('should dispatch loginSuccess from local storage on ngOnInit', () => {
+    const spy = spyOn(mockStore, 'dispatch');
+    spyOn(AuthHelper, 'getCredentialsFromLocalStorage').and.returnValue({
+      access_token: '',
+      refresh_token: '',
+      expires_at: 0,
+    });
+    component.ngOnInit();
+    expect(spy).toHaveBeenCalled();
   });
 });

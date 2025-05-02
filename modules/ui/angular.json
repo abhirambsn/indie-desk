@@ -97,6 +97,15 @@
             ],
             "karmaConfig": "karma.conf.js",
             "codeCoverage": true,
+            "codeCoverageExclude": [
+              "**/src/app/helpers/**",
+              "**/src/app/guard/**",
+              "**/src/app/interceptor/**",
+              "**/src/app/store/**",
+              "**/src/app/service/**",
+              "**/src/app/pages/app-pages/task-detail/**",
+              "**/src/app/pages/app-pages/ticket-detail/**"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [

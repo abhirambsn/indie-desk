@@ -113,7 +113,7 @@
             [severity]="getTypeBadge(invoice.status)"
           />
         </td>
-        <td>{{ calculateInvoiceAmount(invoice) }}</td>
+        <td>{{ calculateInvoiceAmount(invoice) | currency }}</td>
         <td>{{ invoice.dueDate | date: 'mediumDate' }}</td>
         <td>
           <p-button

@@ -6,7 +6,7 @@ import { Amount } from 'indiedesk-common-lib';
 })
 export class CurrencyPipe implements PipeTransform {
   transform(value: Amount): unknown {
-    if (isNaN(value.amount) || value == null || value.currency == '') {
+    if (!value || !value.amount || isNaN(value.amount) || value == null || !value.currency || value.currency == '') {
       return '';
     }
 

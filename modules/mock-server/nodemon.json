@@ -1,5 +1,0 @@
-{
-  "watch": ["src"],
-  "ext": "ts",
-  "exec": "tsup src/index.ts --watch --onSuccess \"node dist/index.js\""
-}

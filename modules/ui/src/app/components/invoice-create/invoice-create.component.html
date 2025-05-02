@@ -157,7 +157,7 @@
     <td>{{ task.id }}</td>
     <td>{{ task.description }}</td>
     <td>{{ task.hours }}</td>
-    <td>{{ (selectedProject?.perHourRate?.amount || 1000) * task.hours }}</td>
+    <td>{{ calcTaskAmount(task) | currency }}</td>
 
     <td>
       <p-button
