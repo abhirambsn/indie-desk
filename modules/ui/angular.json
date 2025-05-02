@@ -104,7 +104,12 @@
               "**/src/app/store/**",
               "**/src/app/service/**",
               "**/src/app/pages/app-pages/task-detail/**",
-              "**/src/app/pages/app-pages/ticket-detail/**"
+              "**/src/app/pages/app-pages/ticket-detail/**",
+              "**/src/app/app.module.ts",
+              "**/src/app/app.component.ts",
+              "**/src/app/app.routes.ts",
+              "**/src/app/environments/**",
+              "**/src/app/enums/**"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
