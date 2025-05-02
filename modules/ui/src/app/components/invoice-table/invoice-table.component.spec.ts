@@ -213,12 +213,129 @@ describe('InvoiceTableComponent', () => {
     expect(component.invoiceTable.exportCSV).toHaveBeenCalled();
   });
 
-  it('should open dropdown', () => {
+  it('should open dropdown - status default', () => {
     const mockEvent = { target: { value: 'test' } };
     component.invoiceTable = jasmine.createSpyObj<Table>('Table', ['filterGlobal']);
     const invoice = { id: '1', items: [] } as unknown as Invoice;
     component.openDropdownMenu(mockEvent, invoice);
     expect(component).toBeTruthy();
+  });
+
+  it('should open dropdown - status draft', () => {
+    const mockEvent = { target: { value: 'test' } };
+    component.invoiceTable = jasmine.createSpyObj<Table>('Table', ['filterGlobal']);
+    const invoice = { id: '1', items: [], status: 'DRAFT' } as unknown as Invoice;
+    component.openDropdownMenu(mockEvent, invoice);
+    expect(component).toBeTruthy();
+  });
+
+  it('should open dropdown - status sent', () => {
+    const mockEvent = { target: { value: 'test' } };
+    component.invoiceTable = jasmine.createSpyObj<Table>('Table', ['filterGlobal']);
+    const invoice = { id: '1', items: [], status: 'SENT' } as unknown as Invoice;
+    component.openDropdownMenu(mockEvent, invoice);
+    expect(component).toBeTruthy();
+  });
+
+  it('should return Edit, Delete, and Send actions for DRAFT and call corresponding methods', () => {
+    const invoice = { id: '1', status: 'DRAFT' } as Invoice;
+
+    spyOn<any>(component, 'editInvoice');
+    spyOn<any>(component, 'deleteInvoice');
+    spyOn<any>(component, 'sendInvoice');
+
+    const actions = component['getActionByStatus'](invoice);
+    expect(actions.length).toBe(3);
+
+    actions[0]?.command?.({});
+    actions[1]?.command?.({});
+    actions[2]?.command?.({});
+
+    expect(component['editInvoice']).toHaveBeenCalledWith(invoice);
+    expect(component['deleteInvoice']).toHaveBeenCalledWith(invoice);
+    expect(component['sendInvoice']).toHaveBeenCalledWith(invoice);
+  });
+
+  it('should return Mark as Paid and Void actions for SENT and call corresponding methods', () => {
+    const invoice = { id: '1', status: 'SENT' } as Invoice;
+
+    spyOn<any>(component, 'voidInvoice');
+    spyOn<any>(component, 'openPaymentInfoDialog');
+
+    const actions = component['getActionByStatus'](invoice);
+    expect(actions.length).toBe(2);
+
+    actions[0]?.command?.({});
+    actions[1]?.command?.({});
+
+    expect(component['openPaymentInfoDialog']).toHaveBeenCalledWith(invoice);
+    expect(component['voidInvoice']).toHaveBeenCalledWith(invoice);
+  });
+
+  it('should return dropdown menu with actions, separator, and download action', () => {
+    const invoice = { id: '1', status: 'DRAFT' } as Invoice;
+  
+    spyOn<any>(component, 'getActionByStatus').and.returnValue([
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      { label: 'Edit', command: () => {} }
+    ]);
+    spyOn<any>(component, 'downloadInvoice');
+  
+    const menu = component['getDropdownMenu'](invoice);
+  
+    expect(menu.length).toBe(3);
+    expect(menu[1]).toEqual({ separator: true });
+  
+    menu[2]?.command!({});
+    expect(component['downloadInvoice']).toHaveBeenCalledWith(invoice);
+  });
+
+  it('should update invoice status to SENT and emit invoiceSave when sending invoice', () => {
+    const invoice: Invoice = {
+      id: '1',
+      status: 'DRAFT',
+      client: { id: 'c1' },
+      project: { id: 'p1' }
+    } as any;
+  
+    spyOn(component.invoiceSave, 'emit');
+  
+    component['sendInvoice'](invoice);
+  
+    expect(component.invoiceSave.emit).toHaveBeenCalledWith({
+      data: jasmine.objectContaining({
+        id: '1',
+        status: 'SENT',
+        client: 'c1',
+        project: 'p1'
+      }),
+      type: 'edit'
+    });
+  
+    expect(component['currentInvoice']).toEqual({} as Invoice);
+  });
+
+  it('should update invoice status to VOID and emit invoiceSave when voiding invoice', () => {
+    const invoice: Invoice = {
+      id: '2',
+      status: 'SENT',
+      client: 'c2',
+      project: 'p2'
+    } as any;
+  
+    spyOn(component.invoiceSave, 'emit');
+  
+    component['voidInvoice'](invoice);
+  
+    expect(component.invoiceSave.emit).toHaveBeenCalledWith({
+      data: jasmine.objectContaining({
+        id: '2',
+        status: 'VOID'
+      }),
+      type: 'edit'
+    });
+  
+    expect(component['currentInvoice']).toEqual({} as Invoice);
   });
 
   it('should download invoice', () => {

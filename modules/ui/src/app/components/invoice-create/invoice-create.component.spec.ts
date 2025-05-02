@@ -134,4 +134,18 @@ describe('InvoiceCreateComponent', () => {
       amount: 200,
     });
   });
+
+  it('should calculate with default values', () => {
+    component.selectedProject = {
+      id: '1',
+      name: 'Project A',
+    };
+
+    const task = { hours: 2 };
+    const result = component.calcTaskAmount(task);
+    expect(result).toEqual({
+      currency: 'INR',
+      amount: 2000,
+    });
+  });
 });
