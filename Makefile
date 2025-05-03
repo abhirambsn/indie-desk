@@ -11,5 +11,5 @@ build-all: $(addprefix build-,$(SERVICES))
 
 deploy-local:
 	@echo "Deploying all services locally"
-	docker-compose -f docker-compose-local.yml up -d
+	docker-compose -f docker-compose.yaml up -d
 	@echo "All services deployed locally"

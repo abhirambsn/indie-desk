@@ -13,13 +13,5 @@ RUN pnpm install --filter ./modules/task-service && pnpm install --filter ./modu
 
 RUN pnpm --filter ./modules/common run build && pnpm --filter ./modules/task-service run build
 
-FROM node:23-slim
-
-WORKDIR /app
-
-COPY --from=builder /app/modules/task-service/dist ./dist
-COPY --from=builder /app/modules/task-service/package.json ./
-COPY --from=builder /app/modules/task-service/node_modules ./node_modules
-COPY --from=builder /app/modules/common ./modules/common
-
+WORKDIR /app/modules/task-service
 CMD ["node", "dist/index.js"]

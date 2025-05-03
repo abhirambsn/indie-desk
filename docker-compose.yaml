@@ -1,0 +1,78 @@
+services:
+  afs-combined-service:
+    image: abhirambsn/indie-desk-afs-combined-service:latest
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+    ports:
+      - "3000:3000"
+    networks:
+      - indie-desk-network
+  client-service:
+    image: abhirambsn/indie-desk-client-service:latest
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=${MONGODB_URI}
+    ports:
+      - "3001:3001"
+    networks:
+      - indie-desk-network
+
+  invoice-service:
+    image: abhirambsn/indie-desk-invoice-service:latest
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=${MONGODB_URI}
+    ports:
+      - "3005:3005"
+    networks:
+      - indie-desk-network
+
+  project-service:
+    image: abhirambsn/indie-desk-project-service:latest
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=${MONGODB_URI}
+    ports:
+      - "3002:3002"
+    networks:
+      - indie-desk-network
+
+  task-service:
+    image: abhirambsn/indie-desk-task-service:latest
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=${MONGODB_URI}
+    ports:
+      - "3003:3003"
+    networks:
+      - indie-desk-network
+
+  ticket-service:
+    image: abhirambsn/indie-desk-ticket-service:latest
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=${MONGODB_URI}
+      
+    ports:
+      - "3004:3004"
+    networks:
+      - indie-desk-network
+
+  ui:
+    image: abhirambsn/indie-desk-ui:latest
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "80:80"
+    depends_on:
+      - client-service
+      - invoice-service
+      - project-service
+      - task-service
+      - ticket-service
+    networks:
+      - indie-desk-network
+
+networks:
+  indie-desk-network:
+    driver: bridge

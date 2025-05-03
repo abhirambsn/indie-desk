@@ -13,13 +13,6 @@ RUN pnpm install --filter ./modules/client-service && pnpm install --filter ./mo
 
 RUN pnpm --filter ./modules/common run build && pnpm --filter ./modules/client-service run build
 
-FROM node:23-slim
 
-WORKDIR /app
-
-COPY --from=builder /app/modules/client-service/dist ./dist
-COPY --from=builder /app/modules/client-service/package.json ./
-COPY --from=builder /app/modules/client-service/node_modules ./node_modules
-COPY --from=builder /app/modules/common ./modules/common
-
+WORKDIR /app/modules/client-service
 CMD ["node", "dist/index.js"]

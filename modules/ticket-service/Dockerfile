@@ -13,13 +13,5 @@ RUN pnpm install --filter ./modules/ticket-service && pnpm install --filter ./mo
 
 RUN pnpm --filter ./modules/common run build && pnpm --filter ./modules/ticket-service run build
 
-FROM node:23-slim
-
-WORKDIR /app
-
-COPY --from=builder /app/modules/ticket-service/dist ./dist
-COPY --from=builder /app/modules/ticket-service/package.json ./
-COPY --from=builder /app/modules/ticket-service/node_modules ./node_modules
-COPY --from=builder /app/modules/common ./modules/common
-
+WORKDIR /app/modules/ticket-service
 CMD ["node", "dist/index.js"]

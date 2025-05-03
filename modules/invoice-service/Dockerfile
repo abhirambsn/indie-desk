@@ -11,15 +11,8 @@ COPY modules/invoice-service ./modules/invoice-service
 
 RUN pnpm install --filter ./modules/invoice-service && pnpm install --filter ./modules/common
 
-RUN pnpm --filter ./modules/common run build && pnpm --filter ./modules/invoice-service run build
+RUN pnpm --filter ./modules/common run build && pnpm --filter ./modules/invoice-service run build && cd modules/invoice-service
 
-FROM node:23-slim
 
-WORKDIR /app
-
-COPY --from=builder /app/modules/invoice-service/dist ./dist
-COPY --from=builder /app/modules/invoice-service/package.json ./
-COPY --from=builder /app/modules/invoice-service/node_modules ./node_modules
-COPY --from=builder /app/modules/common ./modules/common
-
+WORKDIR /app/modules/invoice-service
 CMD ["node", "dist/index.js"]
