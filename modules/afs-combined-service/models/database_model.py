@@ -16,7 +16,9 @@ class MongoDB:
         if cls._client is None:
             uri = os.getenv("MONGODB_URI")
             try:
-                cls._client = MongoClient(uri, server_api=ServerApi('1'))
+                cls._client = MongoClient(uri, server_api=ServerApi('1'),
+                                          tlsAllowInvalidCertificates=True
+                                        )
                 cls._client.admin.command("ping")
                 print("✅ MongoDB connection established.")
             except errors.PyMongoError as e:
