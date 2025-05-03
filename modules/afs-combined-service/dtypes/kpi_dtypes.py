@@ -36,23 +36,8 @@ class MonthlySalesRequest(BaseModel):
     end_year: int = Field(..., ge=1, description="End year for sales data range")
     end_month: int = Field(..., ge=1, le=12, description="End month (1-12) for sales data range")
 
-    @field_validator('end_month')
-    @classmethod
-    def check_end_month(cls, v):
-        if not 1 <= v <= 12:
-            raise ValueError('end_month must be between 1 and 12')
-        return v
 
-    @field_validator('end_year')
-    @classmethod
-    def check_date_order(cls, v, values):
-        sy = values.data.get('start_year')
-        sm = values.data.get('start_month')
-        ey = v
-        em = values.data.get('end_month')
-        if sy is not None and sm is not None and (ey < sy or (ey == sy and em < sm)):
-            raise ValueError('End date must be after start date')
-        return v
+
 
 
 class MonthlySalesResponse(BaseModel):

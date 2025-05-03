@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 from controllers.auth_controller import router as auth_router
 from controllers.file_controller import router as file_router
+from controllers.kpi_controller import router as kpi_router
 load_dotenv()
 
 app = FastAPI()
@@ -9,6 +10,7 @@ app = FastAPI()
 # Include Auth Controller
 app.include_router(auth_router)
 app.include_router(file_router)
+app.include_router(kpi_router)
 
 @app.get("/")
 def root():

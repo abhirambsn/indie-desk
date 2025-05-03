@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 def get_project_count() -> int:
     try:
-        projects = MongoDB.find_many(db_name="iddb", collection_name="project", query={})
+        projects = MongoDB.find_many(db_name="iddb", collection_name="projects", query={})
         return len(projects)
     except Exception as e:
         print("❌ Error counting projects:", e)
@@ -11,7 +11,7 @@ def get_project_count() -> int:
 
 def get_sr_count() -> int:
     try:
-        srs = MongoDB.find_many(db_name="iddb", collection_name="supportticket", query={})
+        srs = MongoDB.find_many(db_name="iddb", collection_name="supporttickets", query={})
         return len(srs)
     except Exception as e:
         print("❌ Error counting service requests:", e)
@@ -30,7 +30,7 @@ def get_revenue_by_month_year(year: int, month: int) -> int:
         }
 
         # Fetch matching invoices
-        invoices = MongoDB.find_many("iddb", "invoice", query)
+        invoices = MongoDB.find_many("iddb", "invoices", query)
 
         # Sum up the paid amounts
         total_revenue = sum(
@@ -92,7 +92,7 @@ def get_new_clients_count(days: int = 30) -> int:
         query = { "createdAt": { "$gte": cutoff } }
 
         # Use count_documents for an efficient count
-        count = MongoDB.get_collection("iddb", "client") \
+        count = MongoDB.get_collection("iddb", "clients") \
                        .count_documents(query)
         return count
 
