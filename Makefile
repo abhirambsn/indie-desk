@@ -4,7 +4,7 @@ IMAGE_PREFIX := abhirambsn/indie-desk
 
 build-%:
 	@echo "Building Docker image for $*"
-	docker build -f modules/$*/Dockerfile -t $(IMAGE_PREFIX)-$*:latest .
+	docker buildx build --platform linux/amd64,linux/arm64 --push -f modules/$*/Dockerfile -t $(IMAGE_PREFIX)-$*:latest .
 
 build-all: $(addprefix build-,$(SERVICES))
 	@echo "Building all Docker images"

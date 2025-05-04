@@ -10,6 +10,7 @@ import { initialTaskState } from './task.constants';
 import { initialTicketState } from './ticket.constants';
 import { initialUserState } from './user.constants';
 import { SidebarSection } from 'indiedesk-common-lib';
+import { initialKpiState } from './kpi.constants';
 
 export const initialAppState: AppState = {
   auth: initialAuthState,
@@ -21,6 +22,7 @@ export const initialAppState: AppState = {
   tasks: initialTaskState,
   tickets: initialTicketState,
   users: initialUserState,
+  kpi: initialKpiState
 };
 
 export const sidebarSections: SidebarSection[] = [

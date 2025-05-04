@@ -7,3 +7,4 @@ export * as ProjectSelectors from './project.selector';
 export * as TaskSelectors from './task.selector';
 export * as TicketSelectors from './ticket.selector';
 export * as UserSelectors from './user.selector';
+export * as KpiSelectors from './kpi.selector';

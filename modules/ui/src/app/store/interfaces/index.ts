@@ -8,3 +8,4 @@ export * from './project-state.interface';
 export * from './task-state.interface';
 export * from './ticket-state.interface';
 export * from './user-state.interface';
+export * from './kpi-state.interface';

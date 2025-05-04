@@ -5,3 +5,4 @@ export * from './invoice.effects';
 export * from './project.effects';
 export * from './task.effects';
 export * from './ticket.effects';
+export * from './kpi.effects';

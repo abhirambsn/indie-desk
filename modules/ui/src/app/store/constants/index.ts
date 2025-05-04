@@ -7,3 +7,4 @@ export * as ProjectConstants from './project.constants';
 export * as TaskConstants from './task.constants';
 export * as TicketConstants from './ticket.constants';
 export * as UserConstants from './user.constants';
+export * as KpiConstants from './kpi.constants';

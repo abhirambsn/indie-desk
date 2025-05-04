@@ -6,6 +6,7 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { initialAppState } from '@ui/app/store/constants/app.constants';
 
 import { DashboardComponent } from './dashboard.component';
+import { CurrencyPipe } from '@ui/app/pipes/currency.pipe';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -16,7 +17,7 @@ describe('DashboardComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [DashboardComponent],
       schemas: [NO_ERRORS_SCHEMA],
-      providers: [provideMockStore({ initialState })],
+      providers: [provideMockStore({ initialState }), CurrencyPipe],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);
@@ -26,5 +27,10 @@ describe('DashboardComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should format currency if value is present', () => {
+    const value = 1000;
+    expect(component.getFormattedCurrency(value)).toEqual('INR 1,000.00');
   });
 });

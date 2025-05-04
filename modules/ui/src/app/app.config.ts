@@ -24,6 +24,8 @@ import {
   searchReducer,
   ticketReducer,
   userReducer,
+  kpiReducer,
+  KpiEffects,
 } from '@ui/app/store';
 
 import { routes } from './app.routes';
@@ -63,6 +65,7 @@ export const appConfig: ApplicationConfig = {
         tasks: taskReducer,
         tickets: ticketReducer,
         users: userReducer,
+        kpi: kpiReducer,
       },
       {
         metaReducers,
@@ -82,6 +85,7 @@ export const appConfig: ApplicationConfig = {
       TaskEffects,
       TicketEffects,
       UserEffects,
+      KpiEffects,
     ),
     provideHttpClient(),
   ],

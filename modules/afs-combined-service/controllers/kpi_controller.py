@@ -12,28 +12,29 @@ from services.kpi_service import (
 
 router = APIRouter(prefix="/api/v1/kpi", tags=["KPI"])
 
-@router.get("/projects/count", response_model=CountResponse)
-async def project_count():
-    return CountResponse(count=get_project_count())
+@router.get("/projects/{owner}/count", response_model=CountResponse)
+async def project_count(owner: str):
+    return CountResponse(count=get_project_count(owner))
 
-@router.get("/srs/count", response_model=CountResponse)
-async def sr_count():
-    return CountResponse(count=get_sr_count())
+@router.get("/srs/{owner}/count", response_model=CountResponse)
+async def sr_count(owner: str):
+    return CountResponse(count=get_sr_count(owner))
 
-@router.post("/revenue", response_model=RevenueResponse)
-async def revenue(req: RevenueRequest):
-    revenue = get_revenue_by_month_year(req.year, req.month)
+@router.post("/revenue/{owner}", response_model=RevenueResponse)
+async def revenue(owner: str, req: RevenueRequest):
+    revenue = get_revenue_by_month_year(req.year, req.month, owner)
     return RevenueResponse(revenue=revenue)
 
 # Send empty req body like {} you dumb fuck to get default days value
-@router.post("/clients/new", response_model=NewClientsResponse)
-async def new_clients(req: NewClientsRequest):
-    count = get_new_clients_count(req.days)
+@router.post("/clients/{owner}/new", response_model=NewClientsResponse)
+async def new_clients(owner: str, req: NewClientsRequest):
+    count = get_new_clients_count(req.days, owner)
     return NewClientsResponse(count=count)
 
-@router.post("/sales/monthly", response_model=MonthlySalesResponse)
-async def monthly_sales(req: MonthlySalesRequest):
+@router.post("/sales/{owner}/monthly", response_model=MonthlySalesResponse)
+async def monthly_sales(owner: str, req: MonthlySalesRequest):
     sales = get_monthly_sales_data(
+        owner,
         start_year=req.start_year,
         start_month=req.start_month,
         end_year=req.end_year,

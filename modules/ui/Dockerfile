@@ -14,7 +14,7 @@ RUN pnpm install --filter ./modules/ui && pnpm install --filter ./modules/common
 
 RUN cd modules/ui && npx syncfusion-license activate && cd ../..
 
-RUN pnpm --filter ./modules/common run build && pnpm --filter ./modules/ui run build
+RUN pnpm --filter ./modules/common run build && cd modules/ui && pnpm --filter ./modules/ui run build
 
 FROM nginx:alpine
 

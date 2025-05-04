@@ -1,17 +1,17 @@
 from models.database_model import MongoDB
 from datetime import datetime, timedelta
 
-def get_project_count() -> int:
+def get_project_count(owner: str) -> int:
     try:
-        projects = MongoDB.find_many(db_name="iddb", collection_name="projects", query={})
+        projects = MongoDB.find_many(db_name="iddb", collection_name="projects", query={"owner": owner})
         return len(projects)
     except Exception as e:
         print("❌ Error counting projects:", e)
         return 0
 
-def get_sr_count() -> int:
+def get_sr_count(owner: str) -> int:
     try:
-        srs = MongoDB.find_many(db_name="iddb", collection_name="supporttickets", query={})
+        srs = MongoDB.find_many(db_name="iddb", collection_name="supporttickets", query={"owner": owner, "status": "OPEN"})
         return len(srs)
     except Exception as e:
         print("❌ Error counting service requests:", e)
@@ -48,14 +48,15 @@ def get_revenue_by_month_year(year: int, month: int) -> int:
         print("❌ Error fetching revenue:", e)
         return 0
 
-def get_revenue_by_month_year(year: int, month: int) -> int:
+def get_revenue_by_month_year(year: int, month: int, owner: str) -> int:
     try:
         query = {
             "status": "PAID",
             "$expr": {
                 "$and": [
                     { "$eq": [{ "$year": "$paymentInfo.date" }, year] },
-                    { "$eq": [{ "$month": "$paymentInfo.date" }, month] }
+                    { "$eq": [{ "$month": "$paymentInfo.date" }, month] },
+                    {"$eq": ["$owner", owner]}
                 ]
             }
         }
@@ -79,7 +80,7 @@ def get_revenue_by_month_year(year: int, month: int) -> int:
         print("❌ Error fetching revenue:", e)
         return 0
     
-def get_new_clients_count(days: int = 30) -> int:
+def get_new_clients_count(owner: str, days: int = 30) -> int:
     """
     Returns the number of clients created in the last `days` days.
     Defaults to 30 days.
@@ -89,7 +90,7 @@ def get_new_clients_count(days: int = 30) -> int:
         cutoff = datetime.now() - timedelta(days=days)
 
         # Query for documents whose createdAt is >= cutoff
-        query = { "createdAt": { "$gte": cutoff } }
+        query = { "createdAt": { "$gte": cutoff }, "owner": owner }
 
         # Use count_documents for an efficient count
         count = MongoDB.get_collection("iddb", "clients") \
@@ -101,6 +102,7 @@ def get_new_clients_count(days: int = 30) -> int:
         return 0
     
 def get_monthly_sales_data(
+    owner: str,
     start_year: int,
     start_month: int,
     end_year: int,
@@ -115,7 +117,7 @@ def get_monthly_sales_data(
 
     # iterate month-by-month
     while (y < end_year) or (y == end_year and m <= end_month):
-        revenue = get_revenue_by_month_year(y, m)
+        revenue = get_revenue_by_month_year(y, m, owner)
         sales.append(revenue)
 
         # increment month

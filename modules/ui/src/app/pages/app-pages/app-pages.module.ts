@@ -37,6 +37,7 @@ import { ChartModule } from 'primeng/chart';
 import { ButtonModule } from 'primeng/button';
 import { TaskCommentComponent } from '@ui/app/components/task-comment/task-comment.component';
 import { TaskCommentCreateComponent } from '@ui/app/components/task-comment-create/task-comment-create.component';
+import { CurrencyPipe } from '@ui/app/pipes/currency.pipe';
 
 export const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
@@ -74,6 +75,7 @@ export const routes: Routes = [
     InvoicesComponent,
     ProjectsComponent,
     TasksComponent,
+    SalesComponent,
     SupportTicketsComponent,
     SupportUsersComponent,
     ProfileComponent,
@@ -104,6 +106,7 @@ export const routes: Routes = [
     TaskCommentComponent,
     TaskCommentCreateComponent,
   ],
+  providers: [CurrencyPipe],
   exports: [RouterModule],
 })
 export class AppPagesModule {}

@@ -1,11 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { exhaustMap, map, catchError } from 'rxjs/operators';
+import { exhaustMap, map, catchError, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@ui/app/service/auth/auth.service';
-import { AuthActions } from '@ui/app/store/actions';
+import { AuthActions, KpiActions } from '@ui/app/store/actions';
 
 @Injectable()
 export class AuthEffects {
@@ -34,7 +34,10 @@ export class AuthEffects {
       ofType(AuthActions.loginSuccess),
       exhaustMap((payload) =>
         this.service.getUserDetails(payload.access_token).pipe(
-          map((userDetails) => AuthActions.loadUserDetails({ payload: userDetails })),
+          mergeMap((userDetails) => [
+            AuthActions.loadUserDetails({ payload: userDetails }),
+            KpiActions.loadKpiMetrics(),
+          ]),
           catchError(() =>
             of(AuthActions.userDetailError({ error: 'Error loading user details' })),
           ),

@@ -7,3 +7,4 @@ export * as ProjectActions from './project.actions';
 export * as TaskActions from './task.actions';
 export * as TicketActions from './ticket.actions';
 export * as UserActions from './user.actions';
+export * as KpiActions from './kpi.actions';

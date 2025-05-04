@@ -1,3 +1,7 @@
-<p-card [header]="title">
-  KPI card
+<p-card [header]="title" class="h-full">
+  @if (type === 'text') {
+    <p class="text-lg font-semibold">{{ value }}</p>
+  } @else if (type === 'graph') {
+    <p-chart type="line" [data]="graphData" [options]="options" />
+  }
 </p-card>

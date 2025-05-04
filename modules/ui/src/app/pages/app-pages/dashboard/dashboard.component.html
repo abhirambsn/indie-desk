@@ -1,16 +1,29 @@
 <section class="px-4 py-2">
   <div class="mt-3 bg-zinc-200 p-5 rounded-lg flex flex-col gap-2">
     <h6 class="text text-zinc-800">{{ currentDateTimeString | date: 'EEEE, d MMM y' }}</h6>
-    <h3 class="text-xl font-semibold text-zinc-900 tracking-wide">{{ greeting }}, {{ currentUser.first_name }} {{ currentUser.last_name }}</h3>
+    <h3 class="text-xl font-semibold text-zinc-900 tracking-wide">
+      {{ greeting }}, {{ currentUser.first_name }} {{ currentUser.last_name }}
+    </h3>
   </div>
 
-  <div class="mt-12 grid grid-cols-4 gap-4">
-    <app-kpi-card title="Total Projects" />
-    <div class="col-span-2">
-      <app-kpi-card title="Sales Trend" />
+  @if (!kpiLoading) {
+    <div class="mt-12 grid grid-cols-4 gap-4">
+      <app-kpi-card title="Total Projects" [value]="kpiMetrics?.projectCount?.count" />
+      <app-kpi-card title="New Customers Onboarded" [value]="kpiMetrics?.clientsLastMonth?.count" />
+      <app-kpi-card
+        title="Revenue this month"
+        [value]="getFormattedCurrency(kpiMetrics?.revenue?.revenue)"
+      />
+      <app-kpi-card title="Support Tickets Open" [value]="kpiMetrics?.supportTicketCount?.count" />
+      @if (kpiMetrics?.salesTrend?.sales) {
+        <div class="col-span-4">
+          <app-kpi-card
+            title="Sales Trend (in INR)"
+            [value]="kpiMetrics.salesTrend.sales"
+            type="graph"
+          />
+        </div>
+      }
     </div>
-    <app-kpi-card title="New Customers Onboarded" />
-    <app-kpi-card title="Revenue this month" />
-    <app-kpi-card title="Support Tickets Open" />
-  </div>
+  }
 </section>

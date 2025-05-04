@@ -7,6 +7,7 @@ import { ProjectState } from './project-state.interface';
 import { TaskState } from './task-state.interface';
 import { TicketState } from './ticket-state.interface';
 import { UserState } from './user-state.interface';
+import { KpiState } from './kpi-state.interface';
 
 export interface AppState {
   auth: AuthState;
@@ -18,4 +19,5 @@ export interface AppState {
   tasks: TaskState;
   tickets: TicketState;
   users: UserState;
+  kpi: KpiState
 }
