@@ -14,11 +14,13 @@ RUN pnpm install --filter ./modules/ui && pnpm install --filter ./modules/common
 
 RUN cd modules/ui && npx syncfusion-license activate && cd ../..
 
-RUN pnpm --filter ./modules/common run build && cd modules/ui && pnpm --filter ./modules/ui run build
+RUN pnpm --filter ./modules/common run build && cd modules/ui && pnpm run build
 
 FROM nginx:alpine
 
-COPY --from=builder /app/modules/ui/dist /usr/share/nginx/html
+COPY --from=builder /app/modules/ui/dist/browser /usr/share/nginx/html
+COPY modules/ui/conf/nginx.conf /etc/nginx/conf.d/default.conf
+COPY modules/ui/conf/nginx_proxy_params /etc/nginx/proxy_params
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
