@@ -1,5 +1,7 @@
 FROM node:23-slim AS builder
 
+ARG SYNCFUSION_LICENSE
+
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml tsconfig.json ./
@@ -12,7 +14,7 @@ COPY modules/ui/syncfusion-license.txt ./modules/ui/
 
 RUN pnpm install --filter ./modules/ui && pnpm install --filter ./modules/common
 
-RUN cd modules/ui && npx syncfusion-license activate && cd ../..
+RUN cd modules/ui && RUN echo "$SYNCFUSION_LICENSE" > /app/modules/ui/syncfusion-license.txt && npx syncfusion-license activate && cd ../..
 
 RUN pnpm --filter ./modules/common run build && cd modules/ui && pnpm run build
 

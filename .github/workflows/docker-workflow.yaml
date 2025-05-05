@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
     inputs:
       selected_modules:
-        description: 'Comma-separated list of modules to build (e.g., module1,module2)'
+        description: 'Comma-separated list of modules to build (e.g., ui,auth-service)'
         required: false
 
 jobs:
@@ -80,9 +80,20 @@ jobs:
           for module in "${MODULES[@]}"; do
             echo "Building and pushing $module..."
             IMAGE_NAME="${IMAGE_PREFIX}-${module}"
-            docker buildx build \
-              --push \
-              --tag "${IMAGE_NAME}:${IMAGE_TAG}" \
-              --file "modules/$module/Dockerfile" \
-              "."
+
+            if [ "$module" = "ui" ]; then
+              echo "Passing Syncfusion license for UI module..."
+              docker buildx build \
+                --push \
+                --build-arg SYNCFUSION_LICENSE="${{ secrets.SYNCFUSION_LICENSE }}" \
+                --tag "${IMAGE_NAME}:${IMAGE_TAG}" \
+                --file "modules/$module/Dockerfile" \
+                "."
+            else
+              docker buildx build \
+                --push \
+                --tag "${IMAGE_NAME}:${IMAGE_TAG}" \
+                --file "modules/$module/Dockerfile" \
+                "."
+            fi
           done
