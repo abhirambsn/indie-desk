@@ -10,7 +10,6 @@ RUN corepack enable && corepack install -g pnpm@10.8.1 && corepack use pnpm@10.8
 
 COPY modules/common ./modules/common
 COPY modules/ui ./modules/ui
-COPY modules/ui/syncfusion-license.txt ./modules/ui/
 
 RUN pnpm install --filter ./modules/ui && pnpm install --filter ./modules/common
 
