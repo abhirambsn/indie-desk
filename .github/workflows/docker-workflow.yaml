@@ -8,6 +8,7 @@ on:
       - 'modules/**'
       - '.github/workflows/**'
       - 'docker-compose.yaml'
+
   pull_request:
     branches:
       - main
@@ -15,7 +16,12 @@ on:
       - 'modules/**'
       - '.github/workflows/**'
       - 'docker-compose.yaml'
+
   workflow_dispatch:
+    inputs:
+      selected_modules:
+        description: 'Comma-separated list of modules to build (e.g., module1,module2)'
+        required: false
 
 jobs:
   build-and-push:
@@ -25,33 +31,58 @@ jobs:
     env:
       IMAGE_PREFIX: abhirambsn/indie-desk
       IMAGE_TAG: latest
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-      
+        with:
+          fetch-depth: 0  # Needed for commit diff
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-      
+
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      
+
       - name: Determine changed modules
         id: changed-modules
         run: |
+          echo "Checking manually selected modules..."
+          if [ -n "${{ github.event.inputs.selected_modules }}" ]; then
+            CHANGED_MODULES="${{ github.event.inputs.selected_modules }}"
+          else
+            echo "Finding base commit..."
+            git fetch origin main
+            BASE_SHA=$(git merge-base origin/main HEAD || echo "HEAD~1")
+            echo "Comparing changes from $BASE_SHA to HEAD"
+
+            CHANGED_MODULES=$(git diff --name-only "$BASE_SHA" HEAD \
+              | grep '^modules/' \
+              | cut -d'/' -f2 \
+              | sort \
+              | uniq \
+              | grep -v '^common$' || true)
+          fi
+
           echo "Changed modules:"
-          CHANGED_MODULES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '^modules/' | cut -d'/' -f2 | sort | uniq | grep -v '^common$' || true)
           echo "$CHANGED_MODULES"
-          echo "changed_modules=$CHANGED_MODULES" >> $GITHUB_ENV
-      
+
+          echo "CHANGED_MODULES=$CHANGED_MODULES" >> $GITHUB_ENV
+          echo "changed_modules=$CHANGED_MODULES" >> $GITHUB_OUTPUT
+
       - name: Build and Push Docker Images
-        if: env.changed_modules != ''
+        if: env.CHANGED_MODULES != ''
         run: |
-          for module in $CHANGED_MODULES; do
+          IFS=',' read -ra MODULES <<< "$CHANGED_MODULES"
+          for module in "${MODULES[@]}"; do
             echo "Building and pushing $module..."
             IMAGE_NAME="${IMAGE_PREFIX}-${module}"
-            docker buildx build --push --tag "${IMAGE_NAME}:${IMAGE_TAG}" --file "modules/$module/Dockerfile" "."
+            docker buildx build \
+              --push \
+              --tag "${IMAGE_NAME}:${IMAGE_TAG}" \
+              --file "modules/$module/Dockerfile" \
+              "."
           done
