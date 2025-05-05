@@ -13,7 +13,7 @@ COPY modules/ui ./modules/ui
 
 RUN pnpm install --filter ./modules/ui && pnpm install --filter ./modules/common
 
-RUN cd modules/ui && RUN echo "$SYNCFUSION_LICENSE" > /app/modules/ui/syncfusion-license.txt && npx syncfusion-license activate && cd ../..
+RUN cd modules/ui && echo "$SYNCFUSION_LICENSE" > /app/modules/ui/syncfusion-license.txt && npx syncfusion-license activate && cd ../..
 
 RUN pnpm --filter ./modules/common run build && cd modules/ui && pnpm run build
 
